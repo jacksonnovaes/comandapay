@@ -1,0 +1,24 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-EstablishmentMsApplication<establishment-ms>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.codexmind.establishment.EstablishmentMsApplication",
+            "projectName": "establishment-ms",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-PayAuthApplication<pay-auth>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.paymenthub.payauth.PayAuthApplication",
+            "projectName": "pay-auth",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
