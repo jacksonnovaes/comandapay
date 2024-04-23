@@ -1,0 +1,14 @@
+{
+  "calendario": {
+    "expiracao": 3600
+  },
+  "devedor": {
+    "cpf": "36089272809",
+    "nome": "vanessa alves nery"
+  },
+  "valor": {
+    "original": "1.00"
+  },
+  "chave": "9392925e-0257-417a-a180-506379529a2f",
+  "solicitacaoPagador": "teste"
+}

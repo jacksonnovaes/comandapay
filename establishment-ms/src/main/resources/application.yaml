@@ -1,0 +1,14 @@
+spring:
+  profiles:
+    active: test
+api:
+  security:
+    token:
+      secret: drtcwcfvugefut78ko6728yhunjdw8po807
+
+spring-doc:
+  swagger-ui:
+    path: /swagger-ui.html
+server:
+  port: 8080
+

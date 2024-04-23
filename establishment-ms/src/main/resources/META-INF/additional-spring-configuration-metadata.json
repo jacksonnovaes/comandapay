@@ -1,0 +1,67 @@
+{"properties": [
+  {
+    "name": "spring.mvc.path-match.matching-strategy",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.mvc.path-match.matching-strategy'"
+  },
+  {
+    "name": "api.security.token.secret",
+    "type": "java.lang.String",
+    "description": "A description for 'api.security.token.secret'"
+  },
+  {
+    "name": "api.credentials.clientid\"",
+    "type": "java.lang.String",
+    "description": "A description for 'api.credentials.clientid\"'"
+  },
+  {
+    "name": "api.credentials.certificate",
+    "type": "java.lang.String",
+    "description": "A description for 'api.credentials.certificate'"
+  },
+  {
+    "name": "api.credentials.clientsecret",
+    "type": "java.lang.String",
+    "description": "A description for 'api.credentials.clientsecret'"
+  },
+  {
+    "name": "api.credentials.sandbox\"",
+    "type": "java.lang.String",
+    "description": "A description for 'api.credentials.sandbox\"'"
+  },
+  {
+    "name": "api.credentials.debug\"",
+    "type": "java.lang.String",
+    "description": "A description for 'api.credentials.debug\"'"
+  },
+  {
+    "name": "spring-doc.swagger-ui.path",
+    "type": "java.lang.String",
+    "description": "A description for 'spring-doc.swagger-ui.path'"
+  },
+  {
+    "name": "api.credentials.sandbox",
+    "type": "java.lang.String",
+    "description": "A description for 'api.credentials.sandbox'"
+  },
+  {
+    "name": "api.credentials.clientid",
+    "type": "java.lang.String",
+    "description": "A description for 'api.credentials.clientid'"
+  },
+  {
+    "name": "api.credentials.debug",
+    "type": "java.lang.String",
+    "description": "A description for 'api.credentials.debug'"
+  },
+  {
+    "name": "api.credentials.client_secret",
+    "type": "java.lang.String",
+    "description": "A description for 'api.credentials.client_secret'"
+  },
+  {
+    "name": "api.credentials.client_id",
+    "type": "java.lang.String",
+    "description": "A description for 'api.credentials.client_id'"
+  }
+]}

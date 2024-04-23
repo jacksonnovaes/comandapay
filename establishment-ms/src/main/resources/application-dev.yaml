@@ -1,0 +1,32 @@
+
+spring:
+  h2:
+    console:
+      enabled: true
+
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    url: jdbc:mysql://localhost:3306/establishment
+    password: root
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        database-platform: org.hibernate.dialect.MySQL8Dialect
+        physical-naming-strategy: io.hypersistence.utils.hibernate.naming.CamelCaseToSnakeCaseNamingStrategy
+        format-sql: true
+  mvc:
+    path-match:
+      matching-strategy: ant_path_matcher
+
+spring-doc:
+  swagger-ui:
+    path: /swagger-ui.html
+server:
+  port: 8080
+

@@ -1,0 +1,101 @@
+package com.codexmind.establishment.controller;
+
+import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import com.codexmind.establishment.converters.ProductConverter;
+import com.codexmind.establishment.dto.ProductDTO;
+import com.codexmind.establishment.usecases.product.DeleteProduct;
+import com.codexmind.establishment.usecases.product.DetailProduct;
+import com.codexmind.establishment.usecases.product.GetAllProducts;
+import com.codexmind.establishment.usecases.product.SaveProduct;
+import com.codexmind.establishment.usecases.product.UpdateProduct;
+
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+
+@RestController
+
+@RequestMapping("api/v1/product")
+@CrossOrigin(origins = "*")
+@SecurityRequirement(name = "bearer-key")
+public class ProductController {
+
+    private final SaveProduct saveProduct;
+
+    private final UpdateProduct updateProduct;
+
+    private final DeleteProduct deleteProduct;
+
+    private final DetailProduct detailProduct;
+
+    private final GetAllProducts getAllProducts;
+
+    public ProductController(SaveProduct saveProduct, UpdateProduct updateProduct, DeleteProduct deleteProduct, DetailProduct detailProduct, GetAllProducts getAllProducts) {
+        this.saveProduct = saveProduct;
+        this.updateProduct = updateProduct;
+        this.deleteProduct = deleteProduct;
+        this.detailProduct = detailProduct;
+        this.getAllProducts = getAllProducts;
+    }
+
+
+    @PostMapping("/save")
+    public ResponseEntity<ProductDTO> save(ProductDTO productDTO, UriComponentsBuilder uriBuilder){
+        var product = saveProduct.execute(productDTO);
+        var uri = uriBuilder.path("/save/{id}").buildAndExpand(product.getId()).toUri();
+        return  ResponseEntity.created(uri).body(ProductConverter.toDTO(product));
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<ProductDTO> update  (
+            @PathVariable Long id,
+            @RequestBody ProductDTO productDTO,
+            UriComponentsBuilder uriBuilder){
+
+        var product = updateProduct.execute(id,productDTO);
+        var uri = uriBuilder.path("/update/{id}").buildAndExpand(product.getId()).toUri();
+        return  ResponseEntity.ok().body(ProductConverter.toDTO(product));
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> deleteEstablishment(@PathVariable Long id){
+        deleteProduct.execute(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ProductDTO> detailMenu(@PathVariable Long id){
+        return ResponseEntity.ok().body(ProductConverter.toDTO(detailProduct.execute(id)));
+    }
+
+
+    @GetMapping(value = "/{id}/list")
+    public ResponseEntity<Page<ProductDTO>> getAllProducts
+            (@PathVariable Long id,
+             @RequestParam(value = "page",defaultValue = "0") Integer page,
+             @RequestParam(value = "linesPerPage",defaultValue = "24")Integer linesPerPge,
+             @RequestParam(value = "order",defaultValue = "name")String orderBy,
+             @RequestParam(value = "direction",defaultValue = "ASC")String direction) {
+        var list = getAllProducts.execute(
+                id,
+                page,
+                linesPerPge,
+                orderBy,
+                direction
+        ).map(ProductConverter::toDTO);
+        return ResponseEntity.ok(list);
+
+    }
+}
