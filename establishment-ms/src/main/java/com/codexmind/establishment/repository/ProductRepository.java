@@ -15,7 +15,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
 
  @Query(
-         "SELECT distinct p FROM Product p INNER JOIN Menu m INNER JOIN Establishment e where e.id = ?1 ")
+         "SELECT distinct p FROM Product p INNER JOIN p.menu m INNER JOIN m.establishment e where e.id = ?1 ")
  Page<Product> getAllProductsByMenuAndEstablishment(Long id,
                                                     Pageable pageable);
  @Query("SELECT SUM(p.price) FROM Product p WHERE p.id IN :productIds")
