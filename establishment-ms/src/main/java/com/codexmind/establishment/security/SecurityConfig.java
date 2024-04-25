@@ -16,10 +16,18 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.server.header.XFrameOptionsServerHttpHeadersWriter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.Arrays;
+import java.util.List;
+
+import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
 
     private static final String[] PUBLIC_MATCHERS = {
@@ -53,7 +61,6 @@ public class SecurityConfig {
         "/api/v1/order/**",
         "/api/v1/order/open/**",
             "/api/v1/payment/**",
-
     };
 
 
@@ -62,7 +69,9 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-       return http.csrf(AbstractHttpConfigurer::disable)
+       return http
+               .cors(c-> c.configurationSource( apiConfigurationSource()))
+               .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, PUBLIC_MATCHERS).permitAll()
@@ -83,34 +92,8 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.DELETE, CLIENT_MATCHERS).hasAnyRole("EMPLOYEE_ESTABLISHMENT","ADMIN","CLIENT")
                         .anyRequest().authenticated()
                 ).addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
-                .headers(header -> header.frameOptions(FrameOptionsConfig::disable)).cors(cors->cors.disable())
+                .headers(header -> header.frameOptions(FrameOptionsConfig::sameOrigin))
                         .build();
-        
-        /* 
-        csrf(csrf -> csrf.disable())
-                .sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(requests -> requests
-                .requestMatchers(
-                        HttpMethod.POST, PUBLIC_MATCHERS)
-                .permitAll()
-                .requestMatchers(HttpMethod.GET, PUBLIC_MATCHERS)
-                .permitAll()
-                .requestMatchers(HttpMethod.POST, ADMIN_ESTABLISHMENT_MATCHERS).hasRole("ADMIN")
-                .requestMatchers(HttpMethod.GET, ADMIN_ESTABLISHMENT_MATCHERS).hasRole("ADMIN")
-                .requestMatchers(HttpMethod.PUT, ADMIN_ESTABLISHMENT_MATCHERS).hasRole("ADMIN")
-                .requestMatchers(HttpMethod.DELETE, ADMIN_ESTABLISHMENT_MATCHERS).hasRole("ADMIN")
-                .requestMatchers(HttpMethod.POST, EMPLOYEE_ESTABLISHMENT_MATCHERS).hasRole("EMPLOYEE_ESTABLISHMENT")
-                .requestMatchers(HttpMethod.GET, EMPLOYEE_ESTABLISHMENT_MATCHERS).hasRole("EMPLOYEE_ESTABLISHMENT")
-                .requestMatchers(HttpMethod.PUT, EMPLOYEE_ESTABLISHMENT_MATCHERS).hasRole("EMPLOYEE_ESTABLISHMENT")
-                .requestMatchers(HttpMethod.DELETE, EMPLOYEE_ESTABLISHMENT_MATCHERS).hasRole("EMPLOYEE_ESTABLISHMENT")
-                .requestMatchers(HttpMethod.POST, CLIENT_MATCHERS).hasAnyRole("ESTABLISHMENT_ADMIN", "ADMIN", "CLIENT")
-                .requestMatchers(HttpMethod.GET, CLIENT_MATCHERS).hasAnyRole("ESTABLISHMENT_ADMIN", "ADMIN", "CLIENT")
-                .requestMatchers(HttpMethod.PUT, CLIENT_MATCHERS).hasAnyRole("ESTABLISHMENT_ADMIN", "ADMIN", "CLIENT")
-                .requestMatchers(HttpMethod.DELETE, CLIENT_MATCHERS).hasAnyRole("ESTABLISHMENT_ADMIN", "ADMIN", "CLIENT")
-
-                .anyRequest().authenticated()).addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
-                .headers().frameOptions().disable().and().cors().and()
-                .build();*/
     }
 
     @Bean
@@ -123,4 +106,15 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
+    @Bean
+    CorsConfigurationSource apiConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.addAllowedOrigin("http://localhost:3000");
+        configuration.setAllowedMethods(Arrays.asList("GET","POST"));
+        configuration.setAllowCredentials(false);
+        configuration.addAllowedHeader("*");
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
 }

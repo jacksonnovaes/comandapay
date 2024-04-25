@@ -19,8 +19,6 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/login")
-
-@CrossOrigin(origins = "*")
 public class LoginController {
 
     private final AuthenticationManager manager;
