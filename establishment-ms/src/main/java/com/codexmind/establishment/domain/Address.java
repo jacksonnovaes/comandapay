@@ -34,12 +34,12 @@ public class Address implements Serializable {
 
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "employee_id")
+    @JoinColumn(name = "EMPLOYEE_ID")
     private Employee employee;
 
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "customer_id")
+    @JoinColumn(name = "CUSTOMER_ID")
     private Customer customer;
 
     private String city;

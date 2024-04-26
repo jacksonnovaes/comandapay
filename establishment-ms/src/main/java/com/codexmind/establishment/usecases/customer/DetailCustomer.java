@@ -20,8 +20,8 @@ public class DetailCustomer {
 
         public CustomerDTO execute(Long id){
             var userSS = UserService.authenticated();
-            if(userSS == null || userSS.hasRole(Profile.ESTABLISHMENT_ADMIN)
-                              || userSS.hasRole(Profile.EMPLOYEE_ESTABLISHMENT)
+            if(userSS == null || userSS.hasRole(Profile.ADMIN)
+                              || userSS.hasRole(Profile.EMPLOYEE)
                      && !id.equals(userSS.getId())){
                 throw new AuthorizationException("Access Denied!");
             }

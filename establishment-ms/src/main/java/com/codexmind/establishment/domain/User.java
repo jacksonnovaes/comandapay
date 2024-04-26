@@ -1,6 +1,7 @@
 package com.codexmind.establishment.domain;
 
 import com.codexmind.establishment.domain.enums.Profile;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -43,7 +44,7 @@ public class User implements UserDetails {
 
         for (String role : roles)
             if (role != null) {
-                authorities.add(new SimpleGrantedAuthority("ROLE_" + role));
+                authorities.add(new SimpleGrantedAuthority(role));
             }
 
         return authorities;

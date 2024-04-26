@@ -93,7 +93,7 @@ public class DBService {
                 .phone("991556628")
                 .celPhone("991556628")
                 .establishment(establishment)
-                .profiles(Set.of(Profile.EMPLOYEE_ESTABLISHMENT.getCod()))
+                .profiles(Set.of(Profile.ADMIN.getCod()))
                 .admissionDate(LocalDate.now())
                 .build();
         var customer = Customer.builder()
@@ -116,7 +116,7 @@ public class DBService {
         var userEmployee = User.builder()
                 .login("jackson.novaes@live.com")
                 .pass(encoder.encode("11223344"))
-                .roles(Set.of(Profile.ESTABLISHMENT_ADMIN.getDescription()))
+                .roles(Set.of(Profile.ADMIN.getDescription()))
                 .build();
         customer.setUser(userCustomer);
         employee.setUser(userEmployee);

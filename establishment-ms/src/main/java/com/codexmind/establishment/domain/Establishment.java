@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "tb_establishment")
+@Table(name = "TB_ESTABLISHMENT")
 @Builder(toBuilder = true)
 @AllArgsConstructor
 @NoArgsConstructor
@@ -27,7 +27,7 @@ public class Establishment {
 
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "address_id")
+    @JoinColumn(name = "ADDRESS_ID")
     private Address address;
 
     @JsonIgnore

@@ -5,6 +5,9 @@ import java.util.Optional;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
+import com.codexmind.establishment.domain.enums.Profile;
+import com.codexmind.establishment.repository.*;
+import com.codexmind.establishment.service.UserService;
 import org.springframework.stereotype.Service;
 
 import com.codexmind.establishment.domain.Address;
@@ -12,10 +15,6 @@ import com.codexmind.establishment.domain.Order;
 import com.codexmind.establishment.domain.PaymentWithCreditCard;
 import com.codexmind.establishment.domain.enums.PaymentStatus;
 import com.codexmind.establishment.dto.OrderDTO;
-import com.codexmind.establishment.repository.CustomerRepository;
-import com.codexmind.establishment.repository.OrderRepository;
-import com.codexmind.establishment.repository.PaymentRepository;
-import com.codexmind.establishment.repository.ProductRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -25,6 +24,8 @@ public class SaveOrder {
 
     private final CustomerRepository customerRepository;
 
+    private final EmployeeRepository employeeRepository;
+
     private final PaymentRepository paymentRepository;
 
     private final OrderRepository orderRepository;
@@ -33,12 +34,19 @@ public class SaveOrder {
     private final ProductRepository productRepository;
 
     public Order execute(OrderDTO orderDTO){
+        var userSS = UserService.authenticated();
 
         var order = new Order();
         order.setId(null);
         order.setAddress(Address.builder().id(orderDTO.getAddressId()).build());
         order.setInstante(LocalDateTime.now());
-        order.setCustomer(customerRepository.findById(orderDTO.getCustomerId()).get());
+        if(userSS.hasRole(Profile.CLIENT)){
+            order.setCustomer(customerRepository.findById(userSS.getId()).get());
+        }else if (userSS.hasRole(Profile.ADMIN) || userSS.hasRole(Profile.EMPLOYEE)){
+            order.setEmployee(employeeRepository.findById(userSS.getId()).get());
+            order.setCustomer(customerRepository.findById(orderDTO.getCustomerId()).get());
+        }
+
         order.setPayment(new PaymentWithCreditCard(null, PaymentStatus.PENDING.getCod(), order, 1));
         order.getPayment().setPaymentStatus(PaymentStatus.PENDING);
 
@@ -54,7 +62,6 @@ public class SaveOrder {
         order.getProducts().addAll(products);
         orderRepository.save(order);
         productRepository.saveAll(products);
-
         return order;
     }
 }

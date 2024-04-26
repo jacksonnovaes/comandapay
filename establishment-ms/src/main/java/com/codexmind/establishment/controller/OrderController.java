@@ -2,14 +2,14 @@ package com.codexmind.establishment.controller;
 
 import java.net.URI;
 
+import com.codexmind.establishment.converters.OrderResponseConverter;
+import com.codexmind.establishment.converters.ProductConverter;
+import com.codexmind.establishment.dto.OrderResponseDTO;
+import com.codexmind.establishment.dto.ProductDTO;
+import com.codexmind.establishment.usecases.order.GetAllOrdersByUser;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.codexmind.establishment.domain.Order;
@@ -30,13 +30,13 @@ public class OrderController {
 
     private final SaveOrder saveOrder;
 
-    private final OrderRepository orderRepository;
+    private final GetAllOrdersByUser getAllOrdersByUser;
 
     private final AddItemOrder addItemOrder;
 
-    public OrderController(SaveOrder saveOrder, OrderRepository orderRepository, AddItemOrder addItemOrder) {
+    public OrderController(SaveOrder saveOrder, GetAllOrdersByUser getAllOrdersByUser, AddItemOrder addItemOrder) {
         this.saveOrder = saveOrder;
-        this.orderRepository = orderRepository;
+        this.getAllOrdersByUser = getAllOrdersByUser;
         this.addItemOrder = addItemOrder;
     }
 
@@ -55,5 +55,23 @@ public class OrderController {
         var orderUpdated = addItemOrder.execute(orderId, idProduct);
 
         return ResponseEntity.ok((orderUpdated));
+    }
+
+    @GetMapping(value = "/{id}/list")
+    public ResponseEntity<Page<OrderResponseDTO>> getAllProducts
+            (@PathVariable Long id,
+             @RequestParam(value = "page",defaultValue = "0") Integer page,
+             @RequestParam(value = "linesPerPage",defaultValue = "24")Integer linesPerPge,
+             @RequestParam(value = "order",defaultValue = "id")String orderBy,
+             @RequestParam(value = "direction",defaultValue = "ASC")String direction) {
+        var list = getAllOrdersByUser.execute(
+                id,
+                page,
+                linesPerPge,
+                orderBy,
+                direction
+        ).map(OrderResponseConverter::toDTO);
+        return ResponseEntity.ok(list);
+
     }
 }

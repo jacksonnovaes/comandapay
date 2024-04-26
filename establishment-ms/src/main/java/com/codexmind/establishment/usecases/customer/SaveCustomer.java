@@ -55,7 +55,7 @@ public class SaveCustomer {
                 .status(Status.fromValue("ATIVO"))
                 .birthDate(customerDTO.birthDate())
                 .addressList(List.of(address))
-                .profiles(Set.of(Profile.EMPLOYEE_ESTABLISHMENT.getCod()))
+                .profiles(Set.of(Profile.EMPLOYEE.getCod()))
                 .build();
         var user = User.builder()
                 .login(customerDTO.login())

@@ -33,12 +33,16 @@ public class Order {
 
 
     @ManyToOne
-    @JoinColumn(name = "address_id")
+    @JoinColumn(name = "ADDRESS_ID")
     private Address address;
 
     @ManyToOne
-    @JoinColumn(name = "customer_id")
+    @JoinColumn(name = "CUSTOMER_ID")
     private Customer customer;
+
+    @ManyToOne
+    @JoinColumn(name = "EMPLOYEE_ID")
+    private Employee employee;
 
     @ManyToMany
     @JoinTable(name="tb_item_order",

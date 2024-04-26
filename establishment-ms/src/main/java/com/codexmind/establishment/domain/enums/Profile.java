@@ -4,12 +4,13 @@ import lombok.Getter;
 
 @Getter
 public enum Profile {
-    ESTABLISHMENT_ADMIN(1, "ESTABLISHMENT_ADMIN"),
-    CLIENT(2,"CLIENT"),
-    EMPLOYEE_ESTABLISHMENT(3,"EMPLOYEE_ESTABLISHMENT");
+    ADMIN(1, "ROLE_ADMIN"),
+    CLIENT(2,"ROLE_CLIENT"),
+    EMPLOYEE(3,"ROLE_EMPLOYEE");
 
     private final int cod;
     private final String description;
+
     Profile(int cod, String description) {
         this.cod = cod;
         this.description = description;

@@ -65,7 +65,7 @@ public class SaveEmployee {
                 .status(Status.ACTIVE)
                 .admissionDate(LocalDate.now())
                 .addressList(List.of(address))
-                .profiles(Set.of(Profile.EMPLOYEE_ESTABLISHMENT.getCod()))
+                .profiles(Set.of(Profile.EMPLOYEE.getCod()))
                 .build();
 
         address.setEmployee(employee);
