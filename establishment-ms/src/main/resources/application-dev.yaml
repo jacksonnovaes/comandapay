@@ -18,7 +18,7 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
         database-platform: org.hibernate.dialect.MySQL8Dialect
-        physical-naming-strategy: io.hypersistence.utils.hibernate.naming.CamelCaseToSnakeCaseNamingStrategy
+        naming.physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
         format-sql: true
   mvc:
     path-match:

@@ -15,7 +15,7 @@ public class UpdateMenu {
 
     private MenuRepository repository;
 
-    public Menu execute(Long id, MenuDTO menuDTO){
+    public Menu execute(Integer id, MenuDTO menuDTO){
 
         var menuFound = repository.findById(id);
         if(menuFound.isPresent()) {

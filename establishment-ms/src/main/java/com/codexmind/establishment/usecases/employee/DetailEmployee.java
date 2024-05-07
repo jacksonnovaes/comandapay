@@ -18,7 +18,7 @@ public class DetailEmployee {
 
     private final EmployeeRepository employeeRepository;
 
-    public Employee execute(Long id){
+    public Employee execute(Integer id){
 
         var userSS = UserService.authenticated();
         if(userSS != null || userSS.hasRole(Profile.ADMIN)

@@ -18,7 +18,7 @@ public class DetailCustomer {
     private final CustomerRepository customerRepository;
 
 
-        public CustomerDTO execute(Long id){
+        public CustomerDTO execute(Integer id){
             var userSS = UserService.authenticated();
             if(userSS == null || userSS.hasRole(Profile.ADMIN)
                               || userSS.hasRole(Profile.EMPLOYEE)

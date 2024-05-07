@@ -46,7 +46,7 @@ public class EmployeeController {
 
     @PutMapping(value = "/{id}")
     public ResponseEntity<EmployeeDTO> update  (
-            @PathVariable Long id,
+            @PathVariable Integer id,
             @RequestBody UpdateEmployeeDTO employeeDTO){
 
         var employee = updateEmployee.execute(employeeDTO, id);
@@ -55,13 +55,13 @@ public class EmployeeController {
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<EmployeeDTO> getEstablishment(@PathVariable
-                                                             Long id){
+                                                            Integer id){
         var employee = detailEmployee.execute(id);
         return  ResponseEntity.ok().body(EmployeeConverter.toDTO(employee));
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Void> deleteEstablishment(@PathVariable Long id){
+    public ResponseEntity<Void> deleteEstablishment(@PathVariable Integer id){
         deleteEmployee.execute(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

@@ -37,30 +37,31 @@ public class SecurityConfig {
             "/swagger-ui/**",
             "/h2-console/**",
             "/api/v1/address/**",
-            "/api/v1/admin/**",
-            "/api/v1/establishment/**",
             "/api/v1/product/**",
             "/api/v1/payment/**",
-            "/api/v1/signup/**"
+            "/api/v1/signup/**",
+            "api/v1/customer/signup/save"
 
     };
 
     private static final String[] ADMIN_ESTABLISHMENT_MATCHERS = {
             "/api/v1/customer/save/**",
-            "/api/v1/order/**"
     };
 
 
     private static final String[] EMPLOYEE_ESTABLISHMENT_MATCHERS = {
             "/api/v1/customer/save/**",
+            "/api/v1/payment/**",
+
+
+    };
+    private static final String[] CLIENT_MATCHERS = {
             "/api/v1/order/**",
             "/api/v1/order/open/**",
             "/api/v1/payment/**",
-    };
-    private static final String[] CLIENT_MATCHERS = {
-        "/api/v1/order/**",
-        "/api/v1/order/open/**",
-            "/api/v1/payment/**",
+            "/api/v1/establishment/**",
+            "/api/v1/establishment/favorites/add/**",
+            "/api/v1/establishment/favorites/**"
     };
 
 
@@ -109,8 +110,8 @@ public class SecurityConfig {
     @Bean
     CorsConfigurationSource apiConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.addAllowedOrigin("http://localhost:3000");
-        configuration.setAllowedMethods(Arrays.asList("GET","POST"));
+        configuration.setAllowedOrigins(Arrays.asList("http://192.168.0.129:8080","http://192.168.0.129:8081", "http://localhost:8080","http://localhost:3000"));
+        configuration.setAllowedMethods(Arrays.asList("GET","POST","PUT, DELETE"));
         configuration.setAllowCredentials(false);
         configuration.addAllowedHeader("*");
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

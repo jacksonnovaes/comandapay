@@ -12,10 +12,12 @@ public class OrderResponseConverter {
         return OrderResponseDTO.builder()
                 .id(order.getId())
                 .employee(order.getEmployee()
-                        != null ? order.getEmployee().getId(): null)
+                        != null ? order.getEmployee().getName() +" "+ order.getEmployee().getLastName(): null)
                 .customer(order.getCustomer()
-                        != null ? order.getCustomer().getId(): null)
+                        != null ? order.getCustomer().getName() +" "+ order.getCustomer().getLastName(): null)
                 .productIds(ProductConverter.toDTOSet(order.getProducts()))
+                .establishment(order.getEstablishment().getName())
+                .instant(order.getInstant())
                 .build();
     }
 }

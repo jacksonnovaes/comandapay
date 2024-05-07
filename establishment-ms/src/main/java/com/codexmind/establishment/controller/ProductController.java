@@ -1,5 +1,7 @@
 package com.codexmind.establishment.controller;
 
+import com.codexmind.establishment.domain.Product;
+import com.codexmind.establishment.usecases.product.*;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,13 +19,11 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.codexmind.establishment.converters.ProductConverter;
 import com.codexmind.establishment.dto.ProductDTO;
-import com.codexmind.establishment.usecases.product.DeleteProduct;
-import com.codexmind.establishment.usecases.product.DetailProduct;
-import com.codexmind.establishment.usecases.product.GetAllProducts;
-import com.codexmind.establishment.usecases.product.SaveProduct;
-import com.codexmind.establishment.usecases.product.UpdateProduct;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+
+import java.util.List;
+import java.util.Set;
 
 @RestController
 
@@ -42,12 +42,15 @@ public class ProductController {
 
     private final GetAllProducts getAllProducts;
 
-    public ProductController(SaveProduct saveProduct, UpdateProduct updateProduct, DeleteProduct deleteProduct, DetailProduct detailProduct, GetAllProducts getAllProducts) {
+    private final GetProductsByOrder getProductsByOrder;
+
+    public ProductController(SaveProduct saveProduct, UpdateProduct updateProduct, DeleteProduct deleteProduct, DetailProduct detailProduct, GetAllProducts getAllProducts, GetProductsByOrder getProductsByOrder) {
         this.saveProduct = saveProduct;
         this.updateProduct = updateProduct;
         this.deleteProduct = deleteProduct;
         this.detailProduct = detailProduct;
         this.getAllProducts = getAllProducts;
+        this.getProductsByOrder = getProductsByOrder;
     }
 
 
@@ -60,7 +63,7 @@ public class ProductController {
 
     @PutMapping("/update/{id}")
     public ResponseEntity<ProductDTO> update  (
-            @PathVariable Long id,
+            @PathVariable Integer id,
             @RequestBody ProductDTO productDTO,
             UriComponentsBuilder uriBuilder){
 
@@ -70,20 +73,26 @@ public class ProductController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Void> deleteEstablishment(@PathVariable Long id){
+    public ResponseEntity<Void> deleteEstablishment(@PathVariable Integer id){
         deleteProduct.execute(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProductDTO> detailMenu(@PathVariable Long id){
+    public ResponseEntity<ProductDTO> detailMenu(@PathVariable Integer id){
         return ResponseEntity.ok().body(ProductConverter.toDTO(detailProduct.execute(id)));
+    }
+
+    @GetMapping("/order/{orderId}")
+    public ResponseEntity<Set<ProductDTO>> getByOrderId(@PathVariable Integer orderId){
+        Set<Product> products = getProductsByOrder.execute(orderId);
+        return ResponseEntity.ok().body(ProductConverter.toDTOSet(products));
     }
 
 
     @GetMapping(value = "/{id}/list")
     public ResponseEntity<Page<ProductDTO>> getAllProducts
-            (@PathVariable Long id,
+            (@PathVariable Integer id,
              @RequestParam(value = "page",defaultValue = "0") Integer page,
              @RequestParam(value = "linesPerPage",defaultValue = "24")Integer linesPerPge,
              @RequestParam(value = "order",defaultValue = "name")String orderBy,

@@ -12,9 +12,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @DiscriminatorValue(Customer.CUSTOMER)
@@ -36,23 +34,24 @@ public class Customer extends Person {
     @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
     private List<Order> orderList = new ArrayList<>();
 
-
+    @JsonIgnore
+    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
+    private Set<Establishment> favorites = new HashSet<>();
 
     @Builder
     public Customer(
-            Long id,
+            Integer id,
             String name,
             String lastName,
             String cpf,
             String phone,
             String celPhone,
             Status status,
-            Establishment establishment,
             User user,
             List<Address> addressList,
             Set<Integer> profiles,
             LocalDate birthDate) {
-        super(id, name, lastName, cpf, phone, celPhone, status, establishment, user, profiles);
+        super(id, name, lastName, cpf, phone, celPhone, status, user, profiles);
         this.addressList = addressList;
         this.birthDate = birthDate;
 

@@ -14,7 +14,7 @@ public class DeleteMenu {
 
     private final MenuRepository menuRepository;
 
-    public Menu execute(Long id) {
+    public Menu execute(Integer id) {
         var menu = menuRepository.findByIdAndStatus(id, Status.ACTIVE);
         if (menu.isPresent()) {
             menu.get().setStatus(Status.INACTIVE);

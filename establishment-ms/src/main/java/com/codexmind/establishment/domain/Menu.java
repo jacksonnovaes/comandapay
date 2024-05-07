@@ -1,6 +1,7 @@
 package com.codexmind.establishment.domain;
 
 import com.codexmind.establishment.domain.enums.Status;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
@@ -19,17 +20,19 @@ public class Menu {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     private String name;
 
     private Status status;
 
     @JsonIgnore
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "menu")
+    @JsonBackReference
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "menu")
     private List<Product> products = new ArrayList<>();
 
     @JsonIgnore
+    @JsonBackReference
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "establishment_id")
     private Establishment establishment;

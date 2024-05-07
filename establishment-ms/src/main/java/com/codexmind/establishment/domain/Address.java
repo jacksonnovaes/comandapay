@@ -14,7 +14,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @Builder(toBuilder = true)
-@Table(name = "TB_ADDRESS")
+@Table(name = "tb_address")
 public class Address implements Serializable {
 
     @Serial
@@ -22,7 +22,7 @@ public class Address implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
     private String uuid;
     private String number;
     private String name;

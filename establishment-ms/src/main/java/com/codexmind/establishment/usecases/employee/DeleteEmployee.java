@@ -14,7 +14,7 @@ public class DeleteEmployee {
     private final EmployeeRepository employeeRepository;
 
     private final DetailCustomer detailCustomer;
-    public boolean execute(Long id) {
+    public boolean execute(Integer id) {
         var employee = employeeRepository.findById(id);
         if (employee.isPresent()) {
             employee.get().setStatus(Status.INACTIVE);

@@ -14,9 +14,9 @@ public class GetAllProducts {
 
     private final ProductRepository repository;
 
-    public Page<Product> execute(Long id,Integer page, Integer linesPerPge, String orderBy, String direction) {
+    public Page<Product> execute(Integer id,Integer page, Integer linesPerPge, String orderBy, String direction) {
         PageRequest pageRequest = PageRequest.of(page, linesPerPge, Sort.Direction.valueOf(direction), orderBy);
 
-        return repository.  getAllProductsByMenuAndEstablishment(id,pageRequest);
+        return repository.getAllProductsByMenuAndEstablishment(id,pageRequest);
     }
 }

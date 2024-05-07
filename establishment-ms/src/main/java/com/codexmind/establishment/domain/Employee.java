@@ -1,6 +1,7 @@
 package com.codexmind.establishment.domain;
 
 import com.codexmind.establishment.domain.enums.Status;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -29,9 +30,14 @@ public class Employee extends Person {
     private Cargo cargo;
 
 
+    @JsonBackReference
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "establishment_id")
+    private Establishment establishment;
+
     @Builder
     public Employee(
-            Long id,
+            Integer id,
             String name,
             String lastName,
             String cpf,
@@ -44,9 +50,10 @@ public class Employee extends Person {
             LocalDate admissionDate,
             List<Address> addressList,
             Cargo cargo) {
-        super(id, name, lastName, cpf, phone, celPhone, status, establishment, user, profiles);
-        this.admissionDate = admissionDate;
+        super(id, name, lastName, cpf, phone, celPhone, status, user, profiles);
         this.addressList = addressList;
+        this.establishment = establishment;
         this.cargo = cargo;
+        this.admissionDate = admissionDate;
     }
 }

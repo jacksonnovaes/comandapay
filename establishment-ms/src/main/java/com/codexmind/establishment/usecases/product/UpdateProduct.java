@@ -13,7 +13,7 @@ public class UpdateProduct {
 
     private final ProductRepository repository;
 
-    public Product execute(Long id, ProductDTO productDTO) {
+    public Product execute(Integer id, ProductDTO productDTO) {
 
         var product = Product.builder()
                 .id(id)

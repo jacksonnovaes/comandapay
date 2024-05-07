@@ -11,7 +11,7 @@ public class DeleteProduct {
 
     private final ProductRepository repository;
 
-    public void execute(Long id) {
+    public void execute(Integer id) {
         var product = repository.findById(id);
         product.ifPresent(repository::delete);
     }

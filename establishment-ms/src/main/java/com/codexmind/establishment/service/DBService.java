@@ -93,7 +93,7 @@ public class DBService {
                 .phone("991556628")
                 .celPhone("991556628")
                 .establishment(establishment)
-                .profiles(Set.of(Profile.ADMIN.getCod()))
+                .addressList(Arrays.asList(address))
                 .admissionDate(LocalDate.now())
                 .build();
         var customer = Customer.builder()
@@ -101,7 +101,6 @@ public class DBService {
                 .lastName("Bispo")
                 .cpf("39219796848")
                 .status(Status.ACTIVE)
-                .profiles(Set.of(Profile.CLIENT.getCod()))
                 .phone("991556628")
                 .celPhone("991556628")
                 .birthDate(LocalDate.of(1998, 06, 04))
@@ -118,13 +117,18 @@ public class DBService {
                 .pass(encoder.encode("11223344"))
                 .roles(Set.of(Profile.ADMIN.getDescription()))
                 .build();
+        establishment.setEmployees(Arrays.asList(employee));
+        customer.setProfiles(Set.of(Profile.CLIENT.getCod()));
+        customer.setAddressList(Arrays.asList(address));
         customer.setUser(userCustomer);
         employee.setUser(userEmployee);
+        employee.setAddressList(Arrays.asList(address));
+        employee.setProfiles(Set.of(Profile.CLIENT.getCod()));
         userRepository.saveAll(Arrays.asList(userEmployee, userCustomer));
         menuRepository.saveAll(Arrays.asList(menu));
         productRepository.saveAll(Arrays.asList(product,product2, product3));
-        establishmentRepository.saveAll(Arrays.asList(establishment));
         employeeRepository.saveAll(Arrays.asList(employee));
+        establishmentRepository.saveAll(Arrays.asList(establishment));
         customerRepository.saveAll(Arrays.asList(customer));
     }
 }

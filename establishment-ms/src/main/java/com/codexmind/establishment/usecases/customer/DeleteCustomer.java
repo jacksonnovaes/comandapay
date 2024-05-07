@@ -14,7 +14,7 @@ public class DeleteCustomer {
     private final CustomerRepository customerRepository;
 
     private final DetailCustomer detailCustomer;
-    public boolean execute(Long id) {
+    public boolean execute(Integer id) {
         var customer = detailCustomer.execute(id);
         if (customer != null && customer.getStatus().equals(Status.ACTIVE)) {
             customer.setStatus(Status.INACTIVE);

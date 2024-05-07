@@ -50,7 +50,7 @@ public class MenuController {
 
     @PutMapping("/update/{id}")
     public ResponseEntity<MenuDTO> update  (
-            @PathVariable Long id,
+            @PathVariable Integer id,
             @RequestBody MenuDTO menuDTO,
             UriComponentsBuilder uriBuilder){
 
@@ -60,13 +60,13 @@ public class MenuController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Void> deleteEstablishment(@PathVariable Long id){
+    public ResponseEntity<Void> deleteEstablishment(@PathVariable Integer id){
         deleteMenu.execute(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<MenuDTO> detailMenu(@PathVariable Long id){
+    public ResponseEntity<MenuDTO> detailMenu(@PathVariable Integer id){
         return ResponseEntity.ok().body(MenuConverter.toDTO(detailMenu.execute(id)));
     }
 }

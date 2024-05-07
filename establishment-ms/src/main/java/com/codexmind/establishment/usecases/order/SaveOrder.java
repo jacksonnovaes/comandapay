@@ -39,7 +39,7 @@ public class SaveOrder {
         var order = new Order();
         order.setId(null);
         order.setAddress(Address.builder().id(orderDTO.getAddressId()).build());
-        order.setInstante(LocalDateTime.now());
+        order.setInstant(LocalDateTime.now());
         if(userSS.hasRole(Profile.CLIENT)){
             order.setCustomer(customerRepository.findById(userSS.getId()).get());
         }else if (userSS.hasRole(Profile.ADMIN) || userSS.hasRole(Profile.EMPLOYEE)){
@@ -49,7 +49,6 @@ public class SaveOrder {
 
         order.setPayment(new PaymentWithCreditCard(null, PaymentStatus.PENDING.getCod(), order, 1));
         order.getPayment().setPaymentStatus(PaymentStatus.PENDING);
-
         order.getPayment().setOrder(order);
 
         paymentRepository.save(order.getPayment());
@@ -60,6 +59,7 @@ public class SaveOrder {
         .map(Optional::get)
         .collect(Collectors.toList());
         order.getProducts().addAll(products);
+        order.setEstablishment(products.getFirst().getMenu().getEstablishment());
         orderRepository.save(order);
         productRepository.saveAll(products);
         return order;

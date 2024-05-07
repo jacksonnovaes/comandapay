@@ -20,13 +20,13 @@ import java.util.stream.Collectors;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "TB_PERSON")
+@Table(name = "tb_person")
 @Entity
 public class Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
     private String name;
     private String lastName;
     private String cpf;
@@ -34,11 +34,6 @@ public class Person {
     private String celPhone;
     @Enumerated(EnumType.STRING)
     private Status status;
-
-    @JsonBackReference
-    @ManyToOne
-    @JoinColumn(name = "establishment_id")
-    private Establishment establishment;
 
     @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY)

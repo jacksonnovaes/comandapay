@@ -1,6 +1,7 @@
 package com.codexmind.establishment.domain;
 
 import com.codexmind.establishment.domain.enums.Status;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "TB_ESTABLISHMENT")
+@Table(name = "tb_establishment")
 @Builder(toBuilder = true)
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,7 +20,7 @@ public class Establishment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     private String name;
 
@@ -27,7 +28,7 @@ public class Establishment {
 
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "ADDRESS_ID")
+    @JoinColumn(name = "address_id")
     private Address address;
 
     @JsonIgnore
@@ -37,7 +38,15 @@ public class Establishment {
     private Status status;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "establishment")
+    @OneToMany(mappedBy = "establishment",cascade = CascadeType.ALL)
     private List<Employee> employees = new ArrayList<>();
+    @JsonBackReference
+    @OneToMany(mappedBy = "establishment")
+    private List<Order> orders = new ArrayList<>();
+
+    @JsonIgnore
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
 
 }

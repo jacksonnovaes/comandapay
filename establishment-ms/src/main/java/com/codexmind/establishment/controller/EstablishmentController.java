@@ -1,29 +1,22 @@
 package com.codexmind.establishment.controller;
 
+import com.codexmind.establishment.usecases.establishment.*;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.codexmind.establishment.converters.EstablishmentConverter;
 import com.codexmind.establishment.dto.EstablishmentDTO;
-import com.codexmind.establishment.usecases.establishment.DeleteEstablishment;
-import com.codexmind.establishment.usecases.establishment.DetailEstablishment;
-import com.codexmind.establishment.usecases.establishment.SaveEstablishment;
-import com.codexmind.establishment.usecases.establishment.UpdateEstablishment;
+
+import java.util.List;
+import java.util.Set;
 
 @RestController
-@RequestMapping(value = "/api/v1/admin/")
-
+@RequestMapping(value = "/api/v1/")
 @CrossOrigin(origins = "*")
+@SecurityRequirement(name = "bearer-key")
 public class EstablishmentController {
 
     private final UpdateEstablishment updateEstablishment;
@@ -34,14 +27,23 @@ public class EstablishmentController {
 
     private final DeleteEstablishment deleteEstablishment;
 
-    public EstablishmentController(UpdateEstablishment updateEstablishment, SaveEstablishment saveEstablishment, DetailEstablishment detailEstablishment, DeleteEstablishment deleteEstablishment) {
+    private final GetEstblishmentByName getEstblishmentByName;
+
+    private final AddFavoriteEstablishment addFavoriteEstablishment;
+
+    private final  getAllFavoritesEstablishment getAllFavoritesEstablishment;
+
+    public EstablishmentController(UpdateEstablishment updateEstablishment, SaveEstablishment saveEstablishment, DetailEstablishment detailEstablishment, DeleteEstablishment deleteEstablishment, GetEstblishmentByName getEstblishmentByName, AddFavoriteEstablishment addFavoriteEstablishment, com.codexmind.establishment.usecases.establishment.getAllFavoritesEstablishment getAllFavoritesEstablishment) {
         this.updateEstablishment = updateEstablishment;
         this.saveEstablishment = saveEstablishment;
         this.detailEstablishment = detailEstablishment;
         this.deleteEstablishment = deleteEstablishment;
+        this.getEstblishmentByName = getEstblishmentByName;
+        this.addFavoriteEstablishment = addFavoriteEstablishment;
+        this.getAllFavoritesEstablishment = getAllFavoritesEstablishment;
     }
 
-    @PostMapping(value = "/establishment/save")
+    @PostMapping(value = "/admin/establishment/save")
     public ResponseEntity<EstablishmentDTO> save(
             @RequestBody EstablishmentDTO establishmentDTO,
             UriComponentsBuilder uriBuilder){
@@ -52,7 +54,7 @@ public class EstablishmentController {
 
     @PutMapping(value = "/establishment/{id}")
     public ResponseEntity<EstablishmentDTO> update  (
-            @PathVariable Long id,
+            @PathVariable Integer id,
             @RequestBody EstablishmentDTO updateEstablishmentDTO,
             UriComponentsBuilder uriBuilder){
 
@@ -63,20 +65,44 @@ public class EstablishmentController {
 
     @GetMapping(value = "/establishment/{id}")
     public ResponseEntity<EstablishmentDTO> getEstablishment(@PathVariable
-            Long id){
+                                                                 Integer id){
         var establishment = detailEstablishment.execute(id);
         return  ResponseEntity.ok().body(EstablishmentConverter.toDTO(establishment));
     }
 
+    @GetMapping(value = "/establishment/")
+    public ResponseEntity<List<EstablishmentDTO>> getEstablishment(@RequestParam
+                                                             String name){
+        var establishment = getEstblishmentByName.execute(name);
+        return  ResponseEntity.ok().body(EstablishmentConverter.toListDTO((establishment)));
+    }
+
+
+    @PostMapping(value = "/establishment/favorites/add")
+    public ResponseEntity<Void> addFavorites(
+            @RequestBody Set<Integer> establishmentIds, Integer customerId,
+            UriComponentsBuilder uriBuilder){
+        addFavoriteEstablishment.execute(establishmentIds, customerId);
+
+        return  ResponseEntity.noContent().build();
+    }
+    @GetMapping(value = "/establishment/favorites/{id}")
+    public ResponseEntity<List<EstablishmentDTO>> getFavorites(@PathVariable
+                                                                   Integer id){
+        var favorites = getAllFavoritesEstablishment.execute(id);
+        return  ResponseEntity.ok().body(EstablishmentConverter.toListDTO((favorites)));
+    }
+
+
     @DeleteMapping(value = "/establishment/{id}")
-    public ResponseEntity<Void> deleteEstablishment(@PathVariable Long id){
+    public ResponseEntity<Void> deleteEstablishment(@PathVariable Integer id){
             deleteEstablishment.execute(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<EstablishmentDTO> detailMenu(@PathVariable Long id){
+    public ResponseEntity<EstablishmentDTO> detailMenu(@PathVariable Integer id){
         var establishment = detailEstablishment.execute(id)    ;
         return ResponseEntity.ok().body(EstablishmentConverter.toDTO(establishment));
     }

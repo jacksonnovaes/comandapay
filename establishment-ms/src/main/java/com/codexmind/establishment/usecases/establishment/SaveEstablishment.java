@@ -8,15 +8,16 @@ import com.codexmind.establishment.dto.EstablishmentDTO;
 import com.codexmind.establishment.repository.EstablishmentRepository;
 import com.codexmind.establishment.service.ServiceClient;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class SaveEstablishment {
 
     private final ServiceClient serviceClient;
 
-    private EstablishmentRepository repository;
+    private  final  EstablishmentRepository repository;
 
     public Establishment execute(EstablishmentDTO establishmentDTO){
         var addressDTO = serviceClient.buscaEnderecoPorCep(establishmentDTO.postalCode());

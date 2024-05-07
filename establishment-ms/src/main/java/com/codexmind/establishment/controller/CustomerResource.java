@@ -30,8 +30,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping({"/api/v1/customer", "/api/v1/signup"})
-
+@RequestMapping({"/api/v1/customer"})
 @CrossOrigin(origins = "*")
 public class CustomerResource {
 
@@ -54,12 +53,12 @@ public class CustomerResource {
     }
 
 
-    @SecurityRequirement(name = "bearer-key")
-    @PostMapping(value = "/save")
+
+    @PostMapping(value = "/signup/save")
     public ResponseEntity<PersonDTO> saveCustomer(@RequestBody @Valid SaveCustomerDTO customerDTO,
                                                   UriComponentsBuilder uriBuilder) {
         var customer = saveCustomer.execute(customerDTO);
-        var uri = uriBuilder.path("/customer/save/{id}").buildAndExpand(customer.getId()).toUri();
+        var uri = uriBuilder.path("/signup/save/{id}").buildAndExpand(customer.getId()).toUri();
         return ResponseEntity.created(uri).body(CustomerConverter.toDTO(customer));
     }
 
@@ -83,14 +82,14 @@ public class CustomerResource {
 
     @SecurityRequirement(name = "bearer-key")
     @GetMapping(value = "/{id}")
-    public ResponseEntity<CustomerDTO> detailCustomer(@PathVariable Long id) {
+    public ResponseEntity<CustomerDTO> detailCustomer(@PathVariable Integer id) {
         var customer = detailCustomer.execute(id);
         return ResponseEntity.ok(customer);
     }
 
     @SecurityRequirement(name = "bearer-key")
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<String> deleteEmployee(@PathVariable Long id) {
+    public ResponseEntity<String> deleteEmployee(@PathVariable Integer id) {
         var isRemoved = deleteCustomer.execute(id);
         if (isRemoved) {
             return ResponseEntity.status(HttpStatus.OK).body("Cliente excluído com sucesso.");
@@ -101,7 +100,7 @@ public class CustomerResource {
 
     @SecurityRequirement(name = "bearer-key")
     @PutMapping(value = "/{id}")
-    public ResponseEntity<UpdateCustomerDTO> update(@PathVariable Long id,
+    public ResponseEntity<UpdateCustomerDTO> update(@PathVariable Integer id,
                                                     @RequestBody @Valid UpdateCustomerDTO updateCustomerDTO,
                                                     UriComponentsBuilder uriBuilder) {
         updateCustomerDTO.setId(id);

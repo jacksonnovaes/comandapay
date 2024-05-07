@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface MenuRepository extends JpaRepository<Menu, Long> {
+public interface MenuRepository extends JpaRepository<Menu, Integer> {
 
-    Optional<Menu> findByIdAndStatus(Long id, Status status);
+    Optional<Menu> findByIdAndStatus(Integer id, Status status);
 }

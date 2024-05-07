@@ -26,6 +26,7 @@ public class TokenService {
             return JWT.create()
                     .withIssuer("Api storeFood")
                     .withSubject(user.getLogin())
+                    .withJWTId(user.getId().toString())
                     .withExpiresAt(expirationDate())
                     .sign(algorithm);
         } catch (JWTCreationException exception){

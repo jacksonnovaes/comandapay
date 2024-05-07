@@ -9,9 +9,9 @@ import lombok.*;
 @NoArgsConstructor
 public class ProductDTO {
 
-    private Long id;
+    private Integer id;
 
     private String name;
 
-    private Long menu;
+    private Integer menu;
 }

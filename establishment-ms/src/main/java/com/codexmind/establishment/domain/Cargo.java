@@ -14,12 +14,12 @@ import java.util.UUID;
 @NoArgsConstructor
 @Data
 @Builder
-@Table(name = "TB_CARGO")
+@Table(name = "tb_cargo")
 public class Cargo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     private String uuid;
 

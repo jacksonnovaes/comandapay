@@ -14,7 +14,7 @@ public class DeleteEstablishment {
 
     private final EstablishmentRepository establishmentRepository;
 
-    public Establishment execute(Long id) {
+    public Establishment execute(Integer id) {
         var establishment = establishmentRepository.findByIdAndStatus(id, Status.ACTIVE);
         if (establishment.isPresent()) {
             establishment.get().setStatus(Status.INACTIVE);

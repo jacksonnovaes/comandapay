@@ -15,7 +15,7 @@ public class UpdateEstablishment {
 
     private final EstablishmentRepository establishmentRepository;
 
-    public Establishment execute(Long id, EstablishmentDTO establishmentDTO) {
+    public Establishment execute(Integer id, EstablishmentDTO establishmentDTO) {
 
         var establishmentFind = establishmentRepository.findById(id);
 

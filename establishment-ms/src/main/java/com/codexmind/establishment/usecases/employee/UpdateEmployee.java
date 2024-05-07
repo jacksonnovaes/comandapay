@@ -14,7 +14,7 @@ public class UpdateEmployee {
     private final EmployeeRepository employeeRepository;
 
 
-    public Employee execute(UpdateEmployeeDTO updateEmployeeDTO, Long id) {
+    public Employee execute(UpdateEmployeeDTO updateEmployeeDTO, Integer id) {
         Employee employeeFind;
         employeeFind = employeeRepository.findById(id).get();
 

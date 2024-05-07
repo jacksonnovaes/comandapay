@@ -23,7 +23,7 @@ import lombok.Setter;
 public abstract class Payment {
 
     @Id
-    private Long paymentId;
+    private Integer paymentId;
 
     private Integer paymentStatus;
     @JsonIgnore

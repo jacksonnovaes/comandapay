@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @Builder(toBuilder = true)
 public class UpdateCustomerDTO {
 
-    private Long id;
+    private Integer id;
 
     private String name;
 

@@ -13,7 +13,7 @@ public class DetailProduct {
 
     private final ProductRepository repository;
 
-    public Product execute(Long id) {
+    public Product execute(Integer id) {
 
         var product = repository.findById(id);
         return product.orElseThrow(()-> new EntityNotFoundException(

@@ -47,25 +47,31 @@ public class OrderController {
                 .path("{/id}").buildAndExpand(obj.getId()).toUri();
         return ResponseEntity.created(uri).build();
     }
+    @PostMapping("/admin/open")
+    public ResponseEntity<OrderDTO> openByEstab(@Valid @RequestBody OrderDTO orderDTO){
+        var obj = saveOrder.execute(orderDTO);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("{/id}").buildAndExpand(obj.getId()).toUri();
+        return ResponseEntity.created(uri).build();
+    }
 
 
     @PutMapping("/{orderId}/add/")
-    public ResponseEntity<Order> addItem(@PathVariable Long orderId, @RequestBody Long idProduct) {
+    public ResponseEntity<Order> addItem(@PathVariable Integer orderId, @RequestBody Integer idProduct) {
 
         var orderUpdated = addItemOrder.execute(orderId, idProduct);
 
         return ResponseEntity.ok((orderUpdated));
     }
 
-    @GetMapping(value = "/{id}/list")
+    @GetMapping(value = "/list")
     public ResponseEntity<Page<OrderResponseDTO>> getAllProducts
-            (@PathVariable Long id,
+            (
              @RequestParam(value = "page",defaultValue = "0") Integer page,
              @RequestParam(value = "linesPerPage",defaultValue = "24")Integer linesPerPge,
              @RequestParam(value = "order",defaultValue = "id")String orderBy,
              @RequestParam(value = "direction",defaultValue = "ASC")String direction) {
         var list = getAllOrdersByUser.execute(
-                id,
                 page,
                 linesPerPge,
                 orderBy,

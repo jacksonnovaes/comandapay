@@ -18,7 +18,7 @@ public class AddItemOrder {
 
     private final ProductRepository productRepository;
 
-    public Order execute(Long orderId, Long productId){
+    public Order execute(Integer orderId, Integer productId){
         var orderFind = orderRepository.findById(orderId);
 
         if (orderFind.isPresent()){

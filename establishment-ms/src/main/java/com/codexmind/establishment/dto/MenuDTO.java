@@ -11,6 +11,6 @@ public class MenuDTO {
 
     private String name;
 
-    public Long establishment;
+    public Integer establishment;
 
 }
