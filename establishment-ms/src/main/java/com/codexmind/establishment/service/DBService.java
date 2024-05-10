@@ -82,6 +82,8 @@ public class DBService {
                 .cnpj("0862537263200001-43")
                 .menus(Arrays.asList(menu))
                 .status(Status.ACTIVE)
+                .rate(5F)
+                .isFavorite(Boolean.FALSE)
                 .address(address)
                 .build();
         menu.setEstablishment(establishment);

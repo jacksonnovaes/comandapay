@@ -2,9 +2,18 @@ package com.codexmind.establishment.dto;
 
 public record ResponseEstablishmentDTO(
 
+        Integer id,
         String name,
 
-        String cnpj
+        String cnpj,
+
+        Float rate,
+
+        Boolean isFavorite,
+
+        String path,
+
+        String filename
 )
 {
 }

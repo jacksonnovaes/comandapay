@@ -45,7 +45,7 @@ public class Order {
     @JoinColumn(name = "EMPLOYEE_ID")
     private Employee employee;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name="tb_item_order",
     joinColumns = @JoinColumn(name="order_id"),
     inverseJoinColumns = @JoinColumn(name="product_id"))

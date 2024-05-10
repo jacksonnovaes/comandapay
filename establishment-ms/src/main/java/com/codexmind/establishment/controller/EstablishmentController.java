@@ -1,15 +1,23 @@
 package com.codexmind.establishment.controller;
 
+import com.codexmind.establishment.converters.EstablishmentConverter;
+import com.codexmind.establishment.dto.AddFavoriteRequest;
+import com.codexmind.establishment.dto.EstablishmentDTO;
+import com.codexmind.establishment.dto.ResponseEstablishmentDTO;
+import com.codexmind.establishment.exceptions.EntityNotFoundException;
 import com.codexmind.establishment.usecases.establishment.*;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.codexmind.establishment.converters.EstablishmentConverter;
-import com.codexmind.establishment.dto.EstablishmentDTO;
-
+import java.net.URI;
 import java.util.List;
 import java.util.Set;
 
@@ -17,6 +25,7 @@ import java.util.Set;
 @RequestMapping(value = "/api/v1/")
 @CrossOrigin(origins = "*")
 @SecurityRequirement(name = "bearer-key")
+@RequiredArgsConstructor
 public class EstablishmentController {
 
     private final UpdateEstablishment updateEstablishment;
@@ -25,23 +34,18 @@ public class EstablishmentController {
 
     private final DetailEstablishment detailEstablishment;
 
-    private final DeleteEstablishment deleteEstablishment;
-
     private final GetEstblishmentByName getEstblishmentByName;
 
     private final AddFavoriteEstablishment addFavoriteEstablishment;
 
     private final  getAllFavoritesEstablishment getAllFavoritesEstablishment;
 
-    public EstablishmentController(UpdateEstablishment updateEstablishment, SaveEstablishment saveEstablishment, DetailEstablishment detailEstablishment, DeleteEstablishment deleteEstablishment, GetEstblishmentByName getEstblishmentByName, AddFavoriteEstablishment addFavoriteEstablishment, com.codexmind.establishment.usecases.establishment.getAllFavoritesEstablishment getAllFavoritesEstablishment) {
-        this.updateEstablishment = updateEstablishment;
-        this.saveEstablishment = saveEstablishment;
-        this.detailEstablishment = detailEstablishment;
-        this.deleteEstablishment = deleteEstablishment;
-        this.getEstblishmentByName = getEstblishmentByName;
-        this.addFavoriteEstablishment = addFavoriteEstablishment;
-        this.getAllFavoritesEstablishment = getAllFavoritesEstablishment;
-    }
+    private final DeleteEstablishment deleteEstablishment;
+
+    private final GetImage getImage;
+
+    private final SaveImage saveImage;
+
 
     @PostMapping(value = "/admin/establishment/save")
     public ResponseEntity<EstablishmentDTO> save(
@@ -71,32 +75,55 @@ public class EstablishmentController {
     }
 
     @GetMapping(value = "/establishment/")
-    public ResponseEntity<List<EstablishmentDTO>> getEstablishment(@RequestParam
+    public ResponseEntity<List<ResponseEstablishmentDTO>> getEstablishment(@RequestParam
                                                              String name){
         var establishment = getEstblishmentByName.execute(name);
-        return  ResponseEntity.ok().body(EstablishmentConverter.toListDTO((establishment)));
+        return  ResponseEntity.ok().body(EstablishmentConverter.toListResponseDTO((establishment)));
     }
 
 
-    @PostMapping(value = "/establishment/favorites/add")
-    public ResponseEntity<Void> addFavorites(
-            @RequestBody Set<Integer> establishmentIds, Integer customerId,
-            UriComponentsBuilder uriBuilder){
-        addFavoriteEstablishment.execute(establishmentIds, customerId);
+    @PutMapping(value = "/establishment/favorites/add")
+    public ResponseEntity<ResponseEstablishmentDTO> addFavorites(
+            @RequestBody AddFavoriteRequest request){
+                var establishment = addFavoriteEstablishment.execute(request.getEstablishmentId(), request.getCustomerId());
 
-        return  ResponseEntity.noContent().build();
+        return  ResponseEntity.ok().body(EstablishmentConverter.toResponseDTO(establishment));
     }
+
+    @PostMapping("/establishment/images/")
+    public ResponseEntity<Void> uploadImagem(@RequestParam("file") MultipartFile file) {
+             URI uri = saveImage.execute(file);
+            return ResponseEntity.created(uri).build();
+    }
+
+    @GetMapping("/establishment/images/{id}")
+    public ResponseEntity<Resource> getImages(@PathVariable Integer id){
+       var image = getImage.execute(id);
+
+           HttpHeaders headers = new HttpHeaders();
+           headers.setContentType(MediaType.IMAGE_PNG);
+           // Retornar a imagem como ResponseEntity
+           return ResponseEntity.ok()
+                   .headers(headers)
+                   .body(image);
+      }
+
     @GetMapping(value = "/establishment/favorites/{id}")
-    public ResponseEntity<List<EstablishmentDTO>> getFavorites(@PathVariable
-                                                                   Integer id){
-        var favorites = getAllFavoritesEstablishment.execute(id);
-        return  ResponseEntity.ok().body(EstablishmentConverter.toListDTO((favorites)));
+    public ResponseEntity<List<ResponseEstablishmentDTO>> getFavorites(@PathVariable
+                                                                           Integer id){
+           try {
+            var favorites = getAllFavoritesEstablishment.execute(id);
+            var establishmentDTOS =EstablishmentConverter.toListResponseDTO((favorites));
+            return  ResponseEntity.ok().body(establishmentDTOS);
+            } catch (EntityNotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
 
     @DeleteMapping(value = "/establishment/{id}")
     public ResponseEntity<Void> deleteEstablishment(@PathVariable Integer id){
-            deleteEstablishment.execute(id);
+          deleteEstablishment.execute(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
@@ -106,4 +133,5 @@ public class EstablishmentController {
         var establishment = detailEstablishment.execute(id)    ;
         return ResponseEntity.ok().body(EstablishmentConverter.toDTO(establishment));
     }
+
 }

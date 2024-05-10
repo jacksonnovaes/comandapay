@@ -22,17 +22,30 @@ public interface EstablishmentRepository extends JpaRepository<Establishment, In
 
     @Query(value = """
             SELECT estab.id, estab.name, estab.cnpj, estab.address_id, estab.status,
-            addr.name as logradouro, addr.complemento, addr.postal_code
+            addr.name as logradouro, addr.complemento, addr.postal_code,estab.customer_id, estab.rate,
+             estab.file_name, estab.path, estab.is_favorite
             FROM tb_establishment estab
             INNER JOIN tb_address addr
             ON addr.id = estab.address_id
-            WHERE estab.name LIKE CONCAT('%', ?1, '%') AND estab.status = ?2
+            WHERE ?1 IS NULL OR estab.name LIKE CONCAT('%', ?1, '%') AND estab.status = ?2
             """, nativeQuery = true)
     List<Establishment> findEstablishmentByName(String name, Status status);
 
     @Query(value = """
             SELECT estab.id, estab.name, estab.cnpj, estab.address_id, estab.status,
-            addr.name as logradouro, addr.complemento, addr.postal_code, estab.customer_id
+            addr.name as logradouro, addr.complemento, addr.postal_code,estab.customer_id, estab.rate,
+             estab.file_name, estab.path, estab.is_favorite
+            FROM tb_establishment estab
+            INNER JOIN tb_address addr
+            ON addr.id = estab.address_id
+            WHERE estab.status = ?1
+            """, nativeQuery = true)
+    List<Establishment> findAllEstablishment(Status status);
+
+    @Query(value = """
+            SELECT estab.id, estab.name, estab.cnpj,estab.rate, estab.address_id, estab.status,
+            addr.name as logradouro, addr.complemento, addr.postal_code, estab.customer_id,
+            estab.file_name, estab.path, estab.is_favorite
             FROM tb_establishment estab
             INNER JOIN tb_address addr
             ON customer.id = estab.customer_id

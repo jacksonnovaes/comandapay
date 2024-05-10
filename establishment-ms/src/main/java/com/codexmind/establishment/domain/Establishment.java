@@ -27,7 +27,7 @@ public class Establishment {
     private String cnpj;
 
     @JsonIgnore
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "address_id")
     private Address address;
 
@@ -38,15 +38,23 @@ public class Establishment {
     private Status status;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "establishment",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "establishment",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Employee> employees = new ArrayList<>();
     @JsonBackReference
     @OneToMany(mappedBy = "establishment")
     private List<Order> orders = new ArrayList<>();
 
     @JsonIgnore
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id")
     private Customer customer;
+
+    public Boolean isFavorite = Boolean.FALSE;
+
+    private Float rate;
+
+    private String fileName;
+
+    private String path;
 
 }

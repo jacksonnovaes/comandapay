@@ -9,21 +9,20 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
-public class getAllFavoritesEstablishment {
+public class getAllEstablishment {
 
     private final EstablishmentRepository establishmentRepository;
 
     public List<Establishment> execute(Integer idCustomer) {
-        List<Establishment> favorites = establishmentRepository.findFavorites(idCustomer, Status.ACTIVE);
+        List<Establishment> establishments = establishmentRepository.findAllEstablishment(Status.ACTIVE);
 
-        if (favorites.isEmpty()) {
+        if (establishments.isEmpty()) {
             throw new EntityNotFoundException("Nenhum estabelecimento favorito encontrado para o cliente com ID: " + idCustomer);
         }
-            return favorites;
+            return establishments;
 
     }
 }

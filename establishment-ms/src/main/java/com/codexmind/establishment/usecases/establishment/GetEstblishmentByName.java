@@ -18,8 +18,16 @@ public class GetEstblishmentByName {
     private final EstablishmentRepository establishmentRepository;
 
     public List<Establishment> execute(String name){
+        List<Establishment> establishments;
+        if (name != null && !name.isEmpty()) {
+            establishments = establishmentRepository.findEstablishmentByName(name, Status.ACTIVE);
+            if (establishments.isEmpty()) {
+                throw new EntityNotFoundException("Nenhum estabelecimento encontrado com o nome: " + name);
+            }
+        } else {
+            establishments = establishmentRepository.findAllEstablishment(Status.ACTIVE);
+        }
+        return establishments;
 
-        var establishment = establishmentRepository.findEstablishmentByName(name, Status.ACTIVE);
-        return establishment.isEmpty() ? null : establishment;
     }
 }

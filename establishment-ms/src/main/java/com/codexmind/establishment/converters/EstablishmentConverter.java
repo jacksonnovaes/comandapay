@@ -23,10 +23,33 @@ public class EstablishmentConverter {
     }
         public static ResponseEstablishmentDTO toResponseDTO(Establishment establishment) {
             return new ResponseEstablishmentDTO(
+                    establishment.getId(),
                     establishment.getName(),
-                    establishment.getCnpj()
+                    establishment.getCnpj(),
+                    establishment.getRate(),
+                    establishment.getIsFavorite(),
+                    establishment.getPath(),
+                    establishment.getFileName()
             );
         }
+
+    public static List<ResponseEstablishmentDTO> toListResponseDTO(List<Establishment> establishments) {
+        List<ResponseEstablishmentDTO> establishmentDTOs = new ArrayList<>();
+        for (Establishment establishment : establishments) {
+            ResponseEstablishmentDTO establishmentDTO = new ResponseEstablishmentDTO(
+                    establishment.getId(),
+                    establishment.getName(),
+                    establishment.getCnpj(),
+                    establishment.getRate(),
+                    establishment.getIsFavorite(),
+                    establishment.getPath(),
+                    establishment.getFileName()
+
+            );
+            establishmentDTOs.add(establishmentDTO);
+        }
+        return establishmentDTOs;
+    }
 
     public static List<EstablishmentDTO> toListDTO(List<Establishment> establishments) {
         List<EstablishmentDTO> establishmentDTOs = new ArrayList<>();
