@@ -8,10 +8,7 @@ import com.codexmind.establishment.exceptions.EntityNotFoundException;
 import com.codexmind.establishment.usecases.establishment.*;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
-import org.springframework.core.io.Resource;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,7 +16,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequestMapping(value = "/api/v1/")
@@ -41,8 +37,6 @@ public class EstablishmentController {
     private final  getAllFavoritesEstablishment getAllFavoritesEstablishment;
 
     private final DeleteEstablishment deleteEstablishment;
-
-    private final GetImage getImage;
 
     private final SaveImage saveImage;
 
@@ -90,23 +84,11 @@ public class EstablishmentController {
         return  ResponseEntity.ok().body(EstablishmentConverter.toResponseDTO(establishment));
     }
 
-    @PostMapping("/establishment/images/")
-    public ResponseEntity<Void> uploadImagem(@RequestParam("file") MultipartFile file) {
-             URI uri = saveImage.execute(file);
+    @PostMapping("/establishment/images/{id}")
+    public ResponseEntity<Void> uploadImagem(@RequestParam("file") MultipartFile file,@PathVariable Integer id) {
+             URI uri = saveImage.execute(file, id);
             return ResponseEntity.created(uri).build();
     }
-
-    @GetMapping("/establishment/images/{id}")
-    public ResponseEntity<Resource> getImages(@PathVariable Integer id){
-       var image = getImage.execute(id);
-
-           HttpHeaders headers = new HttpHeaders();
-           headers.setContentType(MediaType.IMAGE_PNG);
-           // Retornar a imagem como ResponseEntity
-           return ResponseEntity.ok()
-                   .headers(headers)
-                   .body(image);
-      }
 
     @GetMapping(value = "/establishment/favorites/{id}")
     public ResponseEntity<List<ResponseEstablishmentDTO>> getFavorites(@PathVariable

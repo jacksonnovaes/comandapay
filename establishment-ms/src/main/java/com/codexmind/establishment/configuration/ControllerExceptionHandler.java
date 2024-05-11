@@ -1,5 +1,6 @@
 package com.codexmind.establishment.configuration;
 
+import com.amazonaws.services.s3.model.AmazonS3Exception;
 import com.codexmind.establishment.exceptions.AuthorizationException;
 import com.codexmind.establishment.exceptions.DataIntegrityException;
 import com.codexmind.establishment.exceptions.EntityNotFoundException;
@@ -46,6 +47,13 @@ public class ControllerExceptionHandler {
     public ResponseEntity<StandardError> authorization(ObjectNotFoundException e, HttpServletRequest req) {
         StandardError err = new StandardError(HttpStatus.FORBIDDEN.value(), e.getMessage(), System.currentTimeMillis());
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(err);
+
+    }
+
+    @ExceptionHandler(AmazonS3Exception.class)
+    public ResponseEntity<StandardError> authorization(AmazonS3Exception e, HttpServletRequest req) {
+        StandardError err = new StandardError(HttpStatus.BAD_REQUEST.value(), e.getMessage(), System.currentTimeMillis());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
 
     }
 }

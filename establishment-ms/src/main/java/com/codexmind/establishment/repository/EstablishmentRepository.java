@@ -23,7 +23,7 @@ public interface EstablishmentRepository extends JpaRepository<Establishment, In
     @Query(value = """
             SELECT estab.id, estab.name, estab.cnpj, estab.address_id, estab.status,
             addr.name as logradouro, addr.complemento, addr.postal_code,estab.customer_id, estab.rate,
-             estab.file_name, estab.path, estab.is_favorite
+             estab.url_image, estab.is_favorite
             FROM tb_establishment estab
             INNER JOIN tb_address addr
             ON addr.id = estab.address_id
@@ -34,7 +34,7 @@ public interface EstablishmentRepository extends JpaRepository<Establishment, In
     @Query(value = """
             SELECT estab.id, estab.name, estab.cnpj, estab.address_id, estab.status,
             addr.name as logradouro, addr.complemento, addr.postal_code,estab.customer_id, estab.rate,
-             estab.file_name, estab.path, estab.is_favorite
+              estab.url_image, estab.is_favorite
             FROM tb_establishment estab
             INNER JOIN tb_address addr
             ON addr.id = estab.address_id
@@ -45,7 +45,7 @@ public interface EstablishmentRepository extends JpaRepository<Establishment, In
     @Query(value = """
             SELECT estab.id, estab.name, estab.cnpj,estab.rate, estab.address_id, estab.status,
             addr.name as logradouro, addr.complemento, addr.postal_code, estab.customer_id,
-            estab.file_name, estab.path, estab.is_favorite
+            estab.url_image, estab.is_favorite
             FROM tb_establishment estab
             INNER JOIN tb_address addr
             ON customer.id = estab.customer_id

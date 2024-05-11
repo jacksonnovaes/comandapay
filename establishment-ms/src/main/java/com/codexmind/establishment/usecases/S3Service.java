@@ -1,9 +1,8 @@
 package com.codexmind.establishment.usecases;
 
-import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
-import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.codexmind.establishment.exceptions.FileException;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -36,7 +34,7 @@ public class S3Service {
             String contentType = multipartFile.getContentType();
             return upload(stream, fileName, contentType);
         } catch (IOException e) {
-            throw new RuntimeException("ERRO de IO" + e.getMessage());
+            throw new FileException("ERRO de IO" + e.getMessage());
         }
 
 
@@ -52,7 +50,7 @@ public class S3Service {
 
             return amazonS3.getUrl(bucketName, fileName).toURI();
         } catch (URISyntaxException e) {
-            throw new RuntimeException("erro ao converter URL   ");
+            throw new FileException("erro ao converter URL");
         }
     }
 }

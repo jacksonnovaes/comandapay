@@ -28,8 +28,7 @@ public class EstablishmentConverter {
                     establishment.getCnpj(),
                     establishment.getRate(),
                     establishment.getIsFavorite(),
-                    establishment.getPath(),
-                    establishment.getFileName()
+                    establishment.getUrlImage()
             );
         }
 
@@ -42,8 +41,7 @@ public class EstablishmentConverter {
                     establishment.getCnpj(),
                     establishment.getRate(),
                     establishment.getIsFavorite(),
-                    establishment.getPath(),
-                    establishment.getFileName()
+                    establishment.getUrlImage()
 
             );
             establishmentDTOs.add(establishmentDTO);

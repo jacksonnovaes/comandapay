@@ -53,8 +53,6 @@ public class Establishment {
 
     private Float rate;
 
-    private String fileName;
-
-    private String path;
+    private String urlImage;
 
 }

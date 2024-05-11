@@ -11,9 +11,7 @@ public record ResponseEstablishmentDTO(
 
         Boolean isFavorite,
 
-        String path,
-
-        String filename
-)
+        String urlImage
+    )
 {
 }
