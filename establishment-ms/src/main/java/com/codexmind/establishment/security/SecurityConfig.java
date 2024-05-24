@@ -38,6 +38,7 @@ public class SecurityConfig {
             "/h2-console/**",
             "/api/v1/address/**",
             "/api/v1/product/**",
+            "/api/v1/product/menu/**",
             "/api/v1/payment/**",
             "/api/v1/signup/**",
             "api/v1/customer/signup/save"
@@ -46,13 +47,16 @@ public class SecurityConfig {
 
     private static final String[] ADMIN_ESTABLISHMENT_MATCHERS = {
             "/api/v1/customer/save/**",
+            "api/v1/employee/menu/list/**",
+            "/api/v1/employee/user/**",
+
     };
 
 
     private static final String[] EMPLOYEE_ESTABLISHMENT_MATCHERS = {
             "/api/v1/customer/save/**",
             "/api/v1/payment/**",
-
+            "/api/v1/employee/user/**",
 
     };
     private static final String[] CLIENT_MATCHERS = {
@@ -61,7 +65,11 @@ public class SecurityConfig {
             "/api/v1/payment/**",
             "/api/v1/establishment/**",
             "/api/v1/establishment/favorites/add/**",
-            "/api/v1/establishment/favorites/**"
+            "/api/v1/establishment/favorites/**",
+            "/api/v1/menu/list/**",
+            "/api/v1/order/countOrders/**",
+            "/api/v1/itemOrder/edit/**"
+
     };
 
 
@@ -110,7 +118,7 @@ public class SecurityConfig {
     @Bean
     CorsConfigurationSource apiConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://192.168.0.129:8080","http://192.168.0.129:8081", "http://localhost:8080","http://localhost:3000"));
+        configuration.setAllowedOrigins(Arrays.asList("http://192.168.0.129:8080","http://192.168.0.129:8081", "http://localhost:8080","http://localhost:3000","172.20.10.3"));
         configuration.setAllowedMethods(Arrays.asList("GET","POST","PUT, DELETE"));
         configuration.setAllowCredentials(false);
         configuration.addAllowedHeader("*");

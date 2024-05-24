@@ -1,27 +1,25 @@
 package com.codexmind.establishment.controller;
 
+import com.codexmind.establishment.domain.Menu;
+import com.codexmind.establishment.domain.Product;
+import com.codexmind.establishment.usecases.menu.*;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.codexmind.establishment.converters.MenuConverter;
 import com.codexmind.establishment.dto.MenuDTO;
-import com.codexmind.establishment.usecases.menu.DeleteMenu;
-import com.codexmind.establishment.usecases.menu.DetailMenu;
-import com.codexmind.establishment.usecases.menu.SaveMenu;
-import com.codexmind.establishment.usecases.menu.UpdateMenu;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
-
-@RequestMapping({"api/v1/admin/menu", "api/v1/employee/menu"})
+@CrossOrigin(origins = "*")
+@SecurityRequirement(name = "bearer-key")
+@RequestMapping({"api/v1/menu"})
 public class MenuController {
 
     private final SaveMenu saveMenu;
@@ -32,11 +30,14 @@ public class MenuController {
 
     private final DetailMenu detailMenu;
 
-    public MenuController(SaveMenu saveMenu, UpdateMenu updateMenu, DeleteMenu deleteMenu, DetailMenu detailMenu) {
+    private final ListMenuByEstablishment listMenuByEstablishment;
+
+    public MenuController(SaveMenu saveMenu, UpdateMenu updateMenu, DeleteMenu deleteMenu, DetailMenu detailMenu, ListMenuByEstablishment listMenuByEstablishment) {
         this.saveMenu = saveMenu;
         this.updateMenu = updateMenu;
         this.deleteMenu = deleteMenu;
         this.detailMenu = detailMenu;
+        this.listMenuByEstablishment = listMenuByEstablishment;
     }
 
 
@@ -68,5 +69,15 @@ public class MenuController {
     @GetMapping("/{id}")
     public ResponseEntity<MenuDTO> detailMenu(@PathVariable Integer id){
         return ResponseEntity.ok().body(MenuConverter.toDTO(detailMenu.execute(id)));
+    }
+
+    @GetMapping("/list/{id}")
+    public ResponseEntity<List<MenuDTO>> getListMenu(@PathVariable Integer id){
+        List<Menu> menus = listMenuByEstablishment.execute(id);
+        List<MenuDTO> menuDTOs = menus.stream()
+                .map(MenuConverter::toDTO)
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok().body(menuDTOs);
     }
 }

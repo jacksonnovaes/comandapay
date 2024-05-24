@@ -29,11 +29,4 @@ public class Product {
     @JoinColumn(name = "menu_id")
     private Menu menu;
 
-    @JsonBackReference
-    @ManyToMany(mappedBy = "products", targetEntity = Order.class, fetch = FetchType.EAGER)
-    private List<Order> orders;
-
-
-
-
 }

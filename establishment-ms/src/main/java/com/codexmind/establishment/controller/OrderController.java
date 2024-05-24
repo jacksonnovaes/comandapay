@@ -1,25 +1,25 @@
 package com.codexmind.establishment.controller;
 
-import java.net.URI;
-
 import com.codexmind.establishment.converters.OrderResponseConverter;
-import com.codexmind.establishment.converters.ProductConverter;
+import com.codexmind.establishment.domain.ItemOrder;
+import com.codexmind.establishment.domain.Order;
+import com.codexmind.establishment.dto.ItemOrderRequestDTO;
+import com.codexmind.establishment.dto.OrderDTO;
 import com.codexmind.establishment.dto.OrderResponseDTO;
-import com.codexmind.establishment.dto.ProductDTO;
+import com.codexmind.establishment.usecases.ItemOrder.GetItemOrder;
+import com.codexmind.establishment.usecases.order.AddItemOrder;
+import com.codexmind.establishment.usecases.order.CountOrders;
 import com.codexmind.establishment.usecases.order.GetAllOrdersByUser;
+import com.codexmind.establishment.usecases.order.SaveOrder;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.codexmind.establishment.domain.Order;
-import com.codexmind.establishment.dto.OrderDTO;
-import com.codexmind.establishment.repository.OrderRepository;
-import com.codexmind.establishment.usecases.order.AddItemOrder;
-import com.codexmind.establishment.usecases.order.SaveOrder;
-
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-import jakarta.validation.Valid;
+import java.net.URI;
+import java.util.List;
+import java.util.Map;
 
 
 @RestController
@@ -34,32 +34,37 @@ public class OrderController {
 
     private final AddItemOrder addItemOrder;
 
-    public OrderController(SaveOrder saveOrder, GetAllOrdersByUser getAllOrdersByUser, AddItemOrder addItemOrder) {
+    private final CountOrders countOrders;
+
+    private final GetItemOrder getItemOrder;
+
+    public OrderController(SaveOrder saveOrder, GetAllOrdersByUser getAllOrdersByUser, AddItemOrder addItemOrder, CountOrders countOrders, GetItemOrder getItemOrder) {
         this.saveOrder = saveOrder;
         this.getAllOrdersByUser = getAllOrdersByUser;
         this.addItemOrder = addItemOrder;
+        this.countOrders = countOrders;
+        this.getItemOrder = getItemOrder;
     }
 
-    @PostMapping("/open")
-    public ResponseEntity<OrderDTO> insert(@Valid @RequestBody OrderDTO orderDTO){
-        var obj = saveOrder.execute(orderDTO);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("{/id}").buildAndExpand(obj.getId()).toUri();
-        return ResponseEntity.created(uri).build();
+    @PostMapping("/open/{id}")
+    public ResponseEntity<OrderResponseDTO> insert(@PathVariable Integer id){
+        var obj = saveOrder.execute(id);
+
+        return ResponseEntity.ok(OrderResponseConverter.toDTO(obj));
     }
     @PostMapping("/admin/open")
-    public ResponseEntity<OrderDTO> openByEstab(@Valid @RequestBody OrderDTO orderDTO){
-        var obj = saveOrder.execute(orderDTO);
+    public ResponseEntity<Integer> openByEstab(@PathVariable Integer idEstablishment){
+        var obj = saveOrder.execute(idEstablishment);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("{/id}").buildAndExpand(obj.getId()).toUri();
         return ResponseEntity.created(uri).build();
     }
 
 
-    @PutMapping("/{orderId}/add/")
-    public ResponseEntity<Order> addItem(@PathVariable Integer orderId, @RequestBody Integer idProduct) {
+    @PutMapping("/{id}/add/")
+    public ResponseEntity<Order> addItem(@PathVariable Integer id, @RequestBody List<ItemOrderRequestDTO> itemOrders) {
 
-        var orderUpdated = addItemOrder.execute(orderId, idProduct);
+        var orderUpdated = addItemOrder.execute(id, itemOrders);
 
         return ResponseEntity.ok((orderUpdated));
     }
@@ -78,6 +83,18 @@ public class OrderController {
                 direction
         ).map(OrderResponseConverter::toDTO);
         return ResponseEntity.ok(list);
+    }
 
+
+    @GetMapping("/countOrders/{id}")
+    public int getCountOrders(@PathVariable Integer id){
+        return countOrders.execute(id);
+    }
+
+    @GetMapping("/items/{id}")
+    public ResponseEntity<List<Map<String, ItemOrder>>> getItens(@PathVariable Integer id){
+        var items = getItemOrder.execute(id);
+        return ResponseEntity.ok(items);
     }
 }
+

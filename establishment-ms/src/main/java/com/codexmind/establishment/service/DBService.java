@@ -55,15 +55,36 @@ public class DBService {
                 .uf(addressDTO.uf())
                 .build();
 
+        var addressDTO2 = serviceClient.buscaEnderecoPorCep("02969070");
+        var address2 = Address.builder()
+                .name(addressDTO.logradouro())
+                .number("307")
+                .complemento("")
+                .bairro(addressDTO.bairro())
+                .city(addressDTO.localidade())
+                .postalCode(addressDTO.cep())
+                .uf(addressDTO.uf())
+                .build();
+
         var menu = Menu.builder()
-                .name("Bebidas")
+                .name("Cervejas")
+                .status(Status.ACTIVE)
+                .build();
+
+        var menu2 = Menu.builder()
+                .name("Drinks")
+                .status(Status.ACTIVE)
+                .build();
+
+        var menu3 = Menu.builder()
+                .name("Alimenticios")
                 .status(Status.ACTIVE)
                 .build();
 
         var product = Product.builder()
                 .name("cocal cola")
                 .price(new BigDecimal("15.00"))
-                .menu(menu)
+                .menu(menu2)
                 .build();
         var product2 = Product.builder()
                 .name("skol 200 ml")
@@ -71,22 +92,71 @@ public class DBService {
                 .menu(menu)
                 .build();
 
+
+        var product4 = Product.builder()
+                .name("Fanta")
+                .price(new BigDecimal("15.00"))
+                .menu(menu2)
+                .build();
         var product3 = Product.builder()
                 .name("Porcao ")
                 .price(new BigDecimal("45.00"))
                 .menu(menu)
                 .build();
+
+        var product6 = Product.builder()
+                .name("Porcao ")
+                .price(new BigDecimal("45.00"))
+                .menu(menu)
+                .build();
+        var product5 = Product.builder()
+                .name("Porcao ")
+                .price(new BigDecimal("45.00"))
+                .menu(menu)
+                .build();
+
+        var product7 = Product.builder()
+                .name("Fanta")
+                .price(new BigDecimal("15.00"))
+                .menu(menu2)
+                .build();
+
+        var product8 = Product.builder()
+                .name("Fanta")
+                .price(new BigDecimal("15.00"))
+                .menu(menu2)
+                .build();
+
+        var product9 = Product.builder()
+                .name("Fanta")
+                .price(new BigDecimal("15.00"))
+                .menu(menu2)
+                .build();
         menu.setProducts(Arrays.asList(product, product2));
+        menu2.setProducts(Arrays.asList(product));
+        menu3.setProducts(Arrays.asList(product3));
         var establishment = Establishment.builder()
                 .name("bar II")
-                .cnpj("0862537263200001-43")
+                .cnpj("0862537263200001-42")
                 .menus(Arrays.asList(menu))
                 .status(Status.ACTIVE)
                 .rate(5F)
                 .isFavorite(Boolean.FALSE)
                 .address(address)
                 .build();
+
+        var establishment2 = Establishment.builder()
+                .name("bar II")
+                .cnpj("0862537263200001-43")
+                .menus(Arrays.asList(menu))
+                .status(Status.ACTIVE)
+                .rate(5F)
+                .isFavorite(Boolean.FALSE)
+                .address(address2)
+                .build();
         menu.setEstablishment(establishment);
+        menu2.setEstablishment(establishment);
+        menu3.setEstablishment(establishment);
         var employee = Employee.builder()
                 .name("jackson")
                 .lastName("Bispo")
@@ -127,10 +197,10 @@ public class DBService {
         employee.setAddressList(Arrays.asList(address));
         employee.setProfiles(Set.of(Profile.CLIENT.getCod()));
         userRepository.saveAll(Arrays.asList(userEmployee, userCustomer));
-        menuRepository.saveAll(Arrays.asList(menu));
-        productRepository.saveAll(Arrays.asList(product,product2, product3));
+        menuRepository.saveAll(Arrays.asList(menu,menu2, menu3));
+        productRepository.saveAll(Arrays.asList(product,product2, product3, product4,product5, product6, product7, product8, product9));
         employeeRepository.saveAll(Arrays.asList(employee));
-        establishmentRepository.saveAll(Arrays.asList(establishment));
+        establishmentRepository.saveAll(Arrays.asList(establishment, establishment2));
         customerRepository.saveAll(Arrays.asList(customer));
     }
 }

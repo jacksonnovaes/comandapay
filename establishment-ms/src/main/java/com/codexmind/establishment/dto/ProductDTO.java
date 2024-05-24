@@ -2,6 +2,8 @@ package com.codexmind.establishment.dto;
 
 import lombok.*;
 
+import java.math.BigDecimal;
+
 @Builder(toBuilder = true)
 @Setter
 @Getter
@@ -13,5 +15,9 @@ public class ProductDTO {
 
     private String name;
 
+    private BigDecimal price;
+
     private Integer menu;
+
+    private String menuName;
 }

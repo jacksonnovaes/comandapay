@@ -14,7 +14,7 @@ public class PaymentWithPix extends Payment {
 
     private Date instateConfirmation;
 
-    public PaymentWithPix(Integer id, Integer paymentStatus, Order order, Date instateConfirmation) {
+    public PaymentWithPix(Integer id, String paymentStatus, Order order, Date instateConfirmation) {
         super(id, paymentStatus, order);
         this.instateConfirmation = instateConfirmation;
     }

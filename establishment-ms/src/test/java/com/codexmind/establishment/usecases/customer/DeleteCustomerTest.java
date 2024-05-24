@@ -2,17 +2,20 @@ package com.codexmind.establishment.usecases.customer;
 
 import com.codexmind.establishment.domain.enums.Status;
 import com.codexmind.establishment.dto.CustomerDTO;
+import com.codexmind.establishment.dto.ItemOrderResponseDTO;
 import com.codexmind.establishment.repository.CustomerRepository;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Profile;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
+@Profile("test")
 public class DeleteCustomerTest {
 
 
@@ -38,7 +41,7 @@ public class DeleteCustomerTest {
                 .celPhone("991556628")
                 .build();
 
-        var id = 1L;
+        var id = 1;
         when(detailCustomer.execute(id)).thenReturn(customerDTO);
 
         boolean result  = deleteCustomer.execute(id);
@@ -51,7 +54,7 @@ public class DeleteCustomerTest {
 
     @Test
     void testExecuteWhenCustomerIsNull() {
-        Long customerId = 1L;
+        Integer customerId = 1;
 
         when(detailCustomer.execute(customerId)).thenReturn(null);
 
@@ -63,7 +66,7 @@ public class DeleteCustomerTest {
 
     @Test
     void testExecuteWhenCustomerIsInactive() {
-        Long customerId = 1L;
+        Integer customerId = 1;
         var customerDTO = CustomerDTO.builder()
                 .name("jackson")
                 .lastName("Bispo")

@@ -6,8 +6,9 @@ import com.codexmind.establishment.dto.MenuDTO;
 public class MenuConverter {
     public static MenuDTO toDTO(Menu menu) {
         return MenuDTO.builder()
+                .id(menu.getId())
                 .name(menu.getName())
-                .establishment(menu.getId())
+                .establishment(menu.getEstablishment().getId())
                 .build();
     }
 }

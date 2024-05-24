@@ -44,13 +44,16 @@ public class ProductController {
 
     private final GetProductsByOrder getProductsByOrder;
 
-    public ProductController(SaveProduct saveProduct, UpdateProduct updateProduct, DeleteProduct deleteProduct, DetailProduct detailProduct, GetAllProducts getAllProducts, GetProductsByOrder getProductsByOrder) {
+    private final GetProductsByMenu getProductsByMenu;
+
+    public ProductController(SaveProduct saveProduct, UpdateProduct updateProduct, DeleteProduct deleteProduct, DetailProduct detailProduct, GetAllProducts getAllProducts, GetProductsByOrder getProductsByOrder, GetProductsByMenu getProductsByMenu) {
         this.saveProduct = saveProduct;
         this.updateProduct = updateProduct;
         this.deleteProduct = deleteProduct;
         this.detailProduct = detailProduct;
         this.getAllProducts = getAllProducts;
         this.getProductsByOrder = getProductsByOrder;
+        this.getProductsByMenu = getProductsByMenu;
     }
 
 
@@ -105,6 +108,9 @@ public class ProductController {
                 direction
         ).map(ProductConverter::toDTO);
         return ResponseEntity.ok(list);
-
+    }
+    @GetMapping(value = "/menu/{id}/list")
+    public ResponseEntity<Set<ProductDTO>> getALlProductsByMenu(@PathVariable Integer id){
+        return ResponseEntity.ok().body(ProductConverter.toDTOSet(getProductsByMenu.execute(id)));
     }
 }

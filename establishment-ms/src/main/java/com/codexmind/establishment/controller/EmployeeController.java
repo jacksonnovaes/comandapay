@@ -1,28 +1,24 @@
 package com.codexmind.establishment.controller;
 
+import com.codexmind.establishment.converters.EstablishmentConverter;
+import com.codexmind.establishment.dto.EstablishmentDTO;
+import com.codexmind.establishment.usecases.employee.*;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.codexmind.establishment.converters.EmployeeConverter;
 import com.codexmind.establishment.dto.EmployeeDTO;
 import com.codexmind.establishment.dto.saveUpdate.SaveEmployeeDTO;
 import com.codexmind.establishment.dto.saveUpdate.UpdateEmployeeDTO;
-import com.codexmind.establishment.usecases.employee.DeleteEmployee;
-import com.codexmind.establishment.usecases.employee.DetailEmployee;
-import com.codexmind.establishment.usecases.employee.SaveEmployee;
-import com.codexmind.establishment.usecases.employee.UpdateEmployee;
 
 @RestController
 @RequestMapping("api/v1/employee/")
+@CrossOrigin(origins = "*")
+@SecurityRequirement(name = "bearer-key")
 public class EmployeeController {
 
     private final SaveEmployee saveEmployee;
@@ -30,11 +26,18 @@ public class EmployeeController {
     private final DetailEmployee detailEmployee;
     private final DeleteEmployee deleteEmployee;
 
-    public EmployeeController(SaveEmployee saveEmployee, UpdateEmployee updateEmployee, DetailEmployee detailEmployee, DeleteEmployee deleteEmployee) {
+    private final SaveImageEmployee saveImageEmployee;
+
+    private final GetImageEmployee getImageEmployee;
+
+    public EmployeeController(SaveEmployee saveEmployee, UpdateEmployee updateEmployee, DetailEmployee detailEmployee, DeleteEmployee deleteEmployee, SaveImageEmployee saveImageEmployee, GetImageEmployee getImageEmployee) {
         this.saveEmployee = saveEmployee;
         this.updateEmployee = updateEmployee;
         this.detailEmployee = detailEmployee;
         this.deleteEmployee = deleteEmployee;
+
+        this.saveImageEmployee = saveImageEmployee;
+        this.getImageEmployee = getImageEmployee;
     }
 
     @PostMapping("/save")
@@ -54,16 +57,29 @@ public class EmployeeController {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<EmployeeDTO> getEstablishment(@PathVariable
+    public ResponseEntity<EmployeeDTO> getEmployee(@PathVariable
                                                             Integer id){
         var employee = detailEmployee.execute(id);
         return  ResponseEntity.ok().body(EmployeeConverter.toDTO(employee));
     }
-
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deleteEstablishment(@PathVariable Integer id){
         deleteEmployee.execute(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PutMapping("/image/{id}")
+    public ResponseEntity<Void> updateImage(@RequestParam("file") MultipartFile file,
+                                                   @PathVariable Integer id){
+        var uri = saveImageEmployee.execute(file, id);
+        return ResponseEntity.created(uri).build();
+
+    }
+
+    @GetMapping("/user/{id}")
+    public ResponseEntity<EmployeeDTO> getUserEmployeeById(@PathVariable Integer id){
+        var employee = getImageEmployee.execute(id).get();
+        return ResponseEntity.ok().body(EmployeeConverter.toDTOResponse(employee));
     }
 
 }

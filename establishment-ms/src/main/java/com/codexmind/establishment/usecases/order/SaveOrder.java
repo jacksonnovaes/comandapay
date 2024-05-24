@@ -1,18 +1,20 @@
 package com.codexmind.establishment.usecases.order;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
+import com.codexmind.establishment.domain.*;
 import com.codexmind.establishment.domain.enums.Profile;
+import com.codexmind.establishment.domain.enums.StatusComanda;
+import com.codexmind.establishment.exceptions.EntityNotFoundException;
 import com.codexmind.establishment.repository.*;
 import com.codexmind.establishment.service.UserService;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.stereotype.Service;
 
-import com.codexmind.establishment.domain.Address;
-import com.codexmind.establishment.domain.Order;
-import com.codexmind.establishment.domain.PaymentWithCreditCard;
 import com.codexmind.establishment.domain.enums.PaymentStatus;
 import com.codexmind.establishment.dto.OrderDTO;
 
@@ -31,37 +33,30 @@ public class SaveOrder {
     private final OrderRepository orderRepository;
 
 
+    private final  EstablishmentRepository establishmentRepository;
+
     private final ProductRepository productRepository;
 
-    public Order execute(OrderDTO orderDTO){
+    public Order execute(Integer idEstablishment){
         var userSS = UserService.authenticated();
+        assert userSS != null;
+        Order order = null;
+        var orderFinded = orderRepository.getOpenedCommandByUserAndEstablishment(userSS.getId(), idEstablishment);
+        Customer customer = customerRepository.findById(userSS.getId())
+                .orElseThrow(() -> new EntityNotFoundException("usuario nao e do tipo cliente"));
+        Establishment establishment = establishmentRepository.findById(idEstablishment)
+                .orElseGet(() -> Establishment.builder().id(idEstablishment).build());
+        if(orderFinded == null){
+            order = new Order();
 
-        var order = new Order();
-        order.setId(null);
-        order.setAddress(Address.builder().id(orderDTO.getAddressId()).build());
-        order.setInstant(LocalDateTime.now());
-        if(userSS.hasRole(Profile.CLIENT)){
-            order.setCustomer(customerRepository.findById(userSS.getId()).get());
-        }else if (userSS.hasRole(Profile.ADMIN) || userSS.hasRole(Profile.EMPLOYEE)){
-            order.setEmployee(employeeRepository.findById(userSS.getId()).get());
-            order.setCustomer(customerRepository.findById(orderDTO.getCustomerId()).get());
+            order.setCustomer(customer);
+            order.setEstablishment(establishment);
+            order.setOpenInstant(LocalDateTime.now());
+            order.setStatus(StatusComanda.OPENED);
+
+            return orderRepository.save(order);
+        }else{
+          return orderFinded;
         }
-
-        order.setPayment(new PaymentWithCreditCard(null, PaymentStatus.PENDING.getCod(), order, 1));
-        order.getPayment().setPaymentStatus(PaymentStatus.PENDING);
-        order.getPayment().setOrder(order);
-
-        paymentRepository.save(order.getPayment());
-
-        var products = orderDTO.getProductIds().stream()
-        .map(productRepository::findById)
-        .filter(Optional::isPresent)
-        .map(Optional::get)
-        .collect(Collectors.toList());
-        order.getProducts().addAll(products);
-        order.setEstablishment(products.getFirst().getMenu().getEstablishment());
-        orderRepository.save(order);
-        productRepository.saveAll(products);
-        return order;
     }
 }

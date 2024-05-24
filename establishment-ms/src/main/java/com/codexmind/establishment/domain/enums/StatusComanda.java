@@ -1,26 +1,21 @@
 package com.codexmind.establishment.domain.enums;
 
-
 import java.util.Arrays;
 
-public enum PaymentStatus {
+public enum StatusComanda {
+    CLOSED("CLOSED"),
+    OPENED("OPENED");
 
-    PENDING("pendente"),
-    PAID("pago"),
-    CANCELED("cancelado");
+    private final String value;
 
-    private String value;
 
-     PaymentStatus(String value) {
-
+    StatusComanda(String value) {
         this.value = value;
     }
-
 
     public String getValue() {
         return value;
     }
-
 
     public static Status fromValue(String statusValue) {
 

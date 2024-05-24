@@ -46,11 +46,12 @@ public class Employee extends Person {
             Status status,
             Establishment establishment,
             User user,
+            String urlImage,
             Set<Integer> profiles,
             LocalDate admissionDate,
             List<Address> addressList,
             Cargo cargo) {
-        super(id, name, lastName, cpf, phone, celPhone, status, user, profiles);
+        super(id, name, lastName, cpf, phone, celPhone, status, user, urlImage, profiles);
         this.addressList = addressList;
         this.establishment = establishment;
         this.cargo = cargo;

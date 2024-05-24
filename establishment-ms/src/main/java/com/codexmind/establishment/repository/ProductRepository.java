@@ -32,4 +32,19 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
       where io.id=?1
 """, nativeQuery = true)
  Set<Product> getAllProductsByIdOrder(Integer id);
+
+ @Query(value = """
+         select prod.id as produto_id, prod.name, prod.price, prod.menu_id,
+         menu.name as menu
+         from tb_product prod
+         left join tb_menu menu
+         on prod.menu_id = menu.id
+         inner join tb_establishment
+         estab on estab.id = menu.establishment_id
+         where estab.id = ?1
+         """, nativeQuery = true)
+ Set<Product> getProductdsByMenuandEstablishmente(Integer id);
+
+
+
 }

@@ -1,5 +1,8 @@
 package com.codexmind.establishment.controller;
 
+import com.codexmind.establishment.converters.EmployeeConverter;
+import com.codexmind.establishment.dto.EmployeeDTO;
+import com.codexmind.establishment.usecases.customer.*;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.codexmind.establishment.converters.CustomerConverter;
@@ -20,11 +24,6 @@ import com.codexmind.establishment.dto.CustomerDTO;
 import com.codexmind.establishment.dto.PersonDTO;
 import com.codexmind.establishment.dto.saveUpdate.SaveCustomerDTO;
 import com.codexmind.establishment.dto.saveUpdate.UpdateCustomerDTO;
-import com.codexmind.establishment.usecases.customer.DeleteCustomer;
-import com.codexmind.establishment.usecases.customer.DetailCustomer;
-import com.codexmind.establishment.usecases.customer.GetAllCustomers;
-import com.codexmind.establishment.usecases.customer.SaveCustomer;
-import com.codexmind.establishment.usecases.customer.UpdateCustomer;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
@@ -44,12 +43,18 @@ public class CustomerResource {
 
     private final DeleteCustomer deleteCustomer;
 
-    public CustomerResource(SaveCustomer saveCustomer, UpdateCustomer updateCustomer, GetAllCustomers getAllCustomers, DetailCustomer detailCustomer, DeleteCustomer deleteCustomer) {
+    private  final GetImageCustomer getImageCustomer;
+
+    private  final  SaveImageCusomer saveImageCusomer;
+
+    public CustomerResource(SaveCustomer saveCustomer, UpdateCustomer updateCustomer, GetAllCustomers getAllCustomers, DetailCustomer detailCustomer, DeleteCustomer deleteCustomer, GetImageCustomer getImageCustomer, SaveImageCusomer saveImageCusomer) {
         this.saveCustomer = saveCustomer;
         this.updateCustomer = updateCustomer;
         this.getAllCustomers = getAllCustomers;
         this.detailCustomer = detailCustomer;
         this.deleteCustomer = deleteCustomer;
+        this.getImageCustomer = getImageCustomer;
+        this.saveImageCusomer = saveImageCusomer;
     }
 
 
@@ -107,5 +112,19 @@ public class CustomerResource {
         var customer =updateCustomer.execute(updateCustomerDTO);
         var uri = uriBuilder.path("/customer/update/{id}").buildAndExpand(customer.getId()).toUri();
         return ResponseEntity.created(uri).body(CustomerConverter.toUpdateDTO(customer));
+    }
+
+    @PutMapping("/image/{id}")
+    public ResponseEntity<Void> updateImage(@RequestParam("file") MultipartFile file,
+                                            @PathVariable Integer id){
+        var uri = saveImageCusomer.execute(file, id);
+        return ResponseEntity.created(uri).build();
+
+    }
+
+    @GetMapping("/user/{id}")
+    public ResponseEntity<CustomerDTO> getUserEmployeeById(@PathVariable Integer id){
+        var customer = getImageCustomer.execute(id).get();
+        return ResponseEntity.ok().body(CustomerConverter.toResponseDTO(customer));
     }
 }

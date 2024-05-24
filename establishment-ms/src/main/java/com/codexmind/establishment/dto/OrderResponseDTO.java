@@ -1,10 +1,9 @@
 package com.codexmind.establishment.dto;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Set;
+import java.util.List;
 
-import com.codexmind.establishment.domain.Customer;
+import com.codexmind.establishment.domain.enums.StatusComanda;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,16 +14,17 @@ import lombok.Setter;
 @Builder(toBuilder = true)
 public class OrderResponseDTO {
 
-             private Integer id;
+    private Integer id;
 
-             private String employee;
+    private String customer;
 
-             private String customer;
+    private String establishment;
 
-             private Set<ProductDTO> productIds;
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+    private LocalDateTime instant;
 
-             private String establishment;
-                @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
-             private LocalDateTime instant;
+    private StatusComanda statusComanda;
+
+
 
 }

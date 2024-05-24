@@ -25,18 +25,12 @@ public abstract class Payment {
     @Id
     private Integer paymentId;
 
-    private Integer paymentStatus;
+    private String paymentStatus;
     @JsonIgnore
     @OneToOne
     @JoinColumn(name = "id_order")
     @MapsId
     private Order order;
 
-    public PaymentStatus getPaymentStatus() {
-        return PaymentStatus.toEnum(paymentStatus);
-    }
 
-    public void setPaymentStatus(PaymentStatus paymentStatus) {
-        this.paymentStatus = paymentStatus.getCod();
-    }
 }

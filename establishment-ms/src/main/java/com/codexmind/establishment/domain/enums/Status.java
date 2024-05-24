@@ -4,10 +4,10 @@ import java.util.Arrays;
 
 public enum Status {
     
-    ACTIVE("ATIVO"),
-    INACTIVE("INATIVO");
+    INACTIVE("INATIVO"),
+    ACTIVE("ATIVO");
 
-    private final String value;
+    public final String value;
     Status(String value) {
         this.value = value;
     }

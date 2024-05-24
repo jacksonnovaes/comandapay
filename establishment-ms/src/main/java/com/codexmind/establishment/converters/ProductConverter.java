@@ -9,8 +9,11 @@ import java.util.Set;
 public class ProductConverter {
     public static ProductDTO toDTO(Product product) {
         return ProductDTO.builder()
+                .id(product.getId())
                 .name(product.getName())
                 .menu(product.getMenu().getId())
+                .price(product.getPrice())
+                .menuName(product.getMenu().getName())
                 .build();
     }
 

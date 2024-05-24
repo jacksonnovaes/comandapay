@@ -44,13 +44,11 @@ public interface EstablishmentRepository extends JpaRepository<Establishment, In
 
     @Query(value = """
             SELECT estab.id, estab.name, estab.cnpj,estab.rate, estab.address_id, estab.status,
-            addr.name as logradouro, addr.complemento, addr.postal_code, estab.customer_id,
+            estab.customer_id,
             estab.url_image, estab.is_favorite
             FROM tb_establishment estab
-            INNER JOIN tb_address addr
-            ON customer.id = estab.customer_id
             INNER JOIN tb_person customer
-            ON addr.id = estab.address_id
+            ON customer.id = estab.customer_id
             WHERE customer.id = ?1 AND estab.status = ?2
             """, nativeQuery = true)
     List<Establishment> findFavorites(Integer customerId, Status status);

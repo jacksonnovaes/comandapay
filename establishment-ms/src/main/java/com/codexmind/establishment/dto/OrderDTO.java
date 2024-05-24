@@ -9,11 +9,5 @@ import lombok.Setter;
 @Getter
 public class OrderDTO {
 
-             private Integer orderId;
-             private Integer addressId;
-
-             private Integer customerId;
-
-             private Set<Integer> productIds;
-
+             private Integer id;
 }

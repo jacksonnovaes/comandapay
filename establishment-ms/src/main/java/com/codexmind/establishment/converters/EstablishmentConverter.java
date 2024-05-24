@@ -42,7 +42,6 @@ public class EstablishmentConverter {
                     establishment.getRate(),
                     establishment.getIsFavorite(),
                     establishment.getUrlImage()
-
             );
             establishmentDTOs.add(establishmentDTO);
         }

@@ -2,7 +2,6 @@ package com.codexmind.establishment.domain;
 
 import com.codexmind.establishment.domain.enums.Profile;
 import com.codexmind.establishment.domain.enums.Status;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -32,7 +31,7 @@ public class Person {
     private String cpf;
     private String phone;
     private String celPhone;
-    @Enumerated(EnumType.STRING)
+
     private Status status;
 
     @JsonIgnore
@@ -40,7 +39,7 @@ public class Person {
     @JoinColumn(name = "USER_ID")
     private User user;
 
-
+    private String urlImage;
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name="profiles")
     private Set<Integer> profiles = new HashSet<>();

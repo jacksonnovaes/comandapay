@@ -55,4 +55,7 @@ public class Establishment {
 
     private String urlImage;
 
+    public int getAllOrderCount(){
+        return orders.size();
+    }
 }

@@ -16,6 +16,7 @@ public abstract class PersonDTO {
     private String phone;
     private String celPhone;
     private Status status;
+    private String urlImage;
     private List<AddressDTO> addressList;
 
 

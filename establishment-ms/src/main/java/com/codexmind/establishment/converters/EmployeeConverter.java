@@ -52,6 +52,17 @@ public class EmployeeConverter {
                 .cargoDTO(CargoDtoConverter.toDTO(person.getCargo()))
                 .build();
     }
+    public static EmployeeDTO toDTOResponse(Employee person) {
+        return EmployeeDTO.employeeDTOBuilder()
+                .name(person.getName())
+                .lastName(person.getLastName())
+                .cpf(person.getCpf())
+                .phone(person.getPhone())
+                .celPhone(person.getCelPhone())
+                .admissionDate(person.getAdmissionDate())
+                .urlImage(person.getUrlImage())
+                .build();
+    }
 
     public static UpdateEmployeeDTO toUpdateDTO(Employee employee) {
         return UpdateEmployeeDTO.builder()

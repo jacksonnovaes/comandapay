@@ -9,6 +9,8 @@ import lombok.*;
 @NoArgsConstructor
 public class MenuDTO {
 
+    private Integer id;
+
     private String name;
 
     public Integer establishment;
