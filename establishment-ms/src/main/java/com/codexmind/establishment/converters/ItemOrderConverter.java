@@ -56,6 +56,9 @@ public class ItemOrderConverter {
     }
 
     public  static ItemOrderResponseDTO toDTO(ItemOrder itemOrder){
+        if(itemOrder==null){
+            return null;
+        }
         return new ItemOrderResponseDTO(
                 itemOrder.getId(),
                 itemOrder.getProduct().getName(),

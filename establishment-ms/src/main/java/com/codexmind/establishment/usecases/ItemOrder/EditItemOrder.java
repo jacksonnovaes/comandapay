@@ -19,9 +19,15 @@ public class EditItemOrder {
     public ItemOrder execute(Integer itemOrderId, int intQuantity){
         var itemOrderFinded = itemOrderRepository.findById(itemOrderId)
                 .orElseThrow(()-> new EntityNotFoundException("Item nao encontrado"));
+        if(intQuantity==0) {
+            itemOrderFinded.setOrder(null);
+            itemOrderRepository.delete(itemOrderFinded);
+            return null;
+        }
         itemOrderFinded.setId(itemOrderId);
         itemOrderFinded.setQuantity(intQuantity);
         itemOrderFinded.setTotalAmount(itemOrderFinded.getUnitPrice().multiply(BigDecimal.valueOf(intQuantity)));
+
         return itemOrderRepository.save(itemOrderFinded);
     }
 }
