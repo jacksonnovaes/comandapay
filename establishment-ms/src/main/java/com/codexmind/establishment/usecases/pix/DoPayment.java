@@ -3,7 +3,9 @@ package com.codexmind.establishment.usecases.pix;
 import java.util.HashMap;
 
 
+import com.codexmind.establishment.domain.PixTransaction;
 import com.codexmind.establishment.dto.AuthorizationDTO;
+import com.codexmind.establishment.repository.PixTransactionRepository;
 import com.codexmind.establishment.service.EfiPayAuth;
 import com.codexmind.establishment.service.EfiPixCob;
 import org.json.JSONArray;
@@ -23,21 +25,32 @@ import lombok.RequiredArgsConstructor;
 public class DoPayment {
 
 
-  private final Credentials credentials;
-
-  private final EfiPayAuth efiPayAuth;
 
   private final EfiPixCob efiPixCob;
 
-    public DoPayment(Credentials credentials, EfiPayAuth efiPayAuth, EfiPixCob efiPixCob) {
-        this.credentials = credentials;
-        this.efiPayAuth = efiPayAuth;
+  private final PixTransactionRepository pixTransactionRepository;
+
+    public DoPayment(EfiPixCob efiPixCob, PixTransactionRepository pixTransactionRepository) {
+
         this.efiPixCob = efiPixCob;
+        this.pixTransactionRepository = pixTransactionRepository;
     }
 
 
     public PixTransactionDTO execute(TransactionDTO transactionDTO) {
+        transactionDTO.setChave("9392925e-0257-417a-a180-506379529a2f");
         var pixTransactionDTO = efiPixCob.duePixCobv(transactionDTO);
+        PixTransaction pixTransaction = new PixTransaction();
+        pixTransaction.setExpiracao(pixTransactionDTO.calendario().expiracao());
+        pixTransaction.setTxid(pixTransactionDTO.txid());
+        pixTransaction.setRevisao(pixTransactionDTO.revisao());
+        pixTransaction.setStatus(pixTransactionDTO.status());
+        pixTransaction.setValor(pixTransactionDTO.valor().original());
+        pixTransaction.setChave(pixTransaction.getChave());
+        pixTransaction.setDevedor(pixTransactionDTO.devedor().nome());
+        pixTransaction.setSolicitacaoPagador(pixTransactionDTO.solicitacaoPagador());
+        pixTransaction.setLocation(pixTransactionDTO.location());
+        pixTransaction.setPixCopiaECola(pixTransactionDTO.pixCopiaECola());
         return pixTransactionDTO;
   }
 

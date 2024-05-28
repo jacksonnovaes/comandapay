@@ -1,10 +1,16 @@
 package com.codexmind.establishment.converters;
 
 import com.codexmind.establishment.domain.ItemOrder;
+import com.codexmind.establishment.domain.enums.PaymentStatus;
+import com.codexmind.establishment.domain.enums.StatusComanda;
 import com.codexmind.establishment.dto.ItemOrderRequestDTO;
 import com.codexmind.establishment.dto.ItemOrderResponseDTO;
+import org.joda.time.LocalDateTime;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -13,9 +19,8 @@ public class ItemOrderConverter {
         return itemOrderList.stream()
                 .map(itemOrder -> new ItemOrderResponseDTO(
                         itemOrder.getId(),
-                        itemOrder.getProduct().getName(),
+                        itemOrder.getProductName(),
                         itemOrder.getPrice(),
-                        itemOrder.getProduct().getMenu().getId(),
                         itemOrder.getProduct().getId(),
                         itemOrder.getOrder().getId(),
                         itemOrder.getCustomerId(),
@@ -32,13 +37,14 @@ public class ItemOrderConverter {
                 .collect(Collectors.toSet());
     }
 
+
+
     public static List<ItemOrderResponseDTO> toDTOSets(List<ItemOrder> itemOrderList) {
         return itemOrderList.stream()
                 .map(itemOrder -> new ItemOrderResponseDTO(
                         itemOrder.getId(),
-                        itemOrder.getProduct().getName(),
+                        itemOrder.getProductName(),
                         itemOrder.getPrice(),
-                        itemOrder.getProduct().getMenu().getId(),
                         itemOrder.getProduct().getId(),
                         itemOrder.getOrder().getId(),
                         itemOrder.getCustomerId(),
@@ -61,9 +67,8 @@ public class ItemOrderConverter {
         }
         return new ItemOrderResponseDTO(
                 itemOrder.getId(),
-                itemOrder.getProduct().getName(),
+                itemOrder.getProductName(),
                 itemOrder.getPrice(),
-                itemOrder.getProduct().getMenu().getId(),
                 itemOrder.getProduct().getId(),
                 itemOrder.getOrder().getId(),
                 itemOrder.getCustomerId(),
@@ -79,4 +84,6 @@ public class ItemOrderConverter {
         );
     }
 
+
 }
+

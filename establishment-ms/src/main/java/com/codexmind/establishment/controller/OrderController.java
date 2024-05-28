@@ -4,7 +4,6 @@ import com.codexmind.establishment.converters.OrderResponseConverter;
 import com.codexmind.establishment.domain.ItemOrder;
 import com.codexmind.establishment.domain.Order;
 import com.codexmind.establishment.dto.ItemOrderRequestDTO;
-import com.codexmind.establishment.dto.OrderDTO;
 import com.codexmind.establishment.dto.OrderResponseDTO;
 import com.codexmind.establishment.usecases.ItemOrder.GetItemOrder;
 import com.codexmind.establishment.usecases.order.AddItemOrder;

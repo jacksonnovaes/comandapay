@@ -9,7 +9,6 @@ public record ItemOrderResponseDTO(
         Integer itemOrderid,
         String productName,
         BigDecimal price,
-        Integer menuId,
         Integer idproduto,
         Integer orderId,
         Integer customerId,

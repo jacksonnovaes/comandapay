@@ -6,7 +6,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient(name = "efiCob", url = "http://localhost:8081")
+@FeignClient(name = "efiCob", url = "http://localhost:8082")
 public interface EfiPixCob {
 
     @PostMapping("/v2/cob/pix")
