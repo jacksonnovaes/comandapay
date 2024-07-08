@@ -1,5 +1,6 @@
 package com.codexmind.establishment.controller;
 
+import com.codexmind.establishment.converters.TransactionConverter;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,7 +32,7 @@ public class PaymentController {
     @PostMapping("/pix")
     public ResponseEntity<PixTransactionDTO> postMethodName(@RequestBody TransactionDTO transactionDTO) throws IOException {
         var pixTransactionDTO = doPayment.execute(transactionDTO); 
-        return ResponseEntity.ok(pixTransactionDTO);
+        return ResponseEntity.ok(TransactionConverter.toDTO(pixTransactionDTO));
     }
     
 }

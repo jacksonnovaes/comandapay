@@ -17,8 +17,8 @@ public interface ItemOrderRepository extends JpaRepository<ItemOrder, Integer> {
     List<ItemOrder> findByOrder(Order order);
 
     @Query(nativeQuery = true, value = """
-            select distinct tio.id as `itemorderid`, prd.name, prd.price, prd.menu_id, prd.id as `idproduto`,tio.status, ord.id, ord.customer_id, ord.employee_id, ord.establishment_id,
-                                                          ord.status , ord.total_order, ord.open_instant, tio.id as `itemorderid`,
+            select distinct tio.id as itemorderid, prd.name, prd.price, prd.menu_id, prd.id as idproduto,tio.status, ord.id, ord.customer_id, ord.employee_id, ord.establishment_id,
+                                                          ord.status , ord.total_order, ord.open_instant, tio.id as itemorderid,
                                                           tio.order_id, tio.product_id, tio.quantity, tio.total_amount,
                                                           tio.discount, tio.unit_price
                                                           from tb_item_order tio left join tb_orders ord on ord.id = tio.order_id

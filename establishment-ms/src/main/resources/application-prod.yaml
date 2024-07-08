@@ -1,43 +1,30 @@
-api:
-  security:
-    token:
-      secret: drtcwcfvugefut78ko6728yhunjdw8po807
-
-  credentials:
-    client_id: Client_Id_e3c50f7c2146dc9318dbca38d6aec71d1da6fde7
-    client_secret: Client_Secret_dbc6b397dedca80d95366524b740e3ba42e6cad4
-    certificate: ./certs/hom-app-comanda.p12
-    sandbox: true
-    debug: false
-
 spring:
   h2:
     console:
       enabled: true
 
-
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    url: jdbc:mysql://localhost:3306/establishment
+    driver-class-name: org.postgresql.Driver
+    username: establishment
+    url: jdbc:postgresql://localhost:5432/establishment
     password: root
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: none
+      ddl-auto: create
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQL8Dialect
-        database-platform: org.hibernate.dialect.MySQL8Dialect
-        physical-naming-strategy: io.hypersistence.utils.hibernate.naming.CamelCaseToSnakeCaseNamingStrategy
-        format-sql: true
-  mvc:
-    path-match:
-      matching-strategy: ant_path_matcher
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        database-platform: org.hibernate.dialect.PostgreSQLDialect
+        naming:
+          physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        format_sql: true
+  pathmatch:
+    matching-strategy: ant_path_matcher
 
-spring-doc:
+springdoc:
   swagger-ui:
     path: /swagger-ui.html
+
 server:
   port: 8080
-

@@ -10,8 +10,8 @@ public record PixTransactionDTO(
         Devedor devedor,
         String solicitacaoPagador,
         Loc loc,
-        String location,
         String pixCopiaECola
+
 ) {
     public record Calendario(
             String criacao,

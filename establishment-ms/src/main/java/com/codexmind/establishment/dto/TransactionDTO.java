@@ -7,7 +7,16 @@ package com.codexmind.establishment.dto;
         private ValorDTO valor;
         private String chave;
         private String solicitacaoPagador;
-    
+        private Integer orderId;
+
+        public Integer getOrderId() {
+            return orderId;
+        }
+
+        public void setOrderId(Integer orderId) {
+            this.orderId = orderId;
+        }
+
         // Getters e Setters
         public CalendarioDTO getCalendario() {
             return calendario;

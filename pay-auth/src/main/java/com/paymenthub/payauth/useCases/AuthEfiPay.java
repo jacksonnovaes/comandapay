@@ -26,17 +26,17 @@ public class AuthEfiPay {
 
     @SuppressWarnings("deprecation")
     public AuthorizationDTO execute(){
-        String client_id = "Client_Id_e3c50f7c2146dc9318dbca38d6aec71d1da6fde7";
-		String client_secret = "Client_Secret_dbc6b397dedca80d95366524b740e3ba42e6cad4";;
+        String client_id = "Client_Id_3489c42901896c8ec74a9dcc1ed0a22ab4fa9ce0";
+		String client_secret = "Client_Secret_1d4c830c8f2c0be7a8f63953f68063f80092ea56";
 		String basicAuth = Base64.getEncoder().encodeToString(((client_id+':'+client_secret).getBytes()));
 		try {
 		//Diretório em que seu certificado em formato .p12 deve ser inserido
-		System.setProperty("javax.net.ssl.keyStore", "./certs/hom-app-comanda.p12"); 
+
 		SSLSocketFactory sslsocketfactory = (SSLSocketFactory) SSLSocketFactory.getDefault();
 		
 		URL url;
 
-			url = new URL ("https://pix-h.api.efipay.com.br/oauth/token");
+			url = new URL ("https://pix.api.efipay.com.br/oauth/token");
 		//Para ambiente de Desenvolvimento              
 		HttpsURLConnection conn = (HttpsURLConnection)url.openConnection();
 		conn.setDoOutput(true);

@@ -8,6 +8,8 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=root
       - POSTGRES_DB=establishment
+        - postgres_data:/var/lib/postgresql/data
+        - postgres_data:/var/lib/postgresql/data
     ports:
        - "5432:5432"
     expose:
@@ -16,18 +18,6 @@ services:
         - comandapay-net
     volumes:
         - postgres_data:/var/lib/postgresql/data
- establishment-ms:
-    image: establishment-ms
-    ports:
-      - "8080:8080"  # Mapeando porta do host para o contêiner
-    networks:
-      - comandapay-net
-    environment:
-      SPRING_PROFILES_ACTIVE: dev
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgresdb:5432/establishment
-    depends_on:
-      - postgresdb
-
 
 volumes:
   postgres_data:
