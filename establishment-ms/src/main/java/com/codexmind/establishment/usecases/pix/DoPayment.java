@@ -1,34 +1,24 @@
 package com.codexmind.establishment.usecases.pix;
 
-import java.util.HashMap;
+import java.util.Optional;
 
 
+import com.codexmind.establishment.converters.TransactionConverter;
 import com.codexmind.establishment.domain.PixTransaction;
-import com.codexmind.establishment.dto.AuthorizationDTO;
 import com.codexmind.establishment.repository.PixTransactionRepository;
-import com.codexmind.establishment.service.EfiPayAuth;
 import com.codexmind.establishment.service.EfiPixCob;
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.codexmind.establishment.service.UserService;
 import org.springframework.stereotype.Service;
 
-import com.codexmind.establishment.domain.Credentials;
-import com.codexmind.establishment.dto.PixTransactionDTO;
 import com.codexmind.establishment.dto.TransactionDTO;
-
-import br.com.efi.efisdk.EfiPay;
-import br.com.efi.efisdk.exceptions.EfiPayException;
-import lombok.RequiredArgsConstructor;
 
 @Service
 public class DoPayment {
 
 
+    private final EfiPixCob efiPixCob;
 
-  private final EfiPixCob efiPixCob;
-
-  private final PixTransactionRepository pixTransactionRepository;
+    private final PixTransactionRepository pixTransactionRepository;
 
     public DoPayment(EfiPixCob efiPixCob, PixTransactionRepository pixTransactionRepository) {
 
@@ -37,9 +27,20 @@ public class DoPayment {
     }
 
 
-    public PixTransactionDTO execute(TransactionDTO transactionDTO) {
+    public PixTransaction execute(TransactionDTO transactionDTO) {
+
         transactionDTO.setChave("9392925e-0257-417a-a180-506379529a2f");
+
+        var transactionFinded = pixTransactionRepository.findByOrderId(transactionDTO.getOrderId());
+
+        if (transactionFinded.isPresent()) {
+            transactionFinded.get().setValor(transactionDTO.getValor().getOriginal());
+            pixTransactionRepository.save(transactionFinded.get());
+            return transactionFinded.get();
+        }
+
         var pixTransactionDTO = efiPixCob.duePixCobv(transactionDTO);
+
         PixTransaction pixTransaction = new PixTransaction();
         pixTransaction.setExpiracao(pixTransactionDTO.calendario().expiracao());
         pixTransaction.setTxid(pixTransactionDTO.txid());
@@ -49,9 +50,11 @@ public class DoPayment {
         pixTransaction.setChave(pixTransaction.getChave());
         pixTransaction.setDevedor(pixTransactionDTO.devedor().nome());
         pixTransaction.setSolicitacaoPagador(pixTransactionDTO.solicitacaoPagador());
-        pixTransaction.setLocation(pixTransactionDTO.location());
+        pixTransaction.setLocation(pixTransactionDTO.loc().location());
         pixTransaction.setPixCopiaECola(pixTransactionDTO.pixCopiaECola());
-        return pixTransactionDTO;
-  }
+        pixTransaction.setOrderId(transactionDTO.getOrderId());
+
+        return  pixTransactionRepository.save(pixTransaction);
+    }
 
 }

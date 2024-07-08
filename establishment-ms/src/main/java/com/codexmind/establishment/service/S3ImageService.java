@@ -14,8 +14,8 @@ import java.io.IOException;
 import java.io.InputStream;
 
 @Service
-public class ImageService {
-
+public class S3ImageService implements  IMageServiceInterface{
+    @Override
     public BufferedImage getJpgImageFromFile(MultipartFile multipartFile)  {
         String ext = FilenameUtils.getExtension(multipartFile.getOriginalFilename());
         if (!".png".equals(ext) && !"jpg".equals(ext) && !"jpeg".equals(ext)) {
@@ -31,7 +31,7 @@ public class ImageService {
             throw new FileException("ERRO ao ler o arquivo!");
         }
     }
-
+    @Override
     public BufferedImage pngToJpg(BufferedImage img) {
 
         BufferedImage jpgImage = new BufferedImage(img.getWidth(), img.getHeight(),
@@ -40,7 +40,7 @@ public class ImageService {
 
         return jpgImage;
     }
-
+    @Override
     public InputStream getInputStream(BufferedImage img, String ext){
         try {
             ByteArrayOutputStream os = new ByteArrayOutputStream();

@@ -26,13 +26,16 @@ public class S3Service {
     @Value("${aws.s3.bucket}")
     private String bucketName;
 
-    public URI upload(MultipartFile multipartFile) {
+    public URI upload(MultipartFile multipartFile, String name) {
         try {
             String fileName = multipartFile.getOriginalFilename();
+            String extension = fileName.substring(fileName.lastIndexOf('.'));
+            String newFileName = name.replace(" ", "") + extension;
+
             InputStream stream = null;
             stream = multipartFile.getInputStream();
             String contentType = multipartFile.getContentType();
-            return upload(stream, fileName, contentType);
+            return upload(stream, newFileName, contentType);
         } catch (IOException e) {
             throw new FileException("ERRO de IO" + e.getMessage());
         }

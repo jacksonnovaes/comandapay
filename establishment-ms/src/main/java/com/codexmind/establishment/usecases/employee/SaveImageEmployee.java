@@ -22,10 +22,11 @@ public class SaveImageEmployee {
         if(user==null){
             throw new AuthorizationException("Access denied!");
         }
-         var uri = s3.upload(file);
+
 
         var employee = employeeRepository.findById(id).orElseThrow(
                 ()-> new EntityNotFoundException("Employee nao encontrado!"));
+        var uri = s3.upload(file, employee.getName()+employee.getLastName());
         employee.setUrlImage(uri.toString());
         employeeRepository.save(employee);
 

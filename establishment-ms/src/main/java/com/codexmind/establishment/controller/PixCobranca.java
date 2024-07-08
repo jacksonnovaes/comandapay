@@ -1,12 +1,13 @@
-package com.paymenthub.payauth.controller;
+package com.codexmind.establishment.controller;
 
-import com.paymenthub.payauth.useCases.GetBillings;
+
+import com.codexmind.establishment.converters.TransactionConverter;
+import com.codexmind.establishment.dto.PixTransactionDTO;
+import com.codexmind.establishment.dto.TransactionDTO;
+import com.codexmind.establishment.usecases.pix.DoPayment;
+import com.codexmind.establishment.usecases.pix.GetBillings;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import com.paymenthub.payauth.dto.PixTransactionDTO;
-import com.paymenthub.payauth.dto.TransactionDTO;
-import com.paymenthub.payauth.useCases.DoPayment;
 
 
 @RestController
@@ -24,11 +25,13 @@ public class PixCobranca {
     }
     @PostMapping("/pix")   
     public ResponseEntity<PixTransactionDTO> pix(@RequestBody TransactionDTO transactionDTO){
-        return ResponseEntity.ok(doPayment.execute(transactionDTO));
+        return ResponseEntity.ok(TransactionConverter.toDTO(doPayment.execute(transactionDTO)));
+
     }
 
-    @GetMapping("/{txid}")
-    public ResponseEntity<PixTransactionDTO> getBilling(@PathVariable String txid){
+    @PostMapping("/{txid}")
+    public ResponseEntity<PixTransactionDTO> pix(@PathVariable String txid){
         return ResponseEntity.ok(getBillings.execute(txid));
+
     }
 }
