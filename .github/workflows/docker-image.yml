@@ -25,10 +25,10 @@ jobs:
     - name: Build and push app1
       uses: docker/build-push-action@v2
       with:
-        context: ./app1
-        file: ./establishment/Dockerfile
+        context: ./establishment-ms
+        file: ./establishment-ms/Dockerfile
         push: true
-        tags: meu-usuario/app1:latest
+        tags: jacks775/establishment-ms:latest
 
   deploy:
     runs-on: ubuntu-latest
