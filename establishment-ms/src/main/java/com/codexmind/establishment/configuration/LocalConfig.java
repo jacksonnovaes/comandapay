@@ -10,8 +10,8 @@ import org.springframework.context.annotation.Profile;
 import java.text.ParseException;
 
 @Configuration
-@Profile("dev")
-public class DevConfig {
+@Profile("local")
+public class LocalConfig {
 
     @Autowired
     private DBService dbService;

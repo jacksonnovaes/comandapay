@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 @Repository
@@ -24,7 +25,7 @@ public interface ItemOrderRepository extends JpaRepository<ItemOrder, Integer> {
                                                           from tb_item_order tio left join tb_orders ord on ord.id = tio.order_id
                                                           left join tb_product prd on prd.id = tio.product_id
                                                                       where ord.customer_id = ?1  and ord.status = ?2""")
-    List<Map<String,ItemOrder>> getAllItemOrders(Integer id, StatusComanda status);
+    List<Map<String, Object>> getAllItemOrders(Integer id, StatusComanda status);
 
 
 }
