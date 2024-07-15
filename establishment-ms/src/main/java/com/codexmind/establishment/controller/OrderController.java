@@ -3,6 +3,7 @@ package com.codexmind.establishment.controller;
 import com.codexmind.establishment.converters.OrderResponseConverter;
 import com.codexmind.establishment.domain.ItemOrder;
 import com.codexmind.establishment.domain.Order;
+import com.codexmind.establishment.dto.ItemOrderDTO;
 import com.codexmind.establishment.dto.ItemOrderRequestDTO;
 import com.codexmind.establishment.dto.OrderResponseDTO;
 import com.codexmind.establishment.usecases.ItemOrder.GetItemOrder;
@@ -73,7 +74,7 @@ public class OrderController {
             (
              @RequestParam(value = "page",defaultValue = "0") Integer page,
              @RequestParam(value = "linesPerPage",defaultValue = "24")Integer linesPerPge,
-             @RequestParam(value = "order",defaultValue = "id")String orderBy,
+             @RequestParam(value = "orderBy",defaultValue = "id")String orderBy,
              @RequestParam(value = "direction",defaultValue = "ASC")String direction) {
         var list = getAllOrdersByUser.execute(
                 page,
@@ -91,7 +92,7 @@ public class OrderController {
     }
 
     @GetMapping("/items/{id}")
-    public ResponseEntity<List<Map<String, ItemOrder>>> getItens(@PathVariable Integer id){
+    public ResponseEntity<List<ItemOrderDTO>> getItens(@PathVariable Integer id){
         var items = getItemOrder.execute(id);
         return ResponseEntity.ok(items);
     }

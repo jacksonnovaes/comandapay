@@ -1,0 +1,19 @@
+# Use root/example as user/password credentials
+version: '3.1'
+
+services:
+
+  establishment-ms:
+    image: establishment-ms
+    ports:
+      - "8080:8080"  # Mapeando porta do host para o contêiner
+    networks:
+      - comandapay-net
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgresdb:5432/establishment
+    depends_on:
+      - postgresdb
+
+networks:
+  comandapay-net:

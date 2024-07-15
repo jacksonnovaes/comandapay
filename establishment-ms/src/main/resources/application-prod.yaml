@@ -5,9 +5,9 @@ spring:
 
   datasource:
     driver-class-name: org.postgresql.Driver
-    username: establishment
-    url: jdbc:postgresql://localhost:5432/establishment
-    password: root
+    username: postgres
+    url: jdbc:postgresql://200.98.80.143:3459/comandapp
+    password: $2a$12$j5D819b6qYx0cyaEZutGouc/rxrXT6P5.b0gqr75u01b.3vli36f2
   jpa:
     show-sql: true
     hibernate:

@@ -6,12 +6,12 @@ spring:
   datasource:
     driver-class-name: org.postgresql.Driver
     username: postgres
-    url: jdbc:postgresql://localhost:5432/establishment
-    password: root
+    url: jdbc:postgresql://postgresdb:5432/establishment
+    password: $2a$12$j5D819b6qYx0cyaEZutGouc/rxrXT6P5.b0gqr75u01b.3vli36f2
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
