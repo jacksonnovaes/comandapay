@@ -27,6 +27,8 @@ jobs:
       with:      
         push: true
         tags: jacks775/establishment-ms:latest
+        file: ./Dockerfile
+        context: .
 
   deploy:
     runs-on: ubuntu-latest
