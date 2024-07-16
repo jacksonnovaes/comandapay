@@ -29,7 +29,6 @@ jobs:
         file: ./establishment-ms/Dockerfile
         push: true
         tags: jacks775/establishment-ms:latest
-        username: ${{ secrets.DOCKERHUB_USERNAME }}
 
   deploy:
     runs-on: ubuntu-latest
