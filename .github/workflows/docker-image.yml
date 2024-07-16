@@ -24,9 +24,7 @@ jobs:
 
     - name: Build and push establishment
       uses: docker/build-push-action@v5
-      with:
-        context: ./establishment-ms
-        file: ./establishment-ms/Dockerfile
+      with:      
         push: true
         tags: jacks775/establishment-ms:latest
 
