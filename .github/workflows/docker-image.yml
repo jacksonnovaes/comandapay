@@ -1,4 +1,4 @@
-name: Build and Publish Docker Images
+  name: Build and Publish Docker Images
 
 on:
   push:
@@ -46,6 +46,7 @@ jobs:
         key: ${{ secrets.SERVER_SSH_KEY }}
         envs: prod
         script: |
-          cd /comandapay/establishment-ms
-          docker compose -f docker-compose.dev.yml pull
-          docker compose -f docker-compose.dev.yml up -d
+          cd /comandapay
+          docker compose --file docker-compose-dev.yaml up
+          docker compose --file docker-compose-dev.yaml up -d
+
