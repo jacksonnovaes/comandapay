@@ -47,7 +47,7 @@ jobs:
         envs: prod
         script: |
           cd comandapay
-          docker-compose -f docker-compose-prod.yml pull
-          docker-compose -f docker-compose-prod.yml up -d
+          docker-compose -f docker-compose-prod.yaml pull
+          docker-compose -f docker-compose-prod.yaml up -d
 
 
