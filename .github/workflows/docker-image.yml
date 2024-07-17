@@ -48,6 +48,6 @@ jobs:
         script: |
           cd comandapay
           docker compose --file docker-compose.prod.yml pull
-          docker compose -file docker-compose.prod.yml up -d
+          docker compose --file docker-compose.prod.yml up -d
 
 
