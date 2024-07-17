@@ -52,8 +52,7 @@ jobs:
           cd comandapay
           echo "Logging in to Docker Hub"
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN2 }} || exit 1
-          echo "Pulling images"
-          docker-compose -f docker-compose-prod.yaml pull || exit 1
+         
           echo "Bringing up services"
           docker-compose -f docker-compose-prod.yaml up -d || exit 1
 
