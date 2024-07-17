@@ -36,14 +36,25 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: action/checkout@v1
+      uses: actions/checkout@v1
+
+    - name: Login to Docker Hub 
+      run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN2 }}
+
     - name: Deploy to server
-      uses: easingthemes/ssh-deploy@main
+      uses: appleboy/ssh-action@v0.1.0
       with:
-        SERVER_SSH_KEY: ${{ secrets.SERVER_SSH_KEY }}
-        ARGS: "-rlgoDzvc --delete"
-        SOURCE: establishment-ms/
-        SERVER_HOST: ${{ secrets.SERVER_HOST }}
-        SERVER_USER: ${{ secrets.SERVER_USER }}
+        host: ${{ secrets.SERVER_HOST }}
+        username: ${{ secrets.SERVER_USER }}
+        key: ${{ secrets.SERVER_SSH_KEY }}
+        envs: prod
+        script: |
+          cd comandapay
+           echo "Logging in to Docker Hub"
+           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN2 }} || exit 1
+           echo "Pulling images"
+           docker-compose -f docker-compose-prod.yaml pull || exit 1
+           echo "Bringing up services"
+           docker-compose -f docker-compose-prod.yaml up -d || exit 1
 
 
