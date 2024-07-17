@@ -49,7 +49,7 @@ jobs:
         key: ${{ secrets.SERVER_SSH_KEY }}
         envs: prod
         script: |
-          cd comandapay
+          cd /comandapay
           echo "Logging in to Docker Hub"
           echo "Pulling images"
           docker-compose -f docker-compose-prod.yaml pull || exit 1
