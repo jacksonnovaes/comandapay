@@ -46,7 +46,7 @@ jobs:
         key: ${{ secrets.SERVER_SSH_KEY }}
         envs: prod
         script: |
-          cd /comandapay
+          cd comandapay
           docker compose -f docker-compose-prod.yaml pull
           docker compose -f docker-compose.prod.yml up -d
 
