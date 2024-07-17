@@ -18,7 +18,7 @@ services:
     volumes:
         - postgres_data:/var/lib/postgresql/data
  establishment-ms:
-    image: establishment-ms
+    image: jacks775/establishment-ms
     ports:
       - "8080:8080"  # Mapeando porta do host para o contêiner
     networks:
