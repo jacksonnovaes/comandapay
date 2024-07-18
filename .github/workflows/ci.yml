@@ -52,7 +52,7 @@ jobs:
           cd comandapay
           echo "Logging in to Docker Hub"
           echo "Pulling images"
-          docker-compose -f docker-compose-prod.yaml pull || exit 1
+          docker compose --file docker-compose-prod.yaml pull || exit 1
           echo "Bringing up services"
           docker-compose -f docker-compose-prod.yaml up -d || exit 1
 
