@@ -8,7 +8,7 @@ RUN mvn clean install -DskipTests
 # Etapa final
 FROM eclipse-temurin:21.0.1_12-jdk-jammy
 WORKDIR /app
-ENV TZ=America/Sao_Paulo
+ENV TZ=America/Sao_Paulo`
 COPY --from=build /app/target/*.jar .
 VOLUME /tmp
 ENTRYPOINT ["java", "-jar", "establishment-ms-0.0.1-SNAPSHOT.jar", "--spring.profiles.active=local"]

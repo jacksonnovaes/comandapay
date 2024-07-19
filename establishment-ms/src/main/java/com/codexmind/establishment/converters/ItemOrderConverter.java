@@ -19,7 +19,7 @@ public class ItemOrderConverter {
     public static Set<ItemOrderResponseDTO> toDTO(Set<ItemOrder> itemOrderList) {
         return itemOrderList.stream()
                 .map(itemOrder -> new ItemOrderResponseDTO(
-                        itemOrder.getId(),
+                        itemOrder.getItemOrderId(),
                         itemOrder.getProduct().getName(),
                         itemOrder.getProduct().getPrice(),
                         itemOrder.getProduct().getId(),
@@ -42,7 +42,7 @@ public class ItemOrderConverter {
     public static List<ItemOrderResponseDTO> toDTOSets(List<ItemOrder> itemOrderList) {
         return itemOrderList.stream()
                 .map(itemOrder -> new ItemOrderResponseDTO(
-                        itemOrder.getId(),
+                        itemOrder.getItemOrderId(),
                         itemOrder.getProductName(),
                         itemOrder.getPrice(),
                         itemOrder.getProduct().getId(),
@@ -66,7 +66,7 @@ public class ItemOrderConverter {
             return null;
         }
         return new ItemOrderResponseDTO(
-                itemOrder.getId(),
+                itemOrder.getItemOrderId(),
                 itemOrder.getProductName(),
                 itemOrder.getPrice(),
                 itemOrder.getProduct().getId(),

@@ -18,7 +18,7 @@ public class ItemOrder {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer itemOrderId;
 
     private BigDecimal discount;
 
@@ -68,11 +68,11 @@ public class ItemOrder {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ItemOrder itemOrder = (ItemOrder) o;
-        return Objects.equals(id, itemOrder.id);
+        return Objects.equals(itemOrderId, itemOrder.itemOrderId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(itemOrderId);
     }
 }
