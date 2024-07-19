@@ -20,16 +20,16 @@ public class ItemOrderConverter {
         return itemOrderList.stream()
                 .map(itemOrder -> new ItemOrderResponseDTO(
                         itemOrder.getId(),
-                        itemOrder.getProductName(),
-                        itemOrder.getPrice(),
+                        itemOrder.getProduct().getName(),
+                        itemOrder.getProduct().getPrice(),
                         itemOrder.getProduct().getId(),
                         itemOrder.getOrder().getId(),
-                        itemOrder.getCustomerId(),
+                        itemOrder.getOrder().getCustomer().getId(),
                         itemOrder.getEmployeeId(),
-                        itemOrder.getEstablishmentId(),
-                        itemOrder.getStatus(),
-                        itemOrder.getTotalOrder(),
-                        itemOrder.getOpenInstant(),
+                        itemOrder.getOrder().getEstablishment().getId(),
+                        itemOrder.getPaymentStatus(),
+                        itemOrder.getOrder().getTotalOrder(),
+                        itemOrder.getOrder().getOpenInstant(),
                         itemOrder.getQuantity(),
                         itemOrder.getTotalAmount(),
                         itemOrder.getDiscount(),
@@ -50,7 +50,7 @@ public class ItemOrderConverter {
                         itemOrder.getCustomerId(),
                         itemOrder.getEmployeeId(),
                         itemOrder.getEstablishmentId(),
-                        itemOrder.getStatus(),
+                        itemOrder.getPaymentStatus(),
                         itemOrder.getTotalOrder(),
                         itemOrder.getOpenInstant(),
                         itemOrder.getQuantity(),
@@ -74,7 +74,7 @@ public class ItemOrderConverter {
                 itemOrder.getCustomerId(),
                 itemOrder.getEmployeeId(),
                 itemOrder.getEstablishmentId(),
-                itemOrder.getStatus(),
+                itemOrder.getPaymentStatus(),
                 itemOrder.getTotalOrder(),
                 itemOrder.getOpenInstant(),
                 itemOrder.getQuantity(),
@@ -84,35 +84,6 @@ public class ItemOrderConverter {
         );
     }
 
-    public static List<ItemOrderDTO> toDTO(List<Map<String, Object>> items) {
 
-        List<ItemOrderDTO> dtos = new ArrayList<>();
-
-        for (Map<String, Object> item : items) {
-                    ItemOrderDTO dto = new ItemOrderDTO(
-                    (Integer) item.get("itemorderid"),
-                    (String) item.get("name"),
-                    (Double) item.get("price"),
-                    (Integer) item.get("menu_id"),
-                    (Integer) item.get("idproduto"),
-                    (Integer) item.get("status"),
-                    (Integer) item.get("id"),
-                    (Integer) item.get("customer_id"),
-                    (Integer) item.get("employee_id"),
-                    (Integer) item.get("establishment_id"),
-                    (Integer) item.get("status"),
-                    (Double) item.get("total_order"),
-                    (String) item.get("open_instant"),
-                    (Integer) item.get("product_id"),
-                    (Integer) item.get("quantity"),
-                    (Double) item.get("total_amount"),
-                    (Double) item.get("discount"),
-                    (Double) item.get("unit_price")
-            );
-
-            dtos.add(dto);
-        }
-            return dtos;
-    }
 }
 

@@ -5,6 +5,7 @@ import com.codexmind.establishment.domain.ItemOrder;
 import com.codexmind.establishment.domain.Order;
 import com.codexmind.establishment.dto.ItemOrderDTO;
 import com.codexmind.establishment.dto.ItemOrderRequestDTO;
+import com.codexmind.establishment.dto.ItemOrderResponseDTO;
 import com.codexmind.establishment.dto.OrderResponseDTO;
 import com.codexmind.establishment.usecases.ItemOrder.GetItemOrder;
 import com.codexmind.establishment.usecases.order.AddItemOrder;
@@ -20,6 +21,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 
 @RestController
@@ -92,7 +94,7 @@ public class OrderController {
     }
 
     @GetMapping("/items/{id}")
-    public ResponseEntity<List<ItemOrderDTO>> getItens(@PathVariable Integer id){
+    public ResponseEntity<Set<ItemOrderResponseDTO>> getItens(@PathVariable Integer id){
         var items = getItemOrder.execute(id);
         return ResponseEntity.ok(items);
     }

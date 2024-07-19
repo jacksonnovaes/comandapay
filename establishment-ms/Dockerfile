@@ -11,4 +11,4 @@ WORKDIR /app
 ENV TZ=America/Sao_Paulo
 COPY --from=build /app/target/*.jar .
 VOLUME /tmp
-ENTRYPOINT ["java", "-jar", "establishment-ms-0.0.1-SNAPSHOT.jar", "--spring.profiles.active=dev"]
+ENTRYPOINT ["java", "-jar", "establishment-ms-0.0.1-SNAPSHOT.jar", "--spring.profiles.active=local"]

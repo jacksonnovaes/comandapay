@@ -28,7 +28,7 @@ public class ItemOrder {
 
     private BigDecimal totalAmount;
 
-    private PaymentStatus status;
+    private PaymentStatus paymentStatus;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "product_id")
