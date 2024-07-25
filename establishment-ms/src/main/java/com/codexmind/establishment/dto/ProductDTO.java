@@ -20,4 +20,6 @@ public class ProductDTO {
     private Integer menu;
 
     private String menuName;
+
+    private int estoque;
 }

@@ -7,7 +7,9 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_establishment")
@@ -54,6 +56,9 @@ public class Establishment {
     private Float rate;
 
     private String urlImage;
+    
+    @OneToMany(mappedBy = "establishment")
+    private Set<Estoque> estoques = new LinkedHashSet<>();
 
     public int getAllOrderCount(){
         return orders.size();

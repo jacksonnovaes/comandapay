@@ -47,8 +47,11 @@ public class SecurityConfig {
 
     private static final String[] ADMIN_ESTABLISHMENT_MATCHERS = {
             "/api/v1/customer/save/**",
-            "api/v1/employee/menu/list/**",
+            "/api/v1/employee/menu/list/**",
             "/api/v1/employee/user/**",
+            "/api/v1/pdv/open/**",
+            "/api/v1/establishment/admin/**",
+
 
     };
 
@@ -57,6 +60,10 @@ public class SecurityConfig {
             "/api/v1/customer/save/**",
             "/api/v1/payment/**",
             "/api/v1/employee/user/**",
+            "/api/v1/pdv/open/**",
+            "/api/v1/establishment/admin/**",
+            "/api/v1/order/**",
+
 
     };
     private static final String[] CLIENT_MATCHERS = {

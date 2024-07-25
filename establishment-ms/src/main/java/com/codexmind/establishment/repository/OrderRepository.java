@@ -13,6 +13,7 @@ import com.codexmind.establishment.domain.Order;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Integer>{
@@ -53,6 +54,14 @@ public interface OrderRepository extends JpaRepository<Order, Integer>{
                                  FROM TB_ORDERS ORD WHERE ORD.CUSTOMER_ID = ?1 AND ORD.ESTABLISHMENT_ID = ?2
             """)
     Order getOpenedCommandByUserAndEstablishment(Integer customer, Integer establishmentId);
+
+    @Query(nativeQuery = true, value = """
+            SELECT ORD.ID, ORD.STATUS,
+                                 ORD.CUSTOMER_ID, ORD.EMPLOYEE_ID,
+                                 ORD.OPEN_INSTANT, ORD.ESTABLISHMENT_ID,ORD.TOTAL_ORDER
+                                 FROM TB_ORDERS ORD WHERE ORD.EMPLOYEE_ID = ?1 AND ORD.STATUS = ?2
+            """)
+    Optional<Order> getOpenedCommandByEmployeeAndStatus(Integer employeeId, StatusComanda statusComanda);
 
     @Query(nativeQuery = true, value = """
              SELECT COUNT(*)

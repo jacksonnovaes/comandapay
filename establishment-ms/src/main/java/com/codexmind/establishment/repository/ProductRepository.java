@@ -25,7 +25,8 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
 
  @Query(value = """
-      select p.id, p.name, p.price, p.menu_id
+      select p.id, p.name, p.price, p.menu_id,
+      p.estoque_id
       from tb_product
       p inner join tb_item_order tio on tio.product_id = p.id
       inner join tb_orders io on io.id = tio.order_id
@@ -35,15 +36,16 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
  @Query(value = """
          select prod.id, prod.name, prod.price, prod.menu_id,
+         prod.estoque_id,
          menu.name as menu
          from tb_product prod
          left join tb_menu menu
          on prod.menu_id = menu.id
          inner join tb_establishment
          estab on estab.id = menu.establishment_id
-         where estab.id = ?1
+         where menu.id = ?1
          """, nativeQuery = true)
- Set<Product> getProductdsByMenuandEstablishmente(Integer id);
+ Page<Product> getProductdsByMenu(Integer id, Pageable pageable);
 
 
 

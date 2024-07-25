@@ -16,9 +16,35 @@ public interface EstablishmentRepository extends JpaRepository<Establishment, In
 
 
     @Query(value = """
-            SELECT  ESTAB.ID FROM TB_PERSON EMPLOYEE INNER JOIN TB_ESTABLISHMENT ESTAB ON ESTAB.ID = EMPLOYEE.ESTABLISHMENT_ID WHERE EMPLOYEE.ID = ?1
+            select
+            estab.id,
+            estab.name,
+            estab.cnpj,
+            estab.rate,
+            estab.address_id,
+            estab.status,
+            estab.customer_id,
+            estab.url_image,
+            estab.is_favorite
+            from tb_person tp inner join tb_establishment estab on estab.id = tp.establishment_id where tp.id = ?1
             """, nativeQuery = true)
-    Integer getEstablishmentByUserLoggedId(Integer personId);
+    Optional<Establishment> getEstablishmentByUserLoggedId(Integer personId);
+
+    @Query(value = """
+            select te.id,
+            estab.id,
+            estab.name,
+            estab.cnpj,
+            estab.rate,
+            estab.address_id,
+            estab.status,
+            estab.customer_id,
+            estab.url_image,
+            estab.is_favorite
+            from tb_establishment estab
+            inner join tb_person tp on tp.establishment_id = estab.id where tp.id = ?1 ;
+            """, nativeQuery = true)
+    Optional<Establishment> getEstablishmentByEmployee(Integer employeeId);
 
     @Query(value = """
             SELECT estab.id, estab.name, estab.cnpj, estab.address_id, estab.status,
@@ -43,9 +69,16 @@ public interface EstablishmentRepository extends JpaRepository<Establishment, In
     List<Establishment> findAllEstablishment(Status status);
 
     @Query(value = """
-            SELECT estab.id, estab.name, estab.cnpj,estab.rate, estab.address_id, estab.status,
+            SELECT
+            estab.id,
+            estab.name,
+            estab.cnpj,
+            estab.rate,
+            estab.address_id,
+            estab.status,
             estab.customer_id,
-            estab.url_image, estab.is_favorite
+            estab.url_image, 
+            estab.is_favorite
             FROM tb_establishment estab
             INNER JOIN tb_person customer
             ON customer.id = estab.customer_id

@@ -23,6 +23,7 @@ import lombok.Setter;
 public abstract class Payment {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer paymentId;
 
     private String paymentStatus;
