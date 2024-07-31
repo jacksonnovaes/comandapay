@@ -1,15 +1,14 @@
 package com.codexmind.establishment.controller;
 
 import com.codexmind.establishment.converters.OrderResponseConverter;
-import com.codexmind.establishment.domain.ItemOrder;
 import com.codexmind.establishment.domain.Order;
-import com.codexmind.establishment.dto.ItemOrderDTO;
 import com.codexmind.establishment.dto.ItemOrderRequestDTO;
+import com.codexmind.establishment.dto.ItemOrderResponseDTO;
 import com.codexmind.establishment.dto.OrderResponseDTO;
 import com.codexmind.establishment.usecases.ItemOrder.GetItemOrder;
-import com.codexmind.establishment.usecases.order.AddItemOrder;
-import com.codexmind.establishment.usecases.order.CountOrders;
-import com.codexmind.establishment.usecases.order.GetAllOrdersByUser;
+import com.codexmind.establishment.usecases.order.mobile.AddItemOrder;
+import com.codexmind.establishment.usecases.order.mobile.CountOrders;
+import com.codexmind.establishment.usecases.order.mobile.GetAllOrdersByUser;
 import com.codexmind.establishment.usecases.order.SaveOrder;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.data.domain.Page;
@@ -19,7 +18,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
 
 
 @RestController
@@ -61,10 +60,10 @@ public class OrderController {
     }
 
 
-    @PutMapping("/{id}/add/")
-    public ResponseEntity<Order> addItem(@PathVariable Integer id, @RequestBody List<ItemOrderRequestDTO> itemOrders) {
+    @PatchMapping("/{orderId}/add/")
+    public ResponseEntity<Order> addItem(@PathVariable Integer orderId, @RequestBody List<ItemOrderRequestDTO> itemOrders) {
 
-        var orderUpdated = addItemOrder.execute(id, itemOrders);
+        var orderUpdated = addItemOrder.execute(orderId, itemOrders);
 
         return ResponseEntity.ok((orderUpdated));
     }
@@ -92,7 +91,7 @@ public class OrderController {
     }
 
     @GetMapping("/items/{id}")
-    public ResponseEntity<List<ItemOrderDTO>> getItens(@PathVariable Integer id){
+    public ResponseEntity<Set<ItemOrderResponseDTO>> getItens(@PathVariable Integer id){
         var items = getItemOrder.execute(id);
         return ResponseEntity.ok(items);
     }

@@ -15,11 +15,14 @@ public class SaveProduct {
     private final ProductRepository repository;
 
     public Product execute(ProductDTO productDTO) {
+
+
         var menu = Menu.builder()
                 .id(productDTO.getMenu())
                 .build();
         var product = Product.builder()
                 .name(productDTO.getName())
+
                 .menu(menu)
                 .build();
 

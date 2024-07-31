@@ -14,7 +14,7 @@ public record ItemOrderResponseDTO(
         Integer customerId,
         Integer employeeId,
         Integer establishmentId,
-        PaymentStatus status,
+        PaymentStatus paymentStatus,
         BigDecimal totalOrder,
         LocalDateTime openInstant,
         Integer quantity,

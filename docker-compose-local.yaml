@@ -2,24 +2,21 @@
 version: '3.1'
 
 services:
-
- postgresdb:
-    image: postgres:13-alpine
+  postgresdb:
+    image: postgres:15-alpine
     environment:
       - TZ=Brazil/East
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=root
       - POSTGRES_DB=establishment
-        - postgres_data:/var/lib/postgresql/data
-        - postgres_data:/var/lib/postgresql/data
     ports:
-       - "5432:5432"
+      - "5432:5432"
     expose:
-        - "5432"
+      - "5432"
     networks:
-        - comandapay-net
+      - comandapay-net
     volumes:
-        - postgres_data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
 
 volumes:
   postgres_data:

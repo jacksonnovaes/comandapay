@@ -1,4 +1,4 @@
-package com.codexmind.establishment.usecases.order;
+package com.codexmind.establishment.usecases.order.mobile;
 
 import com.codexmind.establishment.domain.Order;
 import com.codexmind.establishment.repository.OrderRepository;
@@ -25,7 +25,7 @@ public class GetAllOrdersByUser {
 
     public Page<Order> execute(Integer page, Integer linesPerPge, String orderBy, String direction){
 
-        var id = getEstablishmentByEmployeLogin.execute();
+        var employee = getEstablishmentByEmployeLogin.execute();
         PageRequest pageRequest = PageRequest.of(page, linesPerPge, Sort.Direction.valueOf(direction), orderBy);
         LocalDateTime startInstant = LocalDateTime.now().minusHours(3);
         LocalDateTime endInstant = LocalDateTime.now().plusMinutes(5);
@@ -38,7 +38,7 @@ public class GetAllOrdersByUser {
         log.info("Start Timestamp: {}", startTimestamp);
         log.info("End Timestamp: {}", endTimestamp);
 
-        return orderRepository.getAllOrdersByEstablishmentId(id, startInstant, endInstant, pageRequest);
+        return orderRepository.getAllOrdersByEstablishmentId(employee.get().getId(), startInstant, endInstant, pageRequest);
 
     }
 }

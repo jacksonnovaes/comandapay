@@ -1,9 +1,12 @@
 package com.codexmind.establishment.usecases.establishment;
 
+import com.codexmind.establishment.domain.Establishment;
 import com.codexmind.establishment.domain.User;
 import com.codexmind.establishment.repository.EstablishmentRepository;
 import com.codexmind.establishment.service.UserService;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class GetEstablishmentByEmployeLogin {
@@ -15,11 +18,11 @@ public class GetEstablishmentByEmployeLogin {
         this.establishmentRepository = establishmentRepository;
     }
 
-    public Integer execute(){
+    public Optional<Establishment> execute(){
 
         User user = UserService.authenticated();
 
         assert user != null;
-        return establishmentRepository.getEstablishmentByUserLoggedId(user.getId());
+        return Optional.of(establishmentRepository.getEstablishmentByUserLoggedId(user.getId()).get());
     }
 }

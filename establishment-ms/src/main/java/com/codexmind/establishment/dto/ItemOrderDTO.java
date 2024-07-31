@@ -1,23 +1,24 @@
 package com.codexmind.establishment.dto;
 
+import java.math.BigDecimal;
+
 public record ItemOrderDTO(
-        int itemOrderId,
+        Integer itemOrderId,
         String name,
-        double price,
-        int menuId,
-        int idProduto,
-        int status,
-        int orderId,
-        int customerId,
+        BigDecimal price,
+        Integer menuId,
+        Integer idProduto,
+        Integer status,
+        Integer orderId,
+        Integer customerId,
         Integer employeeId,
-        int establishmentId,
-        int orderStatus,
-        double totalOrder,
+        Integer establishmentId,
+        BigDecimal totalOrder,
         String openInstant,
-        int productId,
-        int quantity,
-        double totalAmount,
-        Double discount,
-        double unitPrice
+        Integer productId,
+        Integer quantity,
+        BigDecimal totalAmount,
+        BigDecimal discount,
+        BigDecimal unitPrice
 ) {
 }

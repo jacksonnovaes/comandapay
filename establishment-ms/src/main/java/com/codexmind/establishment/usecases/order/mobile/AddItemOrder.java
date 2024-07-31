@@ -1,4 +1,4 @@
-package com.codexmind.establishment.usecases.order;
+package com.codexmind.establishment.usecases.order.mobile;
 
 import com.codexmind.establishment.domain.ItemOrder;
 import com.codexmind.establishment.domain.Product;
@@ -49,7 +49,7 @@ public class AddItemOrder {
                 BigDecimal newTotalPrice = product.getPrice().multiply(BigDecimal.valueOf(newQuantity));
                 itemOrder.setQuantity(newQuantity);
                 itemOrder.setTotalAmount(newTotalPrice);
-                itemOrder.setStatus(PaymentStatus.PENDING);
+                itemOrder.setPaymentStatus(PaymentStatus.PENDING);
                 itemOrderRepository.save(itemOrder);
             } else {
                 BigDecimal totalPrice = product.getPrice().multiply(BigDecimal.valueOf(itemOrderDTO.quantity()));
@@ -57,6 +57,7 @@ public class AddItemOrder {
                 itemOrder.setProduct(product);
                 itemOrder.setQuantity(itemOrderDTO.quantity());
                 itemOrder.setTotalAmount(totalPrice);
+                itemOrder.setPaymentStatus(PaymentStatus.PENDING);
                 itemOrder.setUnitPrice(product.getPrice());
                 itemOrder.setOrder(order);
                 itemOrderRepository.save(itemOrder);

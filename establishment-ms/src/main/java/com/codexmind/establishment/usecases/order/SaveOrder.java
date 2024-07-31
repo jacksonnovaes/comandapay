@@ -1,24 +1,16 @@
 package com.codexmind.establishment.usecases.order;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Optional;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
-
-import com.codexmind.establishment.domain.*;
-import com.codexmind.establishment.domain.enums.Profile;
+import com.codexmind.establishment.domain.Customer;
+import com.codexmind.establishment.domain.Establishment;
+import com.codexmind.establishment.domain.Order;
 import com.codexmind.establishment.domain.enums.StatusComanda;
 import com.codexmind.establishment.exceptions.EntityNotFoundException;
 import com.codexmind.establishment.repository.*;
 import com.codexmind.establishment.service.UserService;
-import org.aspectj.weaver.ast.Or;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import com.codexmind.establishment.domain.enums.PaymentStatus;
-import com.codexmind.establishment.dto.OrderDTO;
-
-import lombok.RequiredArgsConstructor;
+import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
