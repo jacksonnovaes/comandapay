@@ -21,8 +21,6 @@ public class ListMenuByEstablishment {
     private final EmployeeRepository employeeRepository;
 
     public List<Menu> execute(Integer id){
-        var user = UserService.authenticated();
-        var employee  = employeeRepository.findByStatusAndId(Status.ACTIVE, user.getId());
-        return  repository.findMenusByEstablishmenteId(employee.get().getEstablishment().getId());
+        return  repository.findMenusByEstablishmenteId(id);
     }
 }

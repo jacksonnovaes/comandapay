@@ -60,7 +60,7 @@ public class OrderController {
     }
 
 
-    @PutMapping("/{orderId}/add/")
+    @PatchMapping("/{orderId}/add/")
     public ResponseEntity<Order> addItem(@PathVariable Integer orderId, @RequestBody List<ItemOrderRequestDTO> itemOrders) {
 
         var orderUpdated = addItemOrder.execute(orderId, itemOrders);

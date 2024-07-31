@@ -20,6 +20,8 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
          "SELECT distinct p FROM Product p INNER JOIN p.menu m INNER JOIN m.establishment e where e.id = ?1 ")
  Page<Product> getAllProductsByMenuAndEstablishment(Integer id,
                                                     Pageable pageable);
+
+
  @Query("SELECT SUM(p.price) FROM Product p WHERE p.id IN :productIds")
  BigDecimal getTotalAmountByIds(Set<Long> productIds);
 
@@ -35,6 +37,19 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
  Set<Product> getAllProductsByIdOrder(Integer id);
 
  @Query(value = """
+         select prod.id, prod.name, prod.price, prod.menu_id, prod.estoque_id,
+         menu.name as menu
+         from tb_product prod
+         left join tb_menu menu
+         on prod.menu_id = menu.id
+         inner join tb_establishment
+         estab on estab.id = menu.establishment_id
+         where estab.id = ?1
+         """, nativeQuery = true)
+ Set<Product> getProductdsByMenuandEstablishmente(Integer id);
+
+
+ @Query(value = """
          select prod.id, prod.name, prod.price, prod.menu_id,
          prod.estoque_id,
          menu.name as menu
@@ -46,7 +61,4 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
          where menu.id = ?1
          """, nativeQuery = true)
  Page<Product> getProductdsByMenu(Integer id, Pageable pageable);
-
-
-
 }

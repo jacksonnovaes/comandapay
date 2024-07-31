@@ -14,8 +14,8 @@ import java.util.Set;
 public class GetItemOrder {
 
     private final ItemOrderRepository itemOrderRepository;
-    public Set<ItemOrderResponseDTO> execute(Integer employeeId){
-        var items = itemOrderRepository.getAllItemOrders(employeeId, StatusComanda.OPENED);
+    public Set<ItemOrderResponseDTO> execute(Integer customerId){
+        var items = itemOrderRepository.getAllItemOrdersByCustomer(customerId, StatusComanda.OPENED);
 
         return ItemOrderConverter.toDTO(items);
     }

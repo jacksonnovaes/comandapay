@@ -56,9 +56,6 @@ public class Establishment {
     private Float rate;
 
     private String urlImage;
-    
-    @OneToMany(mappedBy = "establishment")
-    private Set<Estoque> estoques = new LinkedHashSet<>();
 
     public int getAllOrderCount(){
         return orders.size();

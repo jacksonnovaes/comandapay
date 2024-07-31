@@ -26,12 +26,11 @@ public abstract class Payment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer paymentId;
 
-    private String paymentStatus;
+    private PaymentStatus paymentStatus;
     @JsonIgnore
     @OneToOne
     @JoinColumn(name = "id_order")
     @MapsId
     private Order order;
-
 
 }

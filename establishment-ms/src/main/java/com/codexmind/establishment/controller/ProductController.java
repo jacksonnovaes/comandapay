@@ -110,19 +110,7 @@ public class ProductController {
         return ResponseEntity.ok(list);
     }
     @GetMapping(value = "/menu/{id}/list")
-    public ResponseEntity<Page<ProductDTO>> getALlProductsByMenu(
-    @PathVariable Integer id,
-                                                                @RequestParam(value = "page",defaultValue = "0") Integer page,
-                                                                @RequestParam(value = "linesPerPage",defaultValue = "24")Integer linesPerPge,
-                                                                @RequestParam(value = "order",defaultValue = "name")String orderBy,
-                                                                @RequestParam(value = "direction",defaultValue = "ASC")String direction) {
-        var list = getProductsByMenu.execute(
-                id,
-                page,
-                linesPerPge,
-                orderBy,
-                direction
-        ).map(ProductConverter::toDTO);
-        return ResponseEntity.ok(list);
+    public ResponseEntity<Set<ProductDTO>> getALlProductsByMenu(@PathVariable Integer id){
+        return ResponseEntity.ok().body(ProductConverter.toDTOSet(getProductsByMenu.execute(id)));
     }
 }

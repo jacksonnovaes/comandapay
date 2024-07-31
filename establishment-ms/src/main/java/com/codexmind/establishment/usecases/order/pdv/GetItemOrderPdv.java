@@ -15,7 +15,7 @@ public class GetItemOrderPdv {
 
     private final ItemOrderRepository itemOrderRepository;
     public Set<ItemOrderResponseDTO> execute(Integer idOrder){
-        var items = itemOrderRepository.getAllItemOrdersEmployee(idOrder, StatusComanda.OPENED);
+        var items = itemOrderRepository.getAllItemOrdersByOrderId(idOrder, StatusComanda.OPENED);
 
         return ItemOrderConverter.toDTO(items);
     }
