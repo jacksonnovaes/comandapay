@@ -28,7 +28,7 @@ public class Product {
     @JsonBackReference
     @JoinColumn(name = "menu_id")
     private Menu menu;
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Estoque estoque;
+    @Column(name = "qtd_estoque")
+    private Integer estoque;
 
 }

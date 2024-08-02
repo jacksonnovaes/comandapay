@@ -27,7 +27,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
  @Query(value = """
       select p.id, p.name, p.price, p.menu_id,
-      p.estoque_id
+      p.qtd_estoque
       from tb_product
       p inner join tb_item_order tio on tio.product_id = p.id
       inner join tb_orders io on io.id = tio.order_id
@@ -36,7 +36,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
  Set<Product> getAllProductsByIdOrder(Integer id);
 
  @Query(value = """
-         select prod.id, prod.name, prod.price, prod.menu_id, prod.estoque_id,
+         select prod.id, prod.name, prod.price, prod.menu_id, prod.qtd_estoque,
          menu.name as menu
          from tb_product prod
          left join tb_menu menu
@@ -50,7 +50,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
  @Query(value = """
          select prod.id, prod.name, prod.price, prod.menu_id,
-         prod.estoque_id,
+         prod.qtd_estoque,
          menu.name as menu
          from tb_product prod
          left join tb_menu menu

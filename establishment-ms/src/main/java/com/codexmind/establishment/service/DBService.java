@@ -89,12 +89,13 @@ public class DBService {
                 .status(Status.ACTIVE)
                 .build();
 
+
         // Creating products
         var product1 = Product.builder()
                 .name("Coca Cola")
                 .price(new BigDecimal("5.00"))
                 .menu(menu2)
-                .estoque(Estoque.builder().quantity(50).build())
+                .estoque(50)
                 .build();
 
         var product2 = Product.builder()
@@ -119,53 +120,62 @@ public class DBService {
                 .name("Heineken 350 ml")
                 .price(new BigDecimal("12.00"))
                 .menu(menu1)
+                .estoque(50)
                 .build();
 
         var product6 = Product.builder()
                 .name("Caipirinha")
                 .price(new BigDecimal("18.00"))
                 .menu(menu2)
+                .estoque(50)
                 .build();
 
         var product7 = Product.builder()
                 .name("Hambúrguer")
                 .price(new BigDecimal("25.00"))
                 .menu(menu3)
+                .estoque(50)
                 .build();
 
         var product8 = Product.builder()
                 .name("Água Mineral")
                 .price(new BigDecimal("3.00"))
                 .menu(menu2)
+                .estoque(50)
                 .build();
 
         var product9 = Product.builder()
                 .name("Porção de Calabresa")
                 .price(new BigDecimal("30.00"))
                 .menu(menu3)
+                .estoque(50)
                 .build();
 
         var product10 = Product.builder()
                 .name("Budweiser 350 ml")
                 .price(new BigDecimal("10.00"))
                 .menu(menu1)
+                .estoque(50)
                 .build();
 
         var product11 = Product.builder()
                 .name("Refrigerante Guaraná")
                 .price(new BigDecimal("5.00"))
+                .estoque(50)
                 .menu(menu2)
                 .build();
 
         var product12 = Product.builder()
                 .name("Porção de Queijo")
                 .price(new BigDecimal("25.00"))
+                .estoque(50)
                 .menu(menu3)
                 .build();
 
         var product13 = Product.builder()
                 .name("Smirnoff Ice")
                 .price(new BigDecimal("15.00"))
+                .estoque(50)
                 .menu(menu1)
                 .build();
 

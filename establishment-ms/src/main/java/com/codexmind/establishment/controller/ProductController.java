@@ -58,8 +58,8 @@ public class ProductController {
 
 
     @PostMapping("/save")
-    public ResponseEntity<ProductDTO> save(ProductDTO productDTO, UriComponentsBuilder uriBuilder){
-        var product = saveProduct.execute(productDTO);
+    public ResponseEntity<ProductDTO> save(@RequestBody ProductDTO productDTO, Integer idMenu,UriComponentsBuilder uriBuilder){
+        var product = saveProduct.execute(productDTO, idMenu);
         var uri = uriBuilder.path("/save/{id}").buildAndExpand(product.getId()).toUri();
         return  ResponseEntity.created(uri).body(ProductConverter.toDTO(product));
     }

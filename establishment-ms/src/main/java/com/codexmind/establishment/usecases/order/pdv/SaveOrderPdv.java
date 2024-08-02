@@ -35,8 +35,8 @@ public class SaveOrderPdv {
 
         var employee  = employeeRepository.findById(user.getId())
                 .orElseThrow(()->new EntityNotFoundException("Usuario pode nao ser do tipo correto:" + Employee.class.getTypeName()));
-
-        var orderFinded = orderRepository.getOpenedCommandByEmployeeAndStatus(employee.getId(), StatusComanda.OPENED);
+        var statusComanda = StatusComanda.fromValue("OPENED");
+        var orderFinded = orderRepository.getOpenedCommandByEmployeeAndStatus(employee.getId(), statusComanda);
         if(orderFinded.isPresent()){
             return addItemOrder.execute(orderFinded.get().getId(), itemOrderDTOS);
         }
