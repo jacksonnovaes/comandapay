@@ -38,6 +38,7 @@ public class Order {
     @JoinColumn(name = "CUSTOMER_ID")
     private Customer customer;
 
+    @Enumerated(EnumType.ORDINAL)
     private  StatusComanda status;
 
 

@@ -14,8 +14,10 @@ import java.util.Set;
 public class GetItemOrderPdv {
 
     private final ItemOrderRepository itemOrderRepository;
-    public Set<ItemOrderResponseDTO> execute(Integer idOrder){
-        var items = itemOrderRepository.getAllItemOrdersByOrderId(idOrder, StatusComanda.OPENED);
+    public Set<ItemOrderResponseDTO> execute(Integer idOrder,String status){
+
+       var  statusComanda = StatusComanda.fromValue(status);
+        var items = itemOrderRepository.getAllItemOrdersByOrderId(idOrder, statusComanda );
 
         return ItemOrderConverter.toDTO(items);
     }

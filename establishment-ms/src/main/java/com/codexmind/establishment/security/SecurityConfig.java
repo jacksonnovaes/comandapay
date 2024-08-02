@@ -52,7 +52,7 @@ public class SecurityConfig {
             "/api/v1/pdv/open/**",
             "/api/v1/pdv/close/**",
             "/api/v1/establishment/admin/**",
-
+            "/api/v1/pdv/order/**"
 
     };
 
@@ -63,7 +63,9 @@ public class SecurityConfig {
             "/api/v1/employee/user/**",
             "/api/v1/pdv/open/**",
             "/api/v1/pdv/close/**",
-            "/api/v1/establishment/admin/**"
+            "/api/v1/establishment/admin/**",
+            "/api/v1/pdv/savaAll/**",
+            "/api/v1/pdv/order/**"
 
 
     };

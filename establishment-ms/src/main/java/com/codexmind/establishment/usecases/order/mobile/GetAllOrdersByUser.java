@@ -25,11 +25,11 @@ public class GetAllOrdersByUser {
 
     public Page<Order> execute(Integer page, Integer linesPerPge, String orderBy, String direction){
 
-        var employee = getEstablishmentByEmployeLogin.execute();
+        var establishment = getEstablishmentByEmployeLogin.execute();
         PageRequest pageRequest = PageRequest.of(page, linesPerPge, Sort.Direction.valueOf(direction), orderBy);
         LocalDateTime startInstant = LocalDateTime.now().minusHours(3);
         LocalDateTime endInstant = LocalDateTime.now().plusMinutes(5);
-        LocalDateTime localDateTime6 = LocalDateTime.parse("2018-07-22 10:35:10", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        LocalDateTime localDateTime = LocalDateTime.parse("2018-07-22 10:35:10", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
         // Convert LocalDateTime to Timestamp
         Timestamp startTimestamp = Timestamp.valueOf(startInstant);
@@ -38,7 +38,7 @@ public class GetAllOrdersByUser {
         log.info("Start Timestamp: {}", startTimestamp);
         log.info("End Timestamp: {}", endTimestamp);
 
-        return orderRepository.getAllOrdersByEstablishmentId(employee.get().getId(), startInstant, endInstant, pageRequest);
+        return orderRepository.getAllOrdersByEstablishmentId(establishment.get().getId(), pageRequest);
 
     }
 }

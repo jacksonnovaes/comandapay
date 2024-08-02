@@ -42,9 +42,11 @@ public class SaleController {
         return OrderResponseConverter.toDTO(getOrder.execute(orderId));
     }
 
-    @GetMapping("/items/{orderId}")
-    public ResponseEntity<Set<ItemOrderResponseDTO>> getItens(@PathVariable Integer orderId){
-        var items = getItemOrder.execute(orderId);
+    @GetMapping("/items/{orderId}/{status}")
+    public ResponseEntity<Set<ItemOrderResponseDTO>> getItens(@PathVariable Integer orderId,
+                                                              @PathVariable String status){
+
+        var items = getItemOrder.execute(orderId, status);
         return ResponseEntity.ok(items);
     }
 

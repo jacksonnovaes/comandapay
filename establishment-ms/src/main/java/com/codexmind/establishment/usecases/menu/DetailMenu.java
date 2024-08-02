@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 public class DetailMenu {
 
 
-    private MenuRepository repository;
+    private final MenuRepository repository;
 
     public Menu execute(Integer id){
         var menu = repository.findByIdAndStatus(id, Status.ACTIVE);
