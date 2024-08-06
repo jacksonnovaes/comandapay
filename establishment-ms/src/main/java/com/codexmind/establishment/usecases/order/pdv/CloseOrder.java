@@ -30,10 +30,11 @@ public class CloseOrder {
     public Order execute(Integer orderId, String paymentType, BigDecimal valueReceived) {
         var orderFinded = orderRepository.findById(orderId);
 
-        var itens = itemOrderRepository.getAllItemOrdersByOrderId(orderId, StatusComanda.CLOSED);
+        var itens = itemOrderRepository.getAllItemOrdersByOrderId(orderId, StatusComanda.OPENED);
         itens.stream().forEach(itemOrder -> {
             var product = productRepository.findById(itemOrder.getProduct().getId());
                 product.get().setEstoque(product.get().getEstoque() - itemOrder.getQuantity());
+                productRepository.save(product.get());
         });
         if (paymentType.equals("cartao")) {
             PaymentWithCreditCard paymentWithCreditCard = new PaymentWithCreditCard();
