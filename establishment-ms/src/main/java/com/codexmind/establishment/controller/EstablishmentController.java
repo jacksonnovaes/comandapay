@@ -62,8 +62,14 @@ public class EstablishmentController {
     }
 
     @GetMapping(value = "/establishment/{id}")
-    public ResponseEntity<EstablishmentDTO> getEstablishment(@PathVariable
+    public ResponseEntity<ResponseEstablishmentDTO> getEstablishment(@PathVariable
                                                                  Integer id){
+        var establishment = detailEstablishment.execute(id);
+        return  ResponseEntity.ok().body(EstablishmentConverter.toResponseDTO(establishment));
+    }
+    @GetMapping(value = "/establishment/admin/{id}")
+    public ResponseEntity<EstablishmentDTO> getEstablishmentEmployee(@PathVariable
+                                                             Integer id){
         var establishment = detailEstablishment.execute(id);
         return  ResponseEntity.ok().body(EstablishmentConverter.toDTO(establishment));
     }

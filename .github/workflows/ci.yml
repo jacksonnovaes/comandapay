@@ -1,0 +1,59 @@
+name: Build and Publish Docker Images
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Login to Docker Hub
+      uses: docker/login-action@v3
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN2 }}
+
+    - name: Build and push establishment
+      uses: docker/build-push-action@v5
+      with:
+        context: ./establishment-ms
+        file: ./establishment-ms/Dockerfile
+        push: true
+        tags: jacks775/establishment-ms:latest
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build-and-push
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v1
+
+    - name: Login to Docker Hub 
+      run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN2 }}
+
+    - name: Deploy to server
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SERVER_HOST }}
+        username: ${{ secrets.SERVER_USER }}
+        key: ${{ secrets.SERVER_SSH_KEY }}
+        envs: prod
+        script: |
+          cd /comandapay
+          echo "Logging in to Docker Hub"
+          echo "Pulling images"
+          docker compose --file docker-compose-prod.yaml pull || exit 1
+          echo "Bringing up services"
+          docker compose --file docker-compose-prod.yaml up -d || exit 1
+
+

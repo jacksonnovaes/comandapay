@@ -1,25 +1,23 @@
 package com.codexmind.establishment.domain.enums;
 
+import lombok.Getter;
+
 import java.util.Arrays;
 
+@Getter
 public enum StatusComanda {
     CLOSED("CLOSED"),
     OPENED("OPENED");
 
     private final String value;
 
-
     StatusComanda(String value) {
         this.value = value;
     }
 
-    public String getValue() {
-        return value;
-    }
+    public static StatusComanda fromValue(String statusValue) {
 
-    public static Status fromValue(String statusValue) {
-
-        return Arrays.stream(Status.values())
+        return Arrays.stream(StatusComanda.values())
                 .filter(situation -> situation.value.equals(statusValue))
                 .findFirst().orElse(null);
     }

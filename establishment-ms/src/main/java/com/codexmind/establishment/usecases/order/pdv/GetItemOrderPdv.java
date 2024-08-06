@@ -1,4 +1,4 @@
-package com.codexmind.establishment.usecases.ItemOrder;
+package com.codexmind.establishment.usecases.order.pdv;
 
 import com.codexmind.establishment.converters.ItemOrderConverter;
 import com.codexmind.establishment.domain.enums.StatusComanda;
@@ -11,11 +11,13 @@ import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
-public class GetItemOrder {
+public class GetItemOrderPdv {
 
     private final ItemOrderRepository itemOrderRepository;
-    public Set<ItemOrderResponseDTO> execute(Integer customerId){
-        var items = itemOrderRepository.getAllItemOrdersByCustomer(customerId, StatusComanda.OPENED.getValue());
+    public Set<ItemOrderResponseDTO> execute(Integer idOrder,String status){
+
+       var  statusComanda = StatusComanda.fromValue(status);
+        var items = itemOrderRepository.getAllItemOrdersByOrderId(idOrder, statusComanda );
 
         return ItemOrderConverter.toDTO(items);
     }

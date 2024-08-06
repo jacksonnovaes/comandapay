@@ -1,4 +1,4 @@
-package com.codexmind.establishment.controller;
+package com.codexmind.establishment.controller.pdv;
 
 import com.codexmind.establishment.converters.OrderResponseConverter;
 import com.codexmind.establishment.domain.Order;
@@ -6,10 +6,11 @@ import com.codexmind.establishment.dto.ItemOrderRequestDTO;
 import com.codexmind.establishment.dto.ItemOrderResponseDTO;
 import com.codexmind.establishment.dto.OrderResponseDTO;
 import com.codexmind.establishment.usecases.ItemOrder.GetItemOrder;
+import com.codexmind.establishment.usecases.order.SaveOrder;
 import com.codexmind.establishment.usecases.order.mobile.AddItemOrder;
 import com.codexmind.establishment.usecases.order.mobile.CountOrders;
 import com.codexmind.establishment.usecases.order.mobile.GetAllOrdersByUser;
-import com.codexmind.establishment.usecases.order.SaveOrder;
+import com.codexmind.establishment.usecases.pdv.GetAllOrdersByEmployee;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -22,14 +23,14 @@ import java.util.Set;
 
 
 @RestController
-@RequestMapping({"api/v1/order"})
+@RequestMapping({"api/v1/pdv/order"})
 @CrossOrigin(origins = "*")
 @SecurityRequirement(name = "bearer-key")
-public class OrderController {
+public class OrderPDVController {
 
     private final SaveOrder saveOrder;
 
-    private final GetAllOrdersByUser getAllOrdersByUser;
+    private final GetAllOrdersByEmployee getAllOrdersByEmployee;
 
     private final AddItemOrder addItemOrder;
 
@@ -37,9 +38,9 @@ public class OrderController {
 
     private final GetItemOrder getItemOrder;
 
-    public OrderController(SaveOrder saveOrder, GetAllOrdersByUser getAllOrdersByUser, AddItemOrder addItemOrder, CountOrders countOrders, GetItemOrder getItemOrder) {
+    public OrderPDVController(SaveOrder saveOrder, GetAllOrdersByEmployee getAllOrdersByEmployee, AddItemOrder addItemOrder, CountOrders countOrders, GetItemOrder getItemOrder) {
         this.saveOrder = saveOrder;
-        this.getAllOrdersByUser = getAllOrdersByUser;
+        this.getAllOrdersByEmployee = getAllOrdersByEmployee;
         this.addItemOrder = addItemOrder;
         this.countOrders = countOrders;
         this.getItemOrder = getItemOrder;
@@ -68,18 +69,20 @@ public class OrderController {
         return ResponseEntity.ok((orderUpdated));
     }
 
-    @GetMapping(value = "/list")
+    @GetMapping(value = "/list/{status}")
     public ResponseEntity<Page<OrderResponseDTO>> getAllProducts
             (
              @RequestParam(value = "page",defaultValue = "0") Integer page,
              @RequestParam(value = "linesPerPage",defaultValue = "24")Integer linesPerPge,
              @RequestParam(value = "orderBy",defaultValue = "id")String orderBy,
-             @RequestParam(value = "direction",defaultValue = "ASC")String direction) {
-        var list = getAllOrdersByUser.execute(
+             @RequestParam(value = "direction",defaultValue = "ASC")String direction,
+             @PathVariable String status
+            ) {
+        var list = getAllOrdersByEmployee.execute(
                 page,
                 linesPerPge,
                 orderBy,
-                direction
+                direction,status
         ).map(OrderResponseConverter::toDTO);
         return ResponseEntity.ok(list);
     }

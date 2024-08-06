@@ -24,7 +24,8 @@ public class ItemOrderConverter {
                         itemOrder.getProduct().getPrice(),
                         itemOrder.getProduct().getId(),
                         itemOrder.getOrder().getId(),
-                        itemOrder.getOrder().getCustomer().getId(),
+                        itemOrder.getOrder().getCustomer() != null ?
+                                itemOrder.getOrder().getCustomer().getId() : null,
                         itemOrder.getEmployeeId(),
                         itemOrder.getOrder().getEstablishment().getId(),
                         itemOrder.getPaymentStatus(),

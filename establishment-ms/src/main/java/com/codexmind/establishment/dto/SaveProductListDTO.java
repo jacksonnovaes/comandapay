@@ -9,17 +9,14 @@ import java.math.BigDecimal;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductDTO {
+public class SaveProductListDTO {
 
-    private Integer id;
 
     private String name;
 
     private BigDecimal price;
 
-    private Integer menu;
-
-    private String menuName;
-
     private int estoque;
+
+    private Integer establishmentId;
 }

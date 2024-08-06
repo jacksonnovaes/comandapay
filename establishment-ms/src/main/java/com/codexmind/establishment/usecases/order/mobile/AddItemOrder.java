@@ -1,4 +1,4 @@
-package com.codexmind.establishment.usecases.order;
+package com.codexmind.establishment.usecases.order.mobile;
 
 import com.codexmind.establishment.domain.ItemOrder;
 import com.codexmind.establishment.domain.Product;

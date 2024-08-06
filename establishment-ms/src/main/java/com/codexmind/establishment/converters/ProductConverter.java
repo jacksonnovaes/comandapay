@@ -11,9 +11,10 @@ public class ProductConverter {
         return ProductDTO.builder()
                 .id(product.getId())
                 .name(product.getName())
-                .menu(product.getMenu().getId())
+                .menuName(product.getMenu().getName())
                 .price(product.getPrice())
                 .menuName(product.getMenu().getName())
+                .estoque(product.getEstoque()!= null ? product.getEstoque() : 0)
                 .build();
     }
 

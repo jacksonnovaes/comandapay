@@ -47,8 +47,13 @@ public class SecurityConfig {
 
     private static final String[] ADMIN_ESTABLISHMENT_MATCHERS = {
             "/api/v1/customer/save/**",
-            "api/v1/employee/menu/list/**",
+            "/api/v1/employee/menu/list/**",
             "/api/v1/employee/user/**",
+            "/api/v1/pdv/open/**",
+            "/api/v1/pdv/close/**",
+            "/api/v1/establishment/admin/**",
+            "/api/v1/pdv/order/**",
+            "/api/v1//estoque/**"
 
     };
 
@@ -57,6 +62,13 @@ public class SecurityConfig {
             "/api/v1/customer/save/**",
             "/api/v1/payment/**",
             "/api/v1/employee/user/**",
+            "/api/v1/pdv/open/**",
+            "/api/v1/pdv/close/**",
+            "/api/v1/establishment/admin/**",
+            "/api/v1/pdv/savaAll/**",
+            "/api/v1/pdv/order/**",
+            "/api/v1//estoque/**"
+
 
     };
     private static final String[] CLIENT_MATCHERS = {
@@ -66,7 +78,7 @@ public class SecurityConfig {
             "/api/v1/establishment/**",
             "/api/v1/establishment/favorites/add/**",
             "/api/v1/establishment/favorites/**",
-            "/api/v1/menu/list/**",
+            "/api/v1/menu/**",
             "/api/v1/order/countOrders/**",
             "/api/v1/itemOrder/edit/**"
 
@@ -128,7 +140,7 @@ public class SecurityConfig {
                 "http://172.20.10.3:8081"
 
         ));
-        configuration.setAllowedMethods(Arrays.asList("GET","POST","PUT, DELETE"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
         configuration.setAllowCredentials(false);
         configuration.addAllowedHeader("*");
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

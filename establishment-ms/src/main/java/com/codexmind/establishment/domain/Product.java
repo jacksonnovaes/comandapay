@@ -28,5 +28,7 @@ public class Product {
     @JsonBackReference
     @JoinColumn(name = "menu_id")
     private Menu menu;
+    @Column(name = "qtd_estoque")
+    private Integer estoque;
 
 }

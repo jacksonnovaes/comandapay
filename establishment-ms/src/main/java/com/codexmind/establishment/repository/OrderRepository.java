@@ -13,6 +13,7 @@ import com.codexmind.establishment.domain.Order;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Integer>{
@@ -32,10 +33,22 @@ public interface OrderRepository extends JpaRepository<Order, Integer>{
                  FROM TB_ORDERS ORD
                   INNER JOIN TB_ESTABLISHMENT E ON E.ID = ORD.ESTABLISHMENT_ID
                   INNER JOIN TB_PERSON PER ON PER.ID = ORD.CUSTOMER_ID
-                 WHERE E.ID =:id AND ORD.OPEN_INSTANT BETWEEN :initialInst AND :endInstant""", nativeQuery = true)
+                 WHERE E.ID =:id""", nativeQuery = true)
         Page<Order> getAllOrdersByEstablishmentId(@Param("id") Integer id,
-                                                  @Param("initialInst") LocalDateTime initialInst,
-                                                  @Param("endInstant") LocalDateTime endInstant, Pageable pageable);
+                                                   Pageable pageable);
+
+    @Query(value = """
+                 SELECT ORD.ID, ORD.STATUS, E.ADDRESS_ID, ORD.CUSTOMER_ID, ORD.EMPLOYEE_ID,
+                 ORD.OPEN_INSTANT, ORD.ESTABLISHMENT_ID, PER.NAME, PER.LAST_NAME,ORD.TOTAL_ORDER
+                 FROM TB_ORDERS ORD
+                  INNER JOIN TB_ESTABLISHMENT E ON E.ID = ORD.ESTABLISHMENT_ID
+                  INNER JOIN TB_PERSON PER ON PER.ID = ORD.EMPLOYEE_ID
+                 WHERE E.ID =:establishmentId AND ORD.OPEN_INSTANT BETWEEN :startInstant AND :endInstant AND ORD.status = :status""", nativeQuery = true)
+    Page<Order> getAllOrdersByEmployeeId(@Param("establishmentId") Integer establishmentId,
+                                         @Param("startInstant") LocalDateTime startInstant,
+                                         @Param("endInstant") LocalDateTime endInstant,
+                                         Pageable pageable,
+                                         @Param("status") StatusComanda status);
 
         @Query(value = """
                                  SELECT ORD.ID as ordenid, ORD.STATUS as comanda,
@@ -53,6 +66,14 @@ public interface OrderRepository extends JpaRepository<Order, Integer>{
                                  FROM TB_ORDERS ORD WHERE ORD.CUSTOMER_ID = ?1 AND ORD.ESTABLISHMENT_ID = ?2
             """)
     Order getOpenedCommandByUserAndEstablishment(Integer customer, Integer establishmentId);
+
+    @Query(nativeQuery = true, value = """
+            SELECT ORD.ID, ORD.STATUS,
+                                 ORD.CUSTOMER_ID, ORD.EMPLOYEE_ID,
+                                 ORD.OPEN_INSTANT, ORD.ESTABLISHMENT_ID,ORD.TOTAL_ORDER
+                                 FROM TB_ORDERS ORD WHERE ORD.EMPLOYEE_ID = ?1 AND ORD.STATUS = ?2
+            """)
+    Optional<Order> getOpenedCommandByEmployeeAndStatus(Integer employeeId, StatusComanda statusComanda);
 
     @Query(nativeQuery = true, value = """
              SELECT COUNT(*)
