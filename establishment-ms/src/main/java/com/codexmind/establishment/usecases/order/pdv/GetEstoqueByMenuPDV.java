@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class GetProductsByMenuPDV {
+public class GetEstoqueByMenuPDV {
 
     private final ProductRepository productRepository;
 

@@ -8,6 +8,7 @@ import com.codexmind.establishment.dto.ProductDTO;
 import com.codexmind.establishment.dto.SaveProductListDTO;
 import com.codexmind.establishment.usecases.menu.DetailMenu;
 import com.codexmind.establishment.usecases.menu.SaveMenu;
+import com.codexmind.establishment.usecases.order.pdv.GetEstoqueByMenuPDV;
 import com.codexmind.establishment.usecases.order.pdv.GetProductsByMenuPDV;
 import com.codexmind.establishment.usecases.product.*;
 import com.codexmind.establishment.usecases.product.pdv.SaveProductPDV;
@@ -50,7 +51,10 @@ public class ProductControllerPDV {
 
     private final GetProductsByMenuPDV getProductsByMenu;
 
-    public ProductControllerPDV(SaveProduct saveProduct, SaveProductPDV saveProductPDV, DetailMenu detailMenu, SaveMenu saveMenu, UpdateProduct updateProduct, DeleteProduct deleteProduct, DetailProduct detailProduct, GetAllProducts getAllProducts, GetProductsByOrder getProductsByOrder, GetProductsByMenuPDV getProductsByMenu) {
+    private final GetEstoqueByMenuPDV getEstoqueByMenuPDV;
+
+
+    public ProductControllerPDV(SaveProduct saveProduct, SaveProductPDV saveProductPDV, DetailMenu detailMenu, SaveMenu saveMenu, UpdateProduct updateProduct, DeleteProduct deleteProduct, DetailProduct detailProduct, GetAllProducts getAllProducts, GetProductsByOrder getProductsByOrder, GetProductsByMenuPDV getProductsByMenu, GetEstoqueByMenuPDV getEstoqueByMenuPDV) {
         this.saveProduct = saveProduct;
         this.saveProductPDV = saveProductPDV;
         this.detailMenu = detailMenu;
@@ -61,6 +65,7 @@ public class ProductControllerPDV {
         this.getAllProducts = getAllProducts;
         this.getProductsByOrder = getProductsByOrder;
         this.getProductsByMenu = getProductsByMenu;
+        this.getEstoqueByMenuPDV = getEstoqueByMenuPDV;
     }
 
 
@@ -117,6 +122,23 @@ public class ProductControllerPDV {
         return ResponseEntity.ok(list);
     }
 
+    @GetMapping(value = "/{idMenu}/estoque")
+    public ResponseEntity<Page<ProductDTO>> getEstoqueProducts
+            (@PathVariable Integer id,
+             @RequestParam(value = "page", defaultValue = "0") Integer page,
+             @RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPge,
+             @RequestParam(value = "order", defaultValue = "name") String orderBy,
+             @RequestParam(value = "direction", defaultValue = "ASC") String direction) {
+        var list = getAllProducts.execute(
+                id,
+                page,
+                linesPerPge,
+                orderBy,
+                direction
+        ).map(ProductConverter::toDTO);
+        return ResponseEntity.ok(list);
+    }
+
     @GetMapping(value = "/menu/{id}/list")
     public ResponseEntity<Page<ProductDTO>> getALlProductsByMenu(
             @PathVariable Integer id,
@@ -125,6 +147,23 @@ public class ProductControllerPDV {
             @RequestParam(value = "order", defaultValue = "name") String orderBy,
             @RequestParam(value = "direction", defaultValue = "ASC") String direction) {
         var list = getProductsByMenu.execute(
+                id,
+                page,
+                linesPerPge,
+                orderBy,
+                direction
+        ).map(ProductConverter::toDTO);
+        return ResponseEntity.ok(list);
+    }
+
+    @GetMapping(value = "/estoque/{id}/list")
+    public ResponseEntity<Page<ProductDTO>> getEstoque(
+            @PathVariable Integer id,
+            @RequestParam(value = "page", defaultValue = "0") Integer page,
+            @RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPge,
+            @RequestParam(value = "order", defaultValue = "name") String orderBy,
+            @RequestParam(value = "direction", defaultValue = "ASC") String direction) {
+        var list = getEstoqueByMenuPDV.execute(
                 id,
                 page,
                 linesPerPge,

@@ -57,7 +57,20 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
          on prod.menu_id = menu.id
          inner join tb_establishment
          estab on estab.id = menu.establishment_id
-         where menu.id = ?1
+         where menu.id = ?1 and prod.qtd_estoque > 0
          """, nativeQuery = true)
  Page<Product> getProductdsByMenu(Integer id, Pageable pageable);
+
+ @Query(value = """
+         select prod.id, prod.name, prod.price, prod.menu_id,
+         prod.qtd_estoque,
+         menu.name as menu
+         from tb_product prod
+         left join tb_menu menu
+         on prod.menu_id = menu.id
+         inner join tb_establishment
+         estab on estab.id = menu.establishment_id
+         where menu.id = ?1
+         """, nativeQuery = true)
+ Page<Product> getEstoqueByMenu(Integer id, Pageable pageable);
 }
