@@ -11,13 +11,14 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class GetProductsByMenuPDV {
+public class SearchProductsPDV {
 
     private final ProductRepository productRepository;
 
-    public Page<Product> execute(Integer id, Integer page, Integer linesPerPge, String orderBy, String direction) {
+    public Page<Product> execute(String name, Integer idmenu, Integer page, Integer linesPerPge, String orderBy, String direction) {
         PageRequest pageRequest = PageRequest.of(page, linesPerPge, Sort.Direction.valueOf(direction), orderBy);
 
-        return productRepository.getProductsByMenu(id, pageRequest);
+            return productRepository.searchProductsEstoque(name, idmenu, pageRequest);
+
     }
 }

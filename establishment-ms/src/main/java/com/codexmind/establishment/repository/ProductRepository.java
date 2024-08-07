@@ -16,7 +16,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
 
  @Query(
-         "SELECT distinct p FROM Product p INNER JOIN p.menu m INNER JOIN m.establishment e where e.id = ?1 ")
+         "SELECT distinct p FROM Product p INNER JOIN p.menu m INNER JOIN m.establishment e where e.id = ?1 AND p.estoque > 0")
  Page<Product> getAllProductsByMenuAndEstablishment(Integer id,
                                                     Pageable pageable);
 
@@ -59,7 +59,33 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
          estab on estab.id = menu.establishment_id
          where menu.id = ?1 and prod.qtd_estoque > 0
          """, nativeQuery = true)
- Page<Product> getProductdsByMenu(Integer id, Pageable pageable);
+ Page<Product> getProductsByMenu(Integer id, Pageable pageable);
+
+ @Query(value = """
+         select prod.id, prod.name, prod.price, prod.menu_id,
+         prod.qtd_estoque,
+         menu.name as menu
+         from tb_product prod
+         left join tb_menu menu
+         on prod.menu_id = menu.id
+         inner join tb_establishment
+         estab on estab.id = menu.establishment_id
+         where prod.name ilike %?1% and prod.menu_id=?2 and prod.qtd_estoque > 0 or prod.qtd_estoque is null
+         """, nativeQuery = true)
+ Page<Product> searchProducts(String name, Integer idMenu, Pageable pageable);
+ @Query(value = """
+         select prod.id, prod.name, prod.price, prod.menu_id,
+         prod.qtd_estoque,
+         menu.name as menu
+         from tb_product prod
+         left join tb_menu menu
+         on prod.menu_id = menu.id
+         inner join tb_establishment
+         estab on estab.id = menu.establishment_id
+         where prod.name ilike %?1% and prod.menu_id=?2
+         """, nativeQuery = true)
+ Page<Product> searchProductsEstoque(String name, Integer idMenu, Pageable pageable);
+
 
  @Query(value = """
          select prod.id, prod.name, prod.price, prod.menu_id,

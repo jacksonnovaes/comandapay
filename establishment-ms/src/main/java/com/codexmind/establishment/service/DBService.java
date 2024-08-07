@@ -127,7 +127,6 @@ public class DBService {
                 .name("Caipirinha")
                 .price(new BigDecimal("18.00"))
                 .menu(menu2)
-                .estoque(50)
                 .build();
 
         var product7 = Product.builder()
@@ -148,7 +147,6 @@ public class DBService {
                 .name("Porção de Calabresa")
                 .price(new BigDecimal("30.00"))
                 .menu(menu3)
-                .estoque(50)
                 .build();
 
         var product10 = Product.builder()
