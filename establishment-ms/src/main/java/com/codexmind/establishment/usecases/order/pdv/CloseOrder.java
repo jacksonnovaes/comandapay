@@ -33,8 +33,9 @@ public class CloseOrder {
         var itens = itemOrderRepository.getAllItemOrdersByOrderId(orderId, StatusComanda.OPENED);
         itens.stream().forEach(itemOrder -> {
             var product = productRepository.findById(itemOrder.getProduct().getId());
+            if(product.get().getEstoque()!=null)
                 product.get().setEstoque(product.get().getEstoque() - itemOrder.getQuantity());
-                productRepository.save(product.get());
+            productRepository.save(product.get());
         });
         if (paymentType.equals("cartao")) {
             PaymentWithCreditCard paymentWithCreditCard = new PaymentWithCreditCard();

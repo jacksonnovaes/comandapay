@@ -12,6 +12,7 @@ import com.codexmind.establishment.usecases.order.pdv.GetEstoqueByMenuPDV;
 import com.codexmind.establishment.usecases.order.pdv.GetProductsByMenuPDV;
 import com.codexmind.establishment.usecases.order.pdv.SearchProductsPDV;
 import com.codexmind.establishment.usecases.product.*;
+import com.codexmind.establishment.usecases.product.pdv.EditProduct;
 import com.codexmind.establishment.usecases.product.pdv.SaveProductPDV;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.data.domain.Page;
@@ -36,7 +37,7 @@ public class ProductControllerPDV {
 
     private final SaveProductPDV saveProductPDV;
 
-    private final DetailMenu detailMenu;
+    private final EditProduct editProduct;
 
     private final SaveMenu saveMenu;
 
@@ -57,10 +58,10 @@ public class ProductControllerPDV {
     private final SearchProductsPDV searchProductsPDV;
 
 
-    public ProductControllerPDV(SaveProduct saveProduct, SaveProductPDV saveProductPDV, DetailMenu detailMenu, SaveMenu saveMenu, UpdateProduct updateProduct, DeleteProduct deleteProduct, DetailProduct detailProduct, GetAllProducts getAllProducts, GetProductsByOrder getProductsByOrder, GetProductsByMenuPDV getProductsByMenu, GetEstoqueByMenuPDV getEstoqueByMenuPDV, SearchProductsPDV searchProductsPDV) {
+    public ProductControllerPDV(SaveProduct saveProduct, SaveProductPDV saveProductPDV, EditProduct editProduct, SaveMenu saveMenu, UpdateProduct updateProduct, DeleteProduct deleteProduct, DetailProduct detailProduct, GetAllProducts getAllProducts, GetProductsByOrder getProductsByOrder, GetProductsByMenuPDV getProductsByMenu, GetEstoqueByMenuPDV getEstoqueByMenuPDV, SearchProductsPDV searchProductsPDV) {
         this.saveProduct = saveProduct;
         this.saveProductPDV = saveProductPDV;
-        this.detailMenu = detailMenu;
+        this.editProduct = editProduct;
         this.saveMenu = saveMenu;
         this.updateProduct = updateProduct;
         this.deleteProduct = deleteProduct;
@@ -203,6 +204,12 @@ public class ProductControllerPDV {
     @PostMapping("/savaAll/{idMenu}")
     public ResponseEntity<String> saveProducts(@RequestBody List<Object[]> productDTOList, @PathVariable Integer idMenu) {
         return ResponseEntity.ok(saveProductPDV.execute(productDTOList, idMenu));
+    }
+
+
+    @PutMapping("/edit/{id}")
+    public ResponseEntity<ProductDTO> editProduct(@PathVariable Integer id,@RequestBody ProductDTO productDTO) {
+        return ResponseEntity.ok(ProductConverter.toDTO(editProduct.execute(productDTO, id)));
     }
 
 

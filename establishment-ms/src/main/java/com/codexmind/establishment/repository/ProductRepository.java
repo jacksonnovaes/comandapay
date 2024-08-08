@@ -57,7 +57,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
          on prod.menu_id = menu.id
          inner join tb_establishment
          estab on estab.id = menu.establishment_id
-         where menu.id = ?1 and prod.qtd_estoque > 0
+         where menu.id = ?1 and (prod.qtd_estoque > 0 OR prod.qtd_estoque IS NULL)
          """, nativeQuery = true)
  Page<Product> getProductsByMenu(Integer id, Pageable pageable);
 
@@ -70,7 +70,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
          on prod.menu_id = menu.id
          inner join tb_establishment
          estab on estab.id = menu.establishment_id
-         where prod.name ilike %?1% and prod.menu_id=?2 and prod.qtd_estoque > 0 or prod.qtd_estoque is null
+         where prod.name ilike %?1% and prod.menu_id=?2 and (prod.qtd_estoque > 0 OR prod.qtd_estoque IS NULL)
          """, nativeQuery = true)
  Page<Product> searchProducts(String name, Integer idMenu, Pageable pageable);
  @Query(value = """
