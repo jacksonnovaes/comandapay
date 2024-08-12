@@ -18,6 +18,8 @@ public class DoPayment {
 
     private final EfiPixCob efiPixCob;
 
+
+
     private final PixTransactionRepository pixTransactionRepository;
 
     public DoPayment(EfiPixCob efiPixCob, PixTransactionRepository pixTransactionRepository) {
