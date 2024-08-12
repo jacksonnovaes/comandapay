@@ -31,12 +31,12 @@ public class AuthEfiPay {
 		String basicAuth = Base64.getEncoder().encodeToString(((client_id+':'+client_secret).getBytes()));
 		try {
 		//Diretório em que seu certificado em formato .p12 deve ser inserido
-
+		System.setProperty("javax.net.ssl.keyStore", "./certs/prod-app-comanda.p12"); 
 		SSLSocketFactory sslsocketfactory = (SSLSocketFactory) SSLSocketFactory.getDefault();
 		
 		URL url;
 
-			url = new URL ("https://pix.api.efipay.com.br/oauth/token");
+				url = new URL ("https://pix.api.efipay.com.br/oauth/token");
 		//Para ambiente de Desenvolvimento              
 		HttpsURLConnection conn = (HttpsURLConnection)url.openConnection();
 		conn.setDoOutput(true);

@@ -9,6 +9,8 @@ import com.codexmind.establishment.usecases.pix.GetBillings;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
+
 
 @RestController
 @RequestMapping("/v2/cob")
@@ -24,7 +26,7 @@ public class PixCobranca {
         this.getBillings = getBillings;
     }
     @PostMapping("/pix")   
-    public ResponseEntity<PixTransactionDTO> pix(@RequestBody TransactionDTO transactionDTO){
+    public ResponseEntity<PixTransactionDTO> pix(@RequestBody TransactionDTO  transactionDTO){
         return ResponseEntity.ok(TransactionConverter.toDTO(doPayment.execute(transactionDTO)));
 
     }

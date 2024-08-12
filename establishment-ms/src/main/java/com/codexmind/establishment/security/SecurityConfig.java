@@ -41,7 +41,9 @@ public class SecurityConfig {
             "/api/v1/product/menu/**",
             "/api/v1/payment/**",
             "/api/v1/signup/**",
-            "api/v1/customer/signup/save"
+            "api/v1/customer/signup/save",
+            "/v2/cob/pix/**",
+            "/api/v1/payment/loc/**"
 
     };
 
