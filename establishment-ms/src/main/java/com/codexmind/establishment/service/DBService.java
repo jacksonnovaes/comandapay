@@ -93,7 +93,7 @@ public class DBService {
         // Creating products
         var product1 = Product.builder()
                 .name("Coca Cola")
-                .price(new BigDecimal("5.00"))
+                .price(new BigDecimal("0.01"))
                 .menu(menu2)
                 .estoque(50)
                 .build();

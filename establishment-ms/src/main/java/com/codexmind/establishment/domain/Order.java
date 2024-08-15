@@ -1,5 +1,6 @@
 package com.codexmind.establishment.domain;
 
+import com.codexmind.establishment.domain.enums.PaymentStatus;
 import com.codexmind.establishment.domain.enums.StatusComanda;
 import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
@@ -40,6 +41,9 @@ public class Order {
 
     @Enumerated(EnumType.ORDINAL)
     private  StatusComanda status;
+
+    @Enumerated(EnumType.ORDINAL)
+    private PaymentStatus paymentStatus;
 
 
     @ManyToOne(cascade = CascadeType.ALL)

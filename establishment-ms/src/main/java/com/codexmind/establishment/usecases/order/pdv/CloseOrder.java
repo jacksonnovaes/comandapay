@@ -30,11 +30,12 @@ public class CloseOrder {
     public Order execute(Integer orderId, String paymentType, BigDecimal valueReceived) {
         var orderFinded = orderRepository.findById(orderId);
 
-        var itens = itemOrderRepository.getAllItemOrdersByOrderId(orderId, StatusComanda.OPENED);
+        var itens = itemOrderRepository.getAllItemOrdersByOrderId(orderId, StatusComanda.OPENED, PaymentStatus.PENDING);
         itens.stream().forEach(itemOrder -> {
             var product = productRepository.findById(itemOrder.getProduct().getId());
             if(product.get().getEstoque()!=null)
                 product.get().setEstoque(product.get().getEstoque() - itemOrder.getQuantity());
+            itemOrder.setPaymentStatus(PaymentStatus.PAID);
             productRepository.save(product.get());
         });
         if (paymentType.equals("cartao")) {
@@ -51,7 +52,7 @@ public class CloseOrder {
             paymentWithCash.setInstateConfirmation(LocalDate.now());
             orderFinded.get().setPayment(paymentWithCash);
         }
-        orderFinded.get().setStatus(StatusComanda.CLOSED);
+        orderFinded.get().setPaymentStatus(PaymentStatus.PAID);
         orderRepository.save(orderFinded.get());
         return orderFinded.get();
     }

@@ -28,7 +28,7 @@ public interface OrderRepository extends JpaRepository<Order, Integer>{
      */
 
         @Query(value = """
-                 SELECT ORD.ID, ORD.STATUS, E.ADDRESS_ID, ORD.CUSTOMER_ID, ORD.EMPLOYEE_ID,
+                 SELECT ORD.ID, ORD.STATUS, E.ADDRESS_ID, ORD.CUSTOMER_ID, ORD.EMPLOYEE_ID,ORD.PAYMENT_STATUS,
                  ORD.OPEN_INSTANT, ORD.ESTABLISHMENT_ID, PER.NAME, PER.LAST_NAME,ORD.TOTAL_ORDER
                  FROM TB_ORDERS ORD
                   INNER JOIN TB_ESTABLISHMENT E ON E.ID = ORD.ESTABLISHMENT_ID
@@ -38,7 +38,7 @@ public interface OrderRepository extends JpaRepository<Order, Integer>{
                                                    Pageable pageable);
 
     @Query(value = """
-                 SELECT ORD.ID, ORD.STATUS, E.ADDRESS_ID, ORD.CUSTOMER_ID, ORD.EMPLOYEE_ID,
+                 SELECT ORD.ID, ORD.STATUS, E.ADDRESS_ID, ORD.CUSTOMER_ID, ORD.EMPLOYEE_ID,ORD.PAYMENT_STATUS,
                  ORD.OPEN_INSTANT, ORD.ESTABLISHMENT_ID, PER.NAME, PER.LAST_NAME,ORD.TOTAL_ORDER
                  FROM TB_ORDERS ORD
                   INNER JOIN TB_ESTABLISHMENT E ON E.ID = ORD.ESTABLISHMENT_ID
@@ -51,7 +51,7 @@ public interface OrderRepository extends JpaRepository<Order, Integer>{
                                          @Param("status") StatusComanda status);
 
         @Query(value = """
-                                 SELECT ORD.ID as ordenid, ORD.STATUS as comanda,
+                                 SELECT ORD.ID as ordenid, ORD.STATUS as comanda,ORD.PAYMENT_STATUS,
                                  ORD.CUSTOMER_ID,ORD.QUANTITY,ORD.TOTAL_ORDER, ORD.EMPLOYEE_ID,ORD.ADDRESS_ID,
                                  ORD.OPEN_INSTANT, ORD.ESTABLISHMENT_ID, PER.NAME, PER.LAST_NAME
                                  FROM TB_ORDERS ORD
@@ -61,7 +61,7 @@ public interface OrderRepository extends JpaRepository<Order, Integer>{
         Order getLastOrderBYCustomer(Integer id, StatusComanda status);
     @Query(nativeQuery = true, value = """
             SELECT ORD.ID, ORD.STATUS,
-                                 ORD.CUSTOMER_ID, ORD.EMPLOYEE_ID,
+                                 ORD.CUSTOMER_ID, ORD.EMPLOYEE_ID, ORD.PAYMENT_STATUS,
                                  ORD.OPEN_INSTANT, ORD.ESTABLISHMENT_ID,ORD.TOTAL_ORDER
                                  FROM TB_ORDERS ORD WHERE ORD.CUSTOMER_ID = ?1 AND ORD.ESTABLISHMENT_ID = ?2
             """)
@@ -69,7 +69,7 @@ public interface OrderRepository extends JpaRepository<Order, Integer>{
 
     @Query(nativeQuery = true, value = """
             SELECT ORD.ID, ORD.STATUS,
-                                 ORD.CUSTOMER_ID, ORD.EMPLOYEE_ID,
+                                 ORD.CUSTOMER_ID, ORD.EMPLOYEE_ID,ORD.PAYMENT_STATUS,
                                  ORD.OPEN_INSTANT, ORD.ESTABLISHMENT_ID,ORD.TOTAL_ORDER
                                  FROM TB_ORDERS ORD WHERE ORD.EMPLOYEE_ID = ?1 AND ORD.STATUS = ?2
             """)

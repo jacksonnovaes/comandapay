@@ -3,6 +3,7 @@ package com.codexmind.establishment.usecases.order;
 import com.codexmind.establishment.domain.Customer;
 import com.codexmind.establishment.domain.Establishment;
 import com.codexmind.establishment.domain.Order;
+import com.codexmind.establishment.domain.enums.PaymentStatus;
 import com.codexmind.establishment.domain.enums.StatusComanda;
 import com.codexmind.establishment.exceptions.EntityNotFoundException;
 import com.codexmind.establishment.repository.*;
@@ -45,6 +46,7 @@ public class SaveOrder {
             order.setEstablishment(establishment);
             order.setOpenInstant(LocalDateTime.now());
             order.setStatus(StatusComanda.OPENED);
+            order.setPaymentStatus(PaymentStatus.PENDING);
 
             return orderRepository.save(order);
         }else{
