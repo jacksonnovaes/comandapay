@@ -14,6 +14,6 @@ public interface EfiPixCob {
     @PostMapping("/v2/cob/pix")
     PixTransactionDTO duePixCobv(@RequestBody TransactionDTO transactionDTO);
 
-    @GetMapping("/v2/cob/{txid}}")
+    @GetMapping("/v2/cob/{txid}")
     PixTransactionDTO getBillings(@PathVariable String txid);
 }

@@ -31,7 +31,7 @@ public class PixCobranca {
 
     }
 
-    @PostMapping("/{txid}")
+    @GetMapping("/pix/{txid}")
     public ResponseEntity<PixTransactionDTO> pix(@PathVariable String txid){
         return ResponseEntity.ok(getBillings.execute(txid));
 

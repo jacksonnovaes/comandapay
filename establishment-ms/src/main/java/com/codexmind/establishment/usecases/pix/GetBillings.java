@@ -14,7 +14,6 @@ public class GetBillings {
     }
 
     public PixTransactionDTO execute(String txid){
-
         return  efiPixCob.getBillings(txid);
     }
 }
