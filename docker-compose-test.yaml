@@ -10,7 +10,7 @@ services:
     networks:
       - comandapay-net
     environment:
-      SPRING_PROFILES_ACTIVE: dev
+      SPRING_PROFILES_ACTIVE: test
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgresdb:5432/establishment
     depends_on:
       - postgresdb

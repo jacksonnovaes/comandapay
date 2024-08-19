@@ -9,6 +9,9 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=root
       - POSTGRES_DB=establishment
+      - SPRING_PROFILES_ACTIVE=prod
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://200.98.80.143:3459/comandapp
+
     ports:
       - "5432:5432"
     expose:
@@ -17,7 +20,18 @@ services:
       - comandapay-net
     volumes:
       - postgres_data:/var/lib/postgresql/data
-
+  establishment-ms:
+    image: establishment-ms
+    ports:
+      - "8080:8080"  # Mapeando porta do host para o contêiner
+    networks:
+      - comandapay-net
+  pay-auth:
+    image: pay-auth
+    ports:
+      - "8082:8082"  # Mapeando porta do host para o contêiner
+    networks:
+      - comandapay-net
 volumes:
   postgres_data:
 

@@ -10,4 +10,4 @@ WORKDIR /app
 ENV TZ=America/Sao_Paulo
 COPY --from=build /app/target/*.jar .
 VOLUME /tmp
-ENTRYPOINT ["java", "-jar", "epay-auth-0.0.1-SNAPSHOT", "--spring.profiles.active=local"]
+ENTRYPOINT ["java", "-jar", "pay-auth-0.0.1-SNAPSHOT.jar", "--spring.profiles.active=local"]
