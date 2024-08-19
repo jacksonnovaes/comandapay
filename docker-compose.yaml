@@ -8,7 +8,8 @@ services:
       - TZ=Brazil/East
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=root
-
+      - POSTGRES_DB=establishment
+      - SPRING_PROFILES_ACTIVE=local
     ports:
       - "5432:5432"
     expose:
@@ -21,6 +22,12 @@ services:
     image: establishment-ms
     ports:
       - "8080:8080"  # Mapeando porta do host para o contêiner
+    networks:
+      - comandapay-net
+  pay-auth:
+    image: pay-auth
+    ports:
+      - "8082:8082"  # Mapeando porta do host para o contêiner
     networks:
       - comandapay-net
 volumes:

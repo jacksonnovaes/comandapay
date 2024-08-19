@@ -6,7 +6,7 @@ spring:
   datasource:
     driver-class-name: org.postgresql.Driver
     username: postgres
-    url: jdbc:postgresql://comandapay-postgresdb-1:5432/
+    url: jdbc:postgresql://172.18.0.1:5432/
     password: root
     
   jpa:
@@ -29,3 +29,9 @@ springdoc:
 
 server:
   port: 8080
+
+efi:
+  cob:
+    url: http://172.18.0.1:8082
+
+

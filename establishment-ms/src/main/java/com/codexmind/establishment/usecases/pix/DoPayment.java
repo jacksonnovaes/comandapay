@@ -1,24 +1,16 @@
 package com.codexmind.establishment.usecases.pix;
 
-import java.util.Optional;
-
-
-import com.codexmind.establishment.converters.TransactionConverter;
-import com.codexmind.establishment.domain.PixTransaction;
-import com.codexmind.establishment.repository.PixTransactionRepository;
-import com.codexmind.establishment.service.EfiPixCob;
-import com.codexmind.establishment.service.UserService;
 import org.springframework.stereotype.Service;
 
+import com.codexmind.establishment.domain.PixTransaction;
 import com.codexmind.establishment.dto.TransactionDTO;
+import com.codexmind.establishment.repository.PixTransactionRepository;
+import com.codexmind.establishment.service.EfiPixCob;
 
 @Service
 public class DoPayment {
 
-
     private final EfiPixCob efiPixCob;
-
-
 
     private final PixTransactionRepository pixTransactionRepository;
 
@@ -27,7 +19,6 @@ public class DoPayment {
         this.efiPixCob = efiPixCob;
         this.pixTransactionRepository = pixTransactionRepository;
     }
-
 
     public PixTransaction execute(TransactionDTO transactionDTO) {
 

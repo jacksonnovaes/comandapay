@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient(name = "efiCob", url = "http://localhost:8082")
+@FeignClient(name = "efiCob", url = "${efi.cob.url}")
 public interface EfiPixCob {
 
     @PostMapping("/v2/cob/pix")
