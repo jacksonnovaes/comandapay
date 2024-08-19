@@ -24,6 +24,7 @@ public class EditItemOrder {
             itemOrderRepository.delete(itemOrderFinded);
             return null;
         }
+        itemOrderFinded.getOrder().setTotalOrder(itemOrderFinded.getUnitPrice().multiply(BigDecimal.valueOf(intQuantity)));
         itemOrderFinded.setItemOrderId(itemOrderId);
         itemOrderFinded.setQuantity(intQuantity);
         itemOrderFinded.setTotalAmount(itemOrderFinded.getUnitPrice().multiply(BigDecimal.valueOf(intQuantity)));
