@@ -136,7 +136,9 @@ public class SecurityConfig {
                 "http://192.168.0.129:8080",
                 "http://192.168.0.213:8080",
                 "http://192.168.0.129:8081",
+                "http://192.168.0.129:8082",
                 "http://localhost:8080",
+                "http://localhost:8082",
                 "http://localhost:3000",
                 "http://172.20.10.3:8081",//
                 "http://172.20.10.3:8081",

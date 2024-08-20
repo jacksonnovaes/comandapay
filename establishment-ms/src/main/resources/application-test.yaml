@@ -29,3 +29,6 @@ spring:
       hibernate:
         physical-naming-strategy: io.hypersistence.utils.hibernate.naming.CamelCaseToSnakeCaseNamingStrategy
         format-sql: true
+efi:
+  cob:
+    url: http://localhost:8082
