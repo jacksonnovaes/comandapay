@@ -10,6 +10,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
+import static com.codexmind.establishment.domain.enums.PaymentStatus.PAID;
+import static com.codexmind.establishment.domain.enums.PaymentStatus.PENDING;
+import static com.codexmind.establishment.domain.enums.StatusComanda.CLOSED;
+
 @Service
 @RequiredArgsConstructor
 public class GetItemOrderPdv {
@@ -18,8 +22,8 @@ public class GetItemOrderPdv {
     public Set<ItemOrderResponseDTO> execute(Integer idOrder,String status){
 
        var  statusComanda = StatusComanda.fromValue(status);
-
-        var items = itemOrderRepository.getAllItemOrdersByOrderId(idOrder, statusComanda, PaymentStatus.PENDING);
+        var statusPayment = statusComanda == CLOSED ? PAID : PENDING;
+        var items = itemOrderRepository.getAllItemOrdersByOrderId(idOrder, statusComanda, statusPayment);
 
         return ItemOrderConverter.toDTO(items);
     }
