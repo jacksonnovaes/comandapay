@@ -1,6 +1,5 @@
 package com.codexmind.establishment.usecases.product.pdv;
 
-import com.codexmind.establishment.domain.Establishment;
 import com.codexmind.establishment.domain.Product;
 import com.codexmind.establishment.dto.SaveProductListDTO;
 import com.codexmind.establishment.repository.ProductRepository;
@@ -13,7 +12,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class SaveProductPDV {
+public class SaveProductsPDV {
 
 
     private final ProductRepository repository;
@@ -28,13 +27,6 @@ public class SaveProductPDV {
             productDTO.setPrice(BigDecimal.valueOf((Double) data[1]));
             productDTO.setEstoque((Integer) data[2]);
             productDTO.setEstablishmentId((Integer) data[3]);
-
-            var establishment = Establishment.builder()
-                    .id(productDTO.getEstablishmentId())
-                    .build();
-
-
-
 
             var product = Product.builder()
                     .name(productDTO.getName())

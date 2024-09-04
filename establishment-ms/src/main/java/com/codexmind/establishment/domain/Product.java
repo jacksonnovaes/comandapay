@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 @Getter
 @Setter
@@ -30,5 +29,8 @@ public class Product {
     private Menu menu;
     @Column(name = "qtd_estoque")
     private Integer estoque;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Services service;
 
 }

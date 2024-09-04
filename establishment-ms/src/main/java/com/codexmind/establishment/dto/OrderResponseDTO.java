@@ -2,7 +2,6 @@ package com.codexmind.establishment.dto;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.List;
 
 import com.codexmind.establishment.domain.enums.StatusComanda;
 import com.fasterxml.jackson.annotation.JsonFormat;

@@ -35,26 +35,32 @@ public class Employee extends Person {
     @JoinColumn(name = "establishment_id")
     private Establishment establishment;
 
+    @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY)
+    private List<SchedulingDomain> schedulings = new ArrayList<>();
+
     @Builder
-    public Employee(
-            Integer id,
-            String name,
-            String lastName,
-            String cpf,
-            String phone,
-            String celPhone,
-            Status status,
-            Establishment establishment,
-            User user,
-            String urlImage,
-            Set<Integer> profiles,
-            LocalDate admissionDate,
-            List<Address> addressList,
-            Cargo cargo) {
+    public Employee(Integer id, 
+                    String name, 
+                    String lastName, 
+                    String cpf, 
+                    String phone, 
+                    String celPhone, 
+                    Status status, 
+                    User user, 
+                    String urlImage, 
+                    Set<Integer> profiles, 
+                    LocalDate admissionDate, 
+                    List<Address> addressList, 
+                    Cargo cargo,
+                    Establishment establishment, 
+                    List<SchedulingDomain> schedulings) {
         super(id, name, lastName, cpf, phone, celPhone, status, user, urlImage, profiles);
-        this.addressList = addressList;
-        this.establishment = establishment;
-        this.cargo = cargo;
         this.admissionDate = admissionDate;
+        this.addressList = addressList;
+        this.cargo = cargo;
+        this.establishment = establishment;
+        this.schedulings = schedulings;
     }
+
+
 }

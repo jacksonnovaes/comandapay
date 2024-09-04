@@ -1,4 +1,4 @@
-package com.codexmind.establishment.usecases.pdv;
+package com.codexmind.establishment.usecases.order.pdv;
 
 import com.codexmind.establishment.domain.Order;
 import com.codexmind.establishment.domain.enums.StatusComanda;

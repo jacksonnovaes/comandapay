@@ -1,12 +1,9 @@
 package com.codexmind.establishment.controller.pdv;
 
-import com.codexmind.establishment.converters.MenuConverter;
 import com.codexmind.establishment.converters.ProductConverter;
 import com.codexmind.establishment.domain.Product;
 import com.codexmind.establishment.dto.ProductDTO;
 
-import com.codexmind.establishment.dto.SaveProductListDTO;
-import com.codexmind.establishment.usecases.menu.DetailMenu;
 import com.codexmind.establishment.usecases.menu.SaveMenu;
 import com.codexmind.establishment.usecases.order.pdv.GetEstoqueByMenuPDV;
 import com.codexmind.establishment.usecases.order.pdv.GetProductsByMenuPDV;
@@ -14,6 +11,7 @@ import com.codexmind.establishment.usecases.order.pdv.SearchProductsPDV;
 import com.codexmind.establishment.usecases.product.*;
 import com.codexmind.establishment.usecases.product.pdv.EditProduct;
 import com.codexmind.establishment.usecases.product.pdv.SaveProductPDV;
+import com.codexmind.establishment.usecases.product.pdv.SaveProductsPDV;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -21,9 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.math.BigDecimal;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 
 @RestController
@@ -34,6 +30,8 @@ import java.util.Set;
 public class ProductControllerPDV {
 
     private final SaveProduct saveProduct;
+
+    private final SaveProductsPDV saveProductsPDV;
 
     private final SaveProductPDV saveProductPDV;
 
@@ -58,8 +56,9 @@ public class ProductControllerPDV {
     private final SearchProductsPDV searchProductsPDV;
 
 
-    public ProductControllerPDV(SaveProduct saveProduct, SaveProductPDV saveProductPDV, EditProduct editProduct, SaveMenu saveMenu, UpdateProduct updateProduct, DeleteProduct deleteProduct, DetailProduct detailProduct, GetAllProducts getAllProducts, GetProductsByOrder getProductsByOrder, GetProductsByMenuPDV getProductsByMenu, GetEstoqueByMenuPDV getEstoqueByMenuPDV, SearchProductsPDV searchProductsPDV) {
+    public ProductControllerPDV(SaveProduct saveProduct, SaveProductsPDV saveProductsPDV, SaveProductPDV saveProductPDV, EditProduct editProduct, SaveMenu saveMenu, UpdateProduct updateProduct, DeleteProduct deleteProduct, DetailProduct detailProduct, GetAllProducts getAllProducts, GetProductsByOrder getProductsByOrder, GetProductsByMenuPDV getProductsByMenu, GetEstoqueByMenuPDV getEstoqueByMenuPDV, SearchProductsPDV searchProductsPDV) {
         this.saveProduct = saveProduct;
+        this.saveProductsPDV = saveProductsPDV;
         this.saveProductPDV = saveProductPDV;
         this.editProduct = editProduct;
         this.saveMenu = saveMenu;
@@ -203,7 +202,12 @@ public class ProductControllerPDV {
 
     @PostMapping("/savaAll/{idMenu}")
     public ResponseEntity<String> saveProducts(@RequestBody List<Object[]> productDTOList, @PathVariable Integer idMenu) {
-        return ResponseEntity.ok(saveProductPDV.execute(productDTOList, idMenu));
+        return ResponseEntity.ok(saveProductsPDV.execute(productDTOList, idMenu));
+    }
+
+    @PostMapping("/save/{idMenu}")
+    public ResponseEntity<ProductDTO> saveProduct(@RequestBody ProductDTO productDTO, @PathVariable Integer idMenu) {
+        return ResponseEntity.ok(ProductConverter.toDTO(saveProductPDV.execute(productDTO, idMenu)));
     }
 
 

@@ -1,7 +1,5 @@
-package com.codexmind.establishment.controller;
+package com.codexmind.establishment.controller.mobile;
 
-import com.codexmind.establishment.converters.EstablishmentConverter;
-import com.codexmind.establishment.dto.EstablishmentDTO;
 import com.codexmind.establishment.usecases.employee.*;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.http.HttpStatus;

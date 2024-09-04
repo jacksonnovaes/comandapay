@@ -3,7 +3,6 @@ package com.codexmind.establishment.usecases.customer;
 import com.codexmind.establishment.exceptions.AuthorizationException;
 import com.codexmind.establishment.exceptions.EntityNotFoundException;
 import com.codexmind.establishment.repository.CustomerRepository;
-import com.codexmind.establishment.repository.EmployeeRepository;
 import com.codexmind.establishment.service.UserService;
 import com.codexmind.establishment.usecases.S3Service;
 import lombok.RequiredArgsConstructor;

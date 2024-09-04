@@ -1,4 +1,4 @@
-package com.codexmind.establishment.controller;
+package com.codexmind.establishment.controller.mobile;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;

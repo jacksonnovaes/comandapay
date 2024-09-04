@@ -1,9 +1,7 @@
 package com.codexmind.establishment.domain;
 
-import com.codexmind.establishment.dto.PixTransactionDTO;
 import jakarta.persistence.*;
 import lombok.*;
-import org.joda.time.DateTime;
 
 @Entity
 @Table(name = "TB_TRANSACTION")

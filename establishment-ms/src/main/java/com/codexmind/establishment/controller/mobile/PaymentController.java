@@ -1,4 +1,4 @@
-package com.codexmind.establishment.controller;
+package com.codexmind.establishment.controller.mobile;
 
 import com.codexmind.establishment.converters.TransactionConverter;
 import com.codexmind.establishment.service.EfiPixQrCode;
@@ -8,7 +8,6 @@ import com.codexmind.establishment.dto.PixTransactionDTO;
 import com.codexmind.establishment.dto.TransactionDTO;
 import com.codexmind.establishment.usecases.pix.DoPayment;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 
 import java.io.IOException;

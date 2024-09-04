@@ -2,7 +2,6 @@ package com.codexmind.establishment.usecases.establishment;
 
 
 import com.codexmind.establishment.domain.Establishment;
-import com.codexmind.establishment.domain.enums.Status;
 import com.codexmind.establishment.exceptions.EntityNotFoundException;
 import com.codexmind.establishment.repository.EstablishmentRepository;
 import lombok.AllArgsConstructor;

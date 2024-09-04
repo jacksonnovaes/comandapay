@@ -1,4 +1,4 @@
-package com.codexmind.establishment.controller;
+package com.codexmind.establishment.controller.mobile;
 
 import com.codexmind.establishment.converters.ItemOrderConverter;
 import com.codexmind.establishment.dto.ItemOrderResponseDTO;

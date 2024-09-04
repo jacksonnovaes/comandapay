@@ -7,7 +7,6 @@ import com.codexmind.establishment.domain.enums.Status;
 import com.codexmind.establishment.dto.EstablishmentDTO;
 import com.codexmind.establishment.repository.EstablishmentRepository;
 import com.codexmind.establishment.service.ServiceClient;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

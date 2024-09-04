@@ -1,4 +1,4 @@
-package com.codexmind.establishment.controller;
+package com.codexmind.establishment.controller.mobile;
 
 import com.codexmind.establishment.converters.OrderResponseConverter;
 import com.codexmind.establishment.domain.Order;
@@ -9,7 +9,7 @@ import com.codexmind.establishment.usecases.ItemOrder.GetItemOrder;
 import com.codexmind.establishment.usecases.order.mobile.AddItemOrder;
 import com.codexmind.establishment.usecases.order.mobile.CountOrders;
 import com.codexmind.establishment.usecases.order.mobile.GetAllOrdersByUser;
-import com.codexmind.establishment.usecases.order.SaveOrder;
+import com.codexmind.establishment.usecases.order.mobile.SaveOrder;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;

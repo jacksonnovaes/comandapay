@@ -6,12 +6,10 @@ import com.codexmind.establishment.repository.EstablishmentRepository;
 import com.codexmind.establishment.service.LocalImageService;
 import com.codexmind.establishment.service.UserService;
 import com.codexmind.establishment.usecases.S3Service;
-import com.codexmind.establishment.usecases.imageService.ConvertImageToJpg;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.awt.image.BufferedImage;
 import java.net.URI;
 
 @Service

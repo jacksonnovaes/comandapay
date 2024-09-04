@@ -1,7 +1,6 @@
-package com.codexmind.establishment.controller;
+package com.codexmind.establishment.controller.mobile;
 
 import com.codexmind.establishment.domain.Menu;
-import com.codexmind.establishment.domain.Product;
 import com.codexmind.establishment.usecases.menu.*;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.http.HttpStatus;
@@ -13,7 +12,6 @@ import com.codexmind.establishment.converters.MenuConverter;
 import com.codexmind.establishment.dto.MenuDTO;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController

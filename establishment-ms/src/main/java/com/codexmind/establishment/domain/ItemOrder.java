@@ -1,7 +1,6 @@
 package com.codexmind.establishment.domain;
 
 import com.codexmind.establishment.domain.enums.PaymentStatus;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

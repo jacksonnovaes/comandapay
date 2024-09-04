@@ -1,7 +1,5 @@
-package com.codexmind.establishment.controller;
+package com.codexmind.establishment.controller.mobile;
 
-import com.codexmind.establishment.converters.EmployeeConverter;
-import com.codexmind.establishment.dto.EmployeeDTO;
 import com.codexmind.establishment.usecases.customer.*;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;

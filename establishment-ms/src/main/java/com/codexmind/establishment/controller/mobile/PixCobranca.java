@@ -1,4 +1,4 @@
-package com.codexmind.establishment.controller;
+package com.codexmind.establishment.controller.mobile;
 
 
 import com.codexmind.establishment.converters.TransactionConverter;
@@ -8,8 +8,6 @@ import com.codexmind.establishment.usecases.pix.DoPayment;
 import com.codexmind.establishment.usecases.pix.GetBillings;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.math.BigDecimal;
 
 
 @RestController

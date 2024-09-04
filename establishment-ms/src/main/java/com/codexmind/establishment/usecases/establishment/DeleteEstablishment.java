@@ -5,7 +5,6 @@ import com.codexmind.establishment.domain.Establishment;
 import com.codexmind.establishment.domain.enums.Status;
 import com.codexmind.establishment.exceptions.EntityNotFoundException;
 import com.codexmind.establishment.repository.EstablishmentRepository;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
