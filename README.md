@@ -35,7 +35,7 @@ Geracao de QR code para pagar o item consumido
 sera possivel cadastrar o cartao de credito e efetuar o pagamento dos items consumidos.
 
 # Wallet (em breve)
-sera possicel adicionar na casteira digital do app creditos para serem consumidos 
+sera possivel adicionar na casteira digital do app creditos para serem consumidos 
 
 ### Como utilziar a Api?
 
