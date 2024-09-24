@@ -35,9 +35,6 @@ public class Customer extends Person {
     @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
     private Set<Establishment> favorites = new HashSet<>();
 
-    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
-    private List<SchedulingDomain> schedulings = new ArrayList<>();
-
     @Builder
     public Customer(Integer id,
                     String name,
@@ -52,14 +49,14 @@ public class Customer extends Person {
                     LocalDate birthDate,
                     List<Address> addressList,
                     List<Order> orderList,
-                    Set<Establishment> favorites,
-                    List<SchedulingDomain> schedulings) {
+                    Set<Establishment> favorites
+                   ) {
         super(id, name, lastName, cpf, phone, celPhone, status, user, urlImage, profiles);
         this.birthDate = birthDate;
         this.addressList = addressList;
         this.orderList = orderList;
         this.favorites = favorites;
-        this.schedulings =schedulings;
+
     }
 }
 

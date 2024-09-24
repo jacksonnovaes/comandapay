@@ -23,6 +23,7 @@ public class DBService {
     private final PasswordEncoder encoder;
     private final UserRepository userRepository;
     private final CustomerRepository customerRepository;
+    private final AppConfigurationRepository appConfigurationRepository;
 
     public DBService(
             EstablishmentRepository establishmentRepository,
@@ -32,7 +33,7 @@ public class DBService {
             ServiceClient serviceClient,
             PasswordEncoder encoder,
             UserRepository userRepository,
-            CustomerRepository customerRepository
+            CustomerRepository customerRepository, AppConfigurationRepository appConfigurationRepository
     ) {
         this.establishmentRepository = establishmentRepository;
         this.menuRepository = menuRepository;
@@ -42,6 +43,7 @@ public class DBService {
         this.encoder = encoder;
         this.userRepository = userRepository;
         this.customerRepository = customerRepository;
+        this.appConfigurationRepository = appConfigurationRepository;
     }
 
     public void instantiateDataBase() {
@@ -300,6 +302,13 @@ public class DBService {
         employee2.setAddressList(Arrays.asList(address));
         employee2.setProfiles(Set.of(Profile.CLIENT.getCod()));
 
+        AppConfiguration appConfiguration = AppConfiguration.builder()
+                .establishmentId(1)
+                .primaryColor("#673ab7")
+                .secondaryColor("#ff")
+                .firstLogin(Boolean.TRUE)
+                .build();
+
         // Saving data to repositories
         userRepository.saveAll(Arrays.asList(userEmployee1, userEmployee2, userCustomer1, userCustomer2));
         menuRepository.saveAll(Arrays.asList(menu1, menu2, menu3));
@@ -307,5 +316,6 @@ public class DBService {
         employeeRepository.saveAll(Arrays.asList(employee1, employee2));
         establishmentRepository.saveAll(Arrays.asList(establishment1, establishment2));
         customerRepository.saveAll(Arrays.asList(customer1, customer2));
+        appConfigurationRepository.save(appConfiguration);
     }
 }

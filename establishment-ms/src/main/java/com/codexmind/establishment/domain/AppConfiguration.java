@@ -16,9 +16,19 @@ public class AppConfiguration {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private Integer  establishmentId;
+    private Integer establishmentId;
 
-    private String backgroundColor;
+    private String primaryColor;
+
+    private String contrastPrimaryColor;
+
+    private String secondaryColor;
+
+    private String contrastSecondaryColor;
+
+    private Boolean firstLogin = Boolean.TRUE;
+
+    private String mode;
 
 
 }

@@ -35,9 +35,6 @@ public class Employee extends Person {
     @JoinColumn(name = "establishment_id")
     private Establishment establishment;
 
-    @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY)
-    private List<SchedulingDomain> schedulings = new ArrayList<>();
-
     @Builder
     public Employee(Integer id, 
                     String name, 
@@ -52,14 +49,13 @@ public class Employee extends Person {
                     LocalDate admissionDate, 
                     List<Address> addressList, 
                     Cargo cargo,
-                    Establishment establishment, 
-                    List<SchedulingDomain> schedulings) {
+                    Establishment establishment) {
         super(id, name, lastName, cpf, phone, celPhone, status, user, urlImage, profiles);
         this.admissionDate = admissionDate;
         this.addressList = addressList;
         this.cargo = cargo;
         this.establishment = establishment;
-        this.schedulings = schedulings;
+
     }
 
 

@@ -16,7 +16,7 @@ public class DetailEstablishment {
 
     public Establishment execute(Integer id){
 
-        var establishment = establishmentRepository.findByIdAndStatus(id, Status.ACTIVE );
+        var establishment = establishmentRepository.getEstablishmentByUserLoggedId(id);
                 return establishment.orElseThrow(()-> new EntityNotFoundException(
                 "Object Not Found! id:  "+ id + " type: "+ Establishment.class.getName()
         ));

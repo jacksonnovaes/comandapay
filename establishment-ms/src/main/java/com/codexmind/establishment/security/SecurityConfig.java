@@ -38,7 +38,8 @@ public class SecurityConfig {
             "/api/v1/signup/**",
             "api/v1/customer/signup/save",
             "/v2/cob/pix/**",
-            "/api/v1/payment/loc/**"
+            "/api/v1/payment/loc/**",
+            "/api/v1/pdv/config/**"
 
     };
 
@@ -51,6 +52,7 @@ public class SecurityConfig {
             "/api/v1/establishment/admin/**",
             "/api/v1/pdv/order/**",
             "/api/v1/product/pdv/menu/**"
+
     };
 
 

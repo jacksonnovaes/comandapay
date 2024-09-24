@@ -30,7 +30,4 @@ public class Product {
     @Column(name = "qtd_estoque")
     private Integer estoque;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Services service;
-
 }
