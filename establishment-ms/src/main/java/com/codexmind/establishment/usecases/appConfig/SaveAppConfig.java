@@ -25,8 +25,8 @@ public class SaveAppConfig {
         AppConfiguration appConfig = new AppConfiguration();
         appConfig.setId(appConfigFinded.getId());
         appConfig.setEstablishmentId(establishimentId);
-        appConfig.setPrimaryColor(appConfigDTO.primaryColor());
-        appConfig.setSecondaryColor(appConfigDTO.secondaryColor());
+        appConfig.setPrimary(appConfigDTO.primaryColor());
+        appConfig.setSecondary(appConfigDTO.secondaryColor());
         appConfig.setContrastPrimaryColor(appConfigDTO.contrastPrimaryColor());
         appConfig.setContrastSecondaryColor(appConfigDTO.contrastSecondaryColor());
         appConfig.setMode(appConfigDTO.mode());

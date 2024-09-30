@@ -18,11 +18,13 @@ public class AppConfiguration {
 
     private Integer establishmentId;
 
-    private String primaryColor;
+    @Column(name = "primary_color")
+    private String primary;
 
     private String contrastPrimaryColor;
 
-    private String secondaryColor;
+    @Column(name = "secondary_color")
+    private String secondary;
 
     private String contrastSecondaryColor;
 

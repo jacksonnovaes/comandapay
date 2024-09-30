@@ -304,8 +304,8 @@ public class DBService {
 
         AppConfiguration appConfiguration = AppConfiguration.builder()
                 .establishmentId(1)
-                .primaryColor("#673ab7")
-                .secondaryColor("#ff")
+                .primary("#673ab7")
+                .secondary("#ff")
                 .firstLogin(Boolean.TRUE)
                 .build();
 

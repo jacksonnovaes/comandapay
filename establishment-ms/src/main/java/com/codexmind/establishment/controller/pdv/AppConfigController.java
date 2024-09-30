@@ -31,11 +31,11 @@ public class AppConfigController {
         var newConfigDTO = new AppConfigDTO(
                 configFinded.getId(),
                 establishmentId,
-                configFinded.getPrimaryColor(),
-                configFinded.getSecondaryColor(),
+                configFinded.getPrimary(),
+                configFinded.getSecondary(),
                 configFinded.getMode(),
                 configFinded.getContrastPrimaryColor(),
-                configFinded.getSecondaryColor(),
+                configFinded.getContrastSecondaryColor(),
                 configFinded.getFirstLogin()
         );
         return ResponseEntity.ok(newConfigDTO);
@@ -50,8 +50,8 @@ public class AppConfigController {
         var newConfigDTO = new AppConfigDTO(
                 appCongiSaved.getId(),
                 establishmentId,
-                appCongiSaved.getPrimaryColor(),
-                appCongiSaved.getSecondaryColor(),
+                appCongiSaved.getPrimary(),
+                appCongiSaved.getSecondary(),
                 appCongiSaved.getContrastPrimaryColor(),
                 appCongiSaved.getContrastSecondaryColor(),
                 appCongiSaved.getMode(),
