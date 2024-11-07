@@ -49,6 +49,19 @@ public interface OrderRepository extends JpaRepository<Order, Integer>{
                                          Pageable pageable,
                                          @Param("status") StatusComanda status);
 
+    @Query(value = """
+                 SELECT ORD.ID, ORD.STATUS, E.ADDRESS_ID, ORD.CUSTOMER_ID, ORD.EMPLOYEE_ID,ORD.PAYMENT_STATUS,
+                 ORD.OPEN_INSTANT, ORD.ESTABLISHMENT_ID, PER.NAME, PER.LAST_NAME,ORD.TOTAL_ORDER
+                 FROM TB_ORDERS ORD
+                  INNER JOIN TB_ESTABLISHMENT E ON E.ID = ORD.ESTABLISHMENT_ID
+                  INNER JOIN TB_PERSON PER ON PER.ID = ORD.CUSTOMER_ID
+                 WHERE E.ID =:establishmentId AND ORD.OPEN_INSTANT BETWEEN :startInstant AND :endInstant AND ORD.status = :status""", nativeQuery = true)
+    Page<Order> getAllOrdersByPersonId(@Param("establishmentId") Integer establishmentId,
+                                         @Param("startInstant") LocalDateTime startInstant,
+                                         @Param("endInstant") LocalDateTime endInstant,
+                                         Pageable pageable,
+                                         @Param("status") StatusComanda status);
+
         @Query(value = """
                                  SELECT ORD.ID as ordenid, ORD.STATUS as comanda,ORD.PAYMENT_STATUS,
                                  ORD.CUSTOMER_ID,ORD.QUANTITY,ORD.TOTAL_ORDER, ORD.EMPLOYEE_ID,ORD.ADDRESS_ID,

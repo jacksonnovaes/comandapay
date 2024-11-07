@@ -36,7 +36,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
  Set<Product> getAllProductsByIdOrder(Integer id);
 
  @Query(value = """
-         select prod.id, prod.name, prod.price, prod.menu_id,prod.service_id,
+         select prod.id, prod.name, prod.price, prod.menu_id,
          prod.qtd_estoque,
          menu.name as menu
          from tb_product prod
