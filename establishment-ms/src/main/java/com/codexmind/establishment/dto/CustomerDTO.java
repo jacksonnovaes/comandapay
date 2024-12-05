@@ -17,7 +17,7 @@ public class CustomerDTO extends PersonDTO {
 
     @Builder
     public CustomerDTO(String name, String lastName, String cpf, String phone, Status status, String urlImage, String celPhone, List<AddressDTO> addressList, LocalDate birthDate) {
-        super(name, lastName, cpf, phone, celPhone, status,urlImage, addressList);
+        super(name, lastName, cpf, phone, celPhone, status, urlImage, addressList);
         this.birthDate = birthDate;
     }
 }

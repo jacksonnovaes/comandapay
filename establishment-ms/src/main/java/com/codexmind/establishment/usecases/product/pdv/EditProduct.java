@@ -15,8 +15,8 @@ public class EditProduct {
         this.productRepository = productRepository;
     }
 
-    public Product execute(ProductDTO productDTO, Integer id){
-        var productFinded = productRepository.findById(id).orElseThrow(()->new EntityNotFoundException("Produtonao encontrado!"));
+    public Product execute(ProductDTO productDTO, Integer id) {
+        var productFinded = productRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Produtonao encontrado!"));
         productFinded.setName(productDTO.getName());
         productFinded.setEstoque(productDTO.getEstoque());
         productFinded.setPrice(productDTO.getPrice());

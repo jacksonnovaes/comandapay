@@ -22,7 +22,7 @@ public class AddressViaCepController {
     }
 
     @GetMapping(value = "/address/{cep}")
-    public ResponseEntity<AddressDTO> getAddressViaCepReq(@PathVariable String cep){
+    public ResponseEntity<AddressDTO> getAddressViaCepReq(@PathVariable String cep) {
         var address = viaCepClient.buscaEnderecoPorCep(cep);
         return ResponseEntity.ok(address);
     }

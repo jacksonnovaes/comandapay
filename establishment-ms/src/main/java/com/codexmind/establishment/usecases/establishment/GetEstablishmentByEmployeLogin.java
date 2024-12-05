@@ -18,7 +18,7 @@ public class GetEstablishmentByEmployeLogin {
         this.establishmentRepository = establishmentRepository;
     }
 
-    public Optional<Establishment> execute(){
+    public Optional<Establishment> execute() {
 
         User user = UserService.authenticated();
 

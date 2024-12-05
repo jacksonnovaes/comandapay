@@ -38,7 +38,7 @@ public class Establishment {
     private Status status;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "establishment",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "establishment", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Employee> employees = new ArrayList<>();
     @JsonBackReference
     @OneToMany(mappedBy = "establishment")
@@ -55,7 +55,7 @@ public class Establishment {
 
     private String urlImage;
 
-    public int getAllOrderCount(){
+    public int getAllOrderCount() {
         return orders.size();
     }
 }

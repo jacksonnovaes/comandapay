@@ -9,5 +9,5 @@ import java.util.Optional;
 @Repository
 public interface AppConfigurationRepository extends JpaRepository<AppConfiguration, Integer> {
 
-        Optional<AppConfiguration> findByEstablishmentId(Integer id);
+    Optional<AppConfiguration> findByEstablishmentId(Integer id);
 }

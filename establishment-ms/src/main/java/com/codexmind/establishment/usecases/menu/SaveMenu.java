@@ -16,7 +16,7 @@ public class SaveMenu {
 
     private MenuRepository repository;
 
-    public Menu execute(MenuDTO saveMenuDTO){
+    public Menu execute(MenuDTO saveMenuDTO) {
         var establishmente = Establishment.builder()
                 .id(saveMenuDTO.establishment)
                 .build();

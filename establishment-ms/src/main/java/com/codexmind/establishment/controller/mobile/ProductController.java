@@ -57,36 +57,36 @@ public class ProductController {
 
 
     @PostMapping("/save")
-    public ResponseEntity<ProductDTO> save(@RequestBody ProductDTO productDTO, Integer idMenu,UriComponentsBuilder uriBuilder){
+    public ResponseEntity<ProductDTO> save(@RequestBody ProductDTO productDTO, Integer idMenu, UriComponentsBuilder uriBuilder) {
         var product = saveProduct.execute(productDTO, idMenu);
         var uri = uriBuilder.path("/save/{id}").buildAndExpand(product.getId()).toUri();
-        return  ResponseEntity.created(uri).body(ProductConverter.toDTO(product));
+        return ResponseEntity.created(uri).body(ProductConverter.toDTO(product));
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<ProductDTO> update  (
+    public ResponseEntity<ProductDTO> update(
             @PathVariable Integer id,
             @RequestBody ProductDTO productDTO,
-            UriComponentsBuilder uriBuilder){
+            UriComponentsBuilder uriBuilder) {
 
-        var product = updateProduct.execute(id,productDTO);
+        var product = updateProduct.execute(id, productDTO);
         var uri = uriBuilder.path("/update/{id}").buildAndExpand(product.getId()).toUri();
-        return  ResponseEntity.ok().body(ProductConverter.toDTO(product));
+        return ResponseEntity.ok().body(ProductConverter.toDTO(product));
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Void> deleteEstablishment(@PathVariable Integer id){
+    public ResponseEntity<Void> deleteEstablishment(@PathVariable Integer id) {
         deleteProduct.execute(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProductDTO> detailMenu(@PathVariable Integer id){
+    public ResponseEntity<ProductDTO> detailMenu(@PathVariable Integer id) {
         return ResponseEntity.ok().body(ProductConverter.toDTO(detailProduct.execute(id)));
     }
 
     @GetMapping("/order/{orderId}")
-    public ResponseEntity<Set<ProductDTO>> getByOrderId(@PathVariable Integer orderId){
+    public ResponseEntity<Set<ProductDTO>> getByOrderId(@PathVariable Integer orderId) {
         Set<Product> products = getProductsByOrder.execute(orderId);
         return ResponseEntity.ok().body(ProductConverter.toDTOSet(products));
     }
@@ -95,10 +95,10 @@ public class ProductController {
     @GetMapping(value = "/{id}/list")
     public ResponseEntity<Page<ProductDTO>> getAllProducts
             (@PathVariable Integer id,
-             @RequestParam(value = "page",defaultValue = "0") Integer page,
-             @RequestParam(value = "linesPerPage",defaultValue = "24")Integer linesPerPge,
-             @RequestParam(value = "order",defaultValue = "name")String orderBy,
-             @RequestParam(value = "direction",defaultValue = "ASC")String direction) {
+             @RequestParam(value = "page", defaultValue = "0") Integer page,
+             @RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPge,
+             @RequestParam(value = "order", defaultValue = "name") String orderBy,
+             @RequestParam(value = "direction", defaultValue = "ASC") String direction) {
         var list = getAllProducts.execute(
                 id,
                 page,
@@ -108,8 +108,9 @@ public class ProductController {
         ).map(ProductConverter::toDTO);
         return ResponseEntity.ok(list);
     }
+
     @GetMapping(value = "/menu/{id}/list")
-    public ResponseEntity<Set<ProductDTO>> getALlProductsByMenu(@PathVariable Integer id){
+    public ResponseEntity<Set<ProductDTO>> getALlProductsByMenu(@PathVariable Integer id) {
         return ResponseEntity.ok().body(ProductConverter.toDTOSet(getProductsByMenu.execute(id)));
     }
 }

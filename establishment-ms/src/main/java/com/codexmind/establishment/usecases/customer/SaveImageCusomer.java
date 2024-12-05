@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.net.URI;
+
 @Service
 @RequiredArgsConstructor
 public class SaveImageCusomer {
@@ -17,16 +18,16 @@ public class SaveImageCusomer {
 
     private final CustomerRepository customerRepository;
 
-    public URI execute(MultipartFile file, Integer id){
+    public URI execute(MultipartFile file, Integer id) {
         var user = UserService.authenticated();
-        if(user==null){
+        if (user == null) {
             throw new AuthorizationException("Access denied!");
         }
 
 
         var employee = customerRepository.findById(id).orElseThrow(
-                ()-> new EntityNotFoundException("Cliente nao encontrado!"));
-        var uri = s3.upload(file, employee.getName()+ employee.getLastName());
+                () -> new EntityNotFoundException("Cliente nao encontrado!"));
+        var uri = s3.upload(file, employee.getName() + employee.getLastName());
         employee.setUrlImage(uri.toString());
 
         customerRepository.save(employee);

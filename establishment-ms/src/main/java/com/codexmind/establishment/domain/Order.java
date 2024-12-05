@@ -39,7 +39,7 @@ public class Order {
     private Customer customer;
 
     @Enumerated(EnumType.ORDINAL)
-    private  StatusComanda status;
+    private StatusComanda status;
 
     @Enumerated(EnumType.ORDINAL)
     private PaymentStatus paymentStatus;

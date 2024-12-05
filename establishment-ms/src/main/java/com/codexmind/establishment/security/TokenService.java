@@ -19,7 +19,7 @@ public class TokenService {
     @Value("${api.security.token.secret}")
     private String secret;
 
-    public String generateWebToken(User user){
+    public String generateWebToken(User user) {
 
         try {
             var algorithm = Algorithm.HMAC256(secret);
@@ -29,24 +29,25 @@ public class TokenService {
                     .withJWTId(user.getId().toString())
                     .withExpiresAt(expirationDate())
                     .sign(algorithm);
-        } catch (JWTCreationException exception){
+        } catch (JWTCreationException exception) {
             throw new RuntimeException("Error generating web token");
         }
     }
 
-    public String getSubject(String token){
+    public String getSubject(String token) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
-           return JWT.require(algorithm)
-                   .withIssuer("Api storeFood")
-                   .build()
-                   .verify(token)
-                   .getSubject();
+            return JWT.require(algorithm)
+                    .withIssuer("Api storeFood")
+                    .build()
+                    .verify(token)
+                    .getSubject();
 
-        } catch (JWTVerificationException exception){
-           throw new RuntimeException("Token invalido ou expirado!");
+        } catch (JWTVerificationException exception) {
+            throw new RuntimeException("Token invalido ou expirado!");
         }
     }
+
     private Instant expirationDate() {
         return LocalDateTime.now().plusSeconds(900).toInstant(ZoneOffset.of("-03:00"));
     }

@@ -18,7 +18,7 @@ public class ItemOrderController {
     private final EditItemOrder editItemOrder;
 
     @PatchMapping("/edit/{id}")
-    public ResponseEntity<ItemOrderResponseDTO>editItem(@PathVariable Integer id,@RequestParam int quantity){
+    public ResponseEntity<ItemOrderResponseDTO> editItem(@PathVariable Integer id, @RequestParam int quantity) {
         var itemOrder = editItemOrder.execute(id, quantity);
         return ResponseEntity.ok(ItemOrderConverter.toDTO(itemOrder));
     }

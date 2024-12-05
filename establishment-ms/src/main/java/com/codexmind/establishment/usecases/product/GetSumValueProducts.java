@@ -14,7 +14,7 @@ public class GetSumValueProducts {
 
     private final ProductRepository productRepository;
 
-    public BigDecimal execute(Set<Long> productIds){
+    public BigDecimal execute(Set<Long> productIds) {
         return productRepository.getTotalAmountByIds(productIds);
     }
 }

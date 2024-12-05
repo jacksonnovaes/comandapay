@@ -34,7 +34,7 @@ public class EstablishmentController {
 
     private final AddFavoriteEstablishment addFavoriteEstablishment;
 
-    private final  getAllFavoritesEstablishment getAllFavoritesEstablishment;
+    private final getAllFavoritesEstablishment getAllFavoritesEstablishment;
 
     private final DeleteEstablishment deleteEstablishment;
 
@@ -44,84 +44,84 @@ public class EstablishmentController {
     @PostMapping(value = "/admin/establishment/save")
     public ResponseEntity<EstablishmentDTO> save(
             @RequestBody EstablishmentDTO establishmentDTO,
-            UriComponentsBuilder uriBuilder){
+            UriComponentsBuilder uriBuilder) {
         var establishment = saveEstablishment.execute(establishmentDTO);
         var uri = uriBuilder.path("/establishment/save/{id}").buildAndExpand(establishment.getId()).toUri();
-        return  ResponseEntity.created(uri).body(EstablishmentConverter.toDTO(establishment));
+        return ResponseEntity.created(uri).body(EstablishmentConverter.toDTO(establishment));
     }
 
     @PutMapping(value = "/establishment/{id}")
-    public ResponseEntity<EstablishmentDTO> update  (
+    public ResponseEntity<EstablishmentDTO> update(
             @PathVariable Integer id,
             @RequestBody EstablishmentDTO updateEstablishmentDTO,
-            UriComponentsBuilder uriBuilder){
+            UriComponentsBuilder uriBuilder) {
 
-        var establishment = updateEstablishment.execute(id,updateEstablishmentDTO);
+        var establishment = updateEstablishment.execute(id, updateEstablishmentDTO);
         var uri = uriBuilder.path("/establishment/save/{id}").buildAndExpand(establishment.getId()).toUri();
-        return  ResponseEntity.ok().body(EstablishmentConverter.toDTO(establishment));
+        return ResponseEntity.ok().body(EstablishmentConverter.toDTO(establishment));
     }
 
     @GetMapping(value = "/establishment/{id}")
     public ResponseEntity<ResponseEstablishmentDTO> getEstablishment(@PathVariable
-                                                                 Integer id){
+                                                                     Integer id) {
         var establishment = detailEstablishment.execute(id);
-        return  ResponseEntity.ok().body(EstablishmentConverter.toResponseDTO(establishment));
+        return ResponseEntity.ok().body(EstablishmentConverter.toResponseDTO(establishment));
     }
+
     @GetMapping(value = "/establishment/admin/{id}")
     public ResponseEntity<EstablishmentDTO> getEstablishmentEmployee(@PathVariable
-                                                             Integer id){
+                                                                     Integer id) {
         var establishment = detailEstablishment.execute(id);
-        return  ResponseEntity.ok().body(EstablishmentConverter.toDTO(establishment));
+        return ResponseEntity.ok().body(EstablishmentConverter.toDTO(establishment));
     }
 
     @GetMapping(value = "/establishment/")
     public ResponseEntity<List<ResponseEstablishmentDTO>> getEstablishment(@RequestParam
-                                                             String name){
+                                                                           String name) {
         var establishment = getEstblishmentByName.execute(name);
-        return  ResponseEntity.ok().body(EstablishmentConverter.toListResponseDTO((establishment)));
+        return ResponseEntity.ok().body(EstablishmentConverter.toListResponseDTO((establishment)));
     }
 
 
     @PutMapping(value = "/establishment/favorites/add")
     public ResponseEntity<ResponseEstablishmentDTO> addFavorites(
-            @RequestBody AddFavoriteRequest request){
-                var establishment = addFavoriteEstablishment.execute(request.getEstablishmentId(), request.getCustomerId());
+            @RequestBody AddFavoriteRequest request) {
+        var establishment = addFavoriteEstablishment.execute(request.getEstablishmentId(), request.getCustomerId());
 
-        return  ResponseEntity.ok().body(EstablishmentConverter.toResponseDTO(establishment));
+        return ResponseEntity.ok().body(EstablishmentConverter.toResponseDTO(establishment));
     }
 
     @PostMapping("/establishment/images/{id}")
-    public ResponseEntity<Void> uploadImagem(@RequestParam("file") MultipartFile file,@PathVariable Integer id) {
-             URI uri = saveImage.execute(file, id);
-            return ResponseEntity.created(uri).build();
+    public ResponseEntity<Void> uploadImagem(@RequestParam("file") MultipartFile file, @PathVariable Integer id) {
+        URI uri = saveImage.execute(file, id);
+        return ResponseEntity.created(uri).build();
     }
 
     @GetMapping(value = "/establishment/favorites/{id}")
     public ResponseEntity<List<ResponseEstablishmentDTO>> getFavorites(@PathVariable
-                                                                           Integer id){
-           try {
+                                                                       Integer id) {
+        try {
             var favorites = getAllFavoritesEstablishment.execute(id);
-            var establishmentDTOS =EstablishmentConverter.toListResponseDTO((favorites));
-            return  ResponseEntity.ok().body(establishmentDTOS);
-            } catch (EntityNotFoundException e) {
+            var establishmentDTOS = EstablishmentConverter.toListResponseDTO((favorites));
+            return ResponseEntity.ok().body(establishmentDTOS);
+        } catch (EntityNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
 
     @DeleteMapping(value = "/establishment/{id}")
-    public ResponseEntity<Void> deleteEstablishment(@PathVariable Integer id){
-          deleteEstablishment.execute(id);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    public ResponseEntity<Void> deleteEstablishment(@PathVariable Integer id) {
+        deleteEstablishment.execute(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<EstablishmentDTO> detailMenu(@PathVariable Integer id){
-        var establishment = detailEstablishment.execute(id)    ;
+    public ResponseEntity<EstablishmentDTO> detailMenu(@PathVariable Integer id) {
+        var establishment = detailEstablishment.execute(id);
         return ResponseEntity.ok().body(EstablishmentConverter.toDTO(establishment));
     }
-
 
 
 }

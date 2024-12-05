@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>io.github.classgraph</groupId>
@@ -31,7 +32,7 @@
         <connection>scm:git:git@github.com:classgraph/classgraph.git</connection>
         <developerConnection>scm:git:git@github.com:classgraph/classgraph.git</developerConnection>
         <url>https://github.com/classgraph/classgraph</url>
-      <tag>classgraph-4.8.149</tag>
+        <tag>classgraph-4.8.149</tag>
     </scm>
 
     <issueManagement>
@@ -55,7 +56,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <!-- Default to generating Javadoc in HTML 4.01 format -->
-        <javadoc.html.version />
+        <javadoc.html.version/>
 
         <!-- Warnings are disabled, in order to suppress warning about bootstrap classpath not being set -->
         <!-- (which arises as a result of building for JDK 7 on JDK8+, allowing for use of @FunctionalInterface) -->
@@ -283,7 +284,8 @@
                             </goals>
                             <configuration>
                                 <rules>
-                                    <checkSignatureRule implementation="org.codehaus.mojo.animal_sniffer.enforcer.CheckSignatureRule">
+                                    <checkSignatureRule
+                                            implementation="org.codehaus.mojo.animal_sniffer.enforcer.CheckSignatureRule">
                                         <signature>
                                             <groupId>org.codehaus.mojo.signature</groupId>
                                             <artifactId>java17</artifactId>
@@ -362,8 +364,11 @@
                             </goals>
                             <configuration>
                                 <target>
-                                    <jar update="true" destfile="${project.build.directory}/${project.build.finalName}.jar">
-                                        <zipfileset prefix="META-INF/versions/9" dir="${project.basedir}/src/module-info/io.github.classgraph" includes="module-info.class" />
+                                    <jar update="true"
+                                         destfile="${project.build.directory}/${project.build.finalName}.jar">
+                                        <zipfileset prefix="META-INF/versions/9"
+                                                    dir="${project.basedir}/src/module-info/io.github.classgraph"
+                                                    includes="module-info.class"/>
                                     </jar>
                                 </target>
                             </configuration>
@@ -380,8 +385,10 @@
                             </goals>
                             <configuration>
                                 <target>
-                                    <jar update="true" destfile="${project.build.directory}/${project.build.finalName}-javadoc.jar">
-                                        <zipfileset prefix="io.github.classgraph" dir="${project.build.directory}/apidocs" includes="**/*" />
+                                    <jar update="true"
+                                         destfile="${project.build.directory}/${project.build.finalName}-javadoc.jar">
+                                        <zipfileset prefix="io.github.classgraph"
+                                                    dir="${project.build.directory}/apidocs" includes="**/*"/>
                                     </jar>
                                 </target>
                             </configuration>
@@ -485,11 +492,14 @@
                                 <Bundle-Vendor>Luke Hutchison</Bundle-Vendor>
                                 <Bundle-Description>${project.description}</Bundle-Description>
                                 <Bundle-Version>${project.version}</Bundle-Version>
-                                <Require-Capability>osgi.ee;filter:="(&amp;(osgi.ee=JavaSE)(version=1.7))"</Require-Capability>
+                                <Require-Capability>osgi.ee;filter:="(&amp;(osgi.ee=JavaSE)(version=1.7))"
+                                </Require-Capability>
                                 <Export-Package>io.github.classgraph;version="${project.version}"</Export-Package>
                                 <!-- Make sure "requires" entries in the module descriptor match these imports: -->
                                 <!-- src/main/module-info/io.github.classgraph/module-info.java -->
-                                <Import-Package>javax.xml.xpath,javax.xml.namespace,javax.xml.parsers,org.w3c.dom,sun.misc;resolution:="optional",sun.nio.ch;resolution:="optional",io.github.toolfactory.narcissus;resolution:="optional",io.github.toolfactory.jvm;resolution:="optional"</Import-Package>
+                                <Import-Package>
+                                    javax.xml.xpath,javax.xml.namespace,javax.xml.parsers,org.w3c.dom,sun.misc;resolution:="optional",sun.nio.ch;resolution:="optional",io.github.toolfactory.narcissus;resolution:="optional",io.github.toolfactory.jvm;resolution:="optional"
+                                </Import-Package>
                                 <!-- This is a multi-release jar, since module-info.class will be added to -->
                                 <!-- META-INF/versions/9 , so we need to set the Multi-Release entry to true -->
                                 <Multi-Release>true</Multi-Release>

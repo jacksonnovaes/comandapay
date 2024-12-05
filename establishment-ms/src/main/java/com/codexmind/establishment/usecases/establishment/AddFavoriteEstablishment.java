@@ -31,7 +31,7 @@ public class AddFavoriteEstablishment {
             customer.getFavorites().remove(establishment);
             establishment.setIsFavorite(Boolean.FALSE);
             establishment.setCustomer(null);
-        }else{
+        } else {
             customer.getFavorites().add(establishment);
             establishment.setIsFavorite(Boolean.TRUE);
             establishment.setCustomer(customer);

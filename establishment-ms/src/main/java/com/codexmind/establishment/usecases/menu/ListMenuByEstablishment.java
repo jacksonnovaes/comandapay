@@ -16,10 +16,10 @@ public class ListMenuByEstablishment {
 
     private final EmployeeRepository employeeRepository;
 
-    public List<Menu> execute(Integer id){
+    public List<Menu> execute(Integer id) {
 
-            var employee = employeeRepository.findById(id);
+        var employee = employeeRepository.findById(id);
         System.out.println();
-        return  repository.findMenusByEstablishmenteId(employee.get().getEstablishment().getId());
+        return repository.findMenusByEstablishmenteId(employee.get().getEstablishment().getId());
     }
 }

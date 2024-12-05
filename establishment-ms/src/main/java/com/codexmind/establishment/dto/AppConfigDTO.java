@@ -1,6 +1,6 @@
 package com.codexmind.establishment.dto;
 
-public record AppConfigDTO (
+public record AppConfigDTO(
         Integer id,
         Integer establishmentId,
         String primaryColor,
@@ -9,5 +9,5 @@ public record AppConfigDTO (
         String contrastSecondaryColor,
         String mode,
         Boolean firstLogin
-){
+) {
 }

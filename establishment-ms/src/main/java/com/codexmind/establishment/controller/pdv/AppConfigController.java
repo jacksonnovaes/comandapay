@@ -23,10 +23,11 @@ public class AppConfigController {
         this.appConfig = appConfig;
         this.saveAppConfig = saveAppConfig;
     }
+
     @GetMapping("/{establishmentId}")
-    public ResponseEntity<AppConfigDTO> config(@PathVariable Integer establishmentId){
+    public ResponseEntity<AppConfigDTO> config(@PathVariable Integer establishmentId) {
         var configFinded = appConfig.execute(establishmentId).orElseThrow(
-                ()-> new EntityNotFoundException("configuracao nao encontrada!")
+                () -> new EntityNotFoundException("configuracao nao encontrada!")
         );
         var newConfigDTO = new AppConfigDTO(
                 configFinded.getId(),

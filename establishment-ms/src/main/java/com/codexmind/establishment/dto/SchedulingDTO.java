@@ -11,6 +11,6 @@ public record SchedulingDTO
                 String description,
                 LocalDateTime schedulingDate,
                 List<Integer> servicesId
-        ){
+        ) {
 
 }

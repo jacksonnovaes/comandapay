@@ -40,7 +40,7 @@ public interface ItemOrderRepository extends JpaRepository<ItemOrder, Integer> {
                    left join tb_product prd on prd.id = tio.product_id
                    where ord.customer_id = ?1  and ord.status = ?2 and tio.payment_status =?3
             """)
-    Set<ItemOrder> getAllItemOrdersByCustomer(Integer id, StatusComanda status,PaymentStatus paymentStatus);
+    Set<ItemOrder> getAllItemOrdersByCustomer(Integer id, StatusComanda status, PaymentStatus paymentStatus);
 
     @Query(nativeQuery = true, value = """
              select distinct tio.item_order_id,

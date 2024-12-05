@@ -12,7 +12,7 @@ import java.util.Objects;
 @Entity
 @Getter
 @Setter
-@Table(name="tb_item_order")
+@Table(name = "tb_item_order")
 public class ItemOrder {
 
     @Id

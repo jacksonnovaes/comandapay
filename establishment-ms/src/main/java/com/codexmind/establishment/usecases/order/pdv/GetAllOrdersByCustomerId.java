@@ -23,7 +23,7 @@ public class GetAllOrdersByCustomerId {
 
     private final GetEstablishmentByEmployeLogin getEstablishmentByEmployeLogin;
 
-    public Page<Order> execute(Integer page, Integer linesPerPge, String orderBy, String direction, String status){
+    public Page<Order> execute(Integer page, Integer linesPerPge, String orderBy, String direction, String status) {
 
         var establishment = getEstablishmentByEmployeLogin.execute();
         PageRequest pageRequest = PageRequest.of(page, linesPerPge, Sort.Direction.valueOf(direction), orderBy);

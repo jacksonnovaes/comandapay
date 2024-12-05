@@ -40,37 +40,37 @@ public class MenuController {
 
 
     @PostMapping("/save")
-    public ResponseEntity<MenuDTO> save(MenuDTO saveMenuDTO, UriComponentsBuilder uriBuilder){
+    public ResponseEntity<MenuDTO> save(MenuDTO saveMenuDTO, UriComponentsBuilder uriBuilder) {
         var menu = saveMenu.execute(saveMenuDTO);
         var uri = uriBuilder.path("/save/{id}").buildAndExpand(menu.getId()).toUri();
-        return  ResponseEntity.created(uri).body(MenuConverter.toDTO(menu));
+        return ResponseEntity.created(uri).body(MenuConverter.toDTO(menu));
 
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<MenuDTO> update  (
+    public ResponseEntity<MenuDTO> update(
             @PathVariable Integer id,
             @RequestBody MenuDTO menuDTO,
-            UriComponentsBuilder uriBuilder){
+            UriComponentsBuilder uriBuilder) {
 
-        var menu = updateMenu.execute(id,menuDTO);
+        var menu = updateMenu.execute(id, menuDTO);
         var uri = uriBuilder.path("/update/{id}").buildAndExpand(menu.getId()).toUri();
-        return  ResponseEntity.ok().body(MenuConverter.toDTO(menu));
+        return ResponseEntity.ok().body(MenuConverter.toDTO(menu));
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Void> deleteEstablishment(@PathVariable Integer id){
+    public ResponseEntity<Void> deleteEstablishment(@PathVariable Integer id) {
         deleteMenu.execute(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<MenuDTO> detailMenu(@PathVariable Integer id){
+    public ResponseEntity<MenuDTO> detailMenu(@PathVariable Integer id) {
         return ResponseEntity.ok().body(MenuConverter.toDTO(detailMenu.execute(id)));
     }
 
     @GetMapping("/list/{id}")
-    public ResponseEntity<List<MenuDTO>> getListMenu(@PathVariable Integer id){
+    public ResponseEntity<List<MenuDTO>> getListMenu(@PathVariable Integer id) {
         List<Menu> menus = listMenuByEstablishment.execute(id);
         List<MenuDTO> menuDTOs = menus.stream()
                 .map(MenuConverter::toDTO)

@@ -13,7 +13,7 @@ public class GetBillings {
         this.efiPixCob = efiPixCob;
     }
 
-    public PixTransactionDTO execute(String txid){
-        return  efiPixCob.getBillings(txid);
+    public PixTransactionDTO execute(String txid) {
+        return efiPixCob.getBillings(txid);
     }
 }

@@ -11,10 +11,10 @@ public class TransactionConverter {
                 "",
                 pixTransaction.getExpiracao()
         );
-        var valor=new PixTransactionDTO.Valor(
+        var valor = new PixTransactionDTO.Valor(
                 pixTransaction.getValor()
         );
-        var devedor= new PixTransactionDTO.Devedor(
+        var devedor = new PixTransactionDTO.Devedor(
                 pixTransaction.getCpf(),
                 pixTransaction.getDevedor()
         );
@@ -37,6 +37,6 @@ public class TransactionConverter {
                 pixTransaction.getSolicitacaoPagador(),
                 loc,
                 pixTransaction.getPixCopiaECola()
-                );
+        );
     }
 }

@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.codexmind.establishment.dto.PixTransactionDTO;
 import com.codexmind.establishment.dto.TransactionDTO;
-import com.codexmind.establishment.usecases.pix.DoPayment;
+import com.codexmind.establishment.usecases.pix.DoPaymentEfiImpl;
 
 import org.springframework.http.ResponseEntity;
 
@@ -18,12 +18,11 @@ import java.io.IOException;
 public class PaymentController {
 
 
-
-    private final DoPayment doPayment;
+    private final DoPaymentEfiImpl doPayment;
 
     private final EfiPixQrCode efiPixQrCode;
 
-    public PaymentController(DoPayment doPayment, EfiPixQrCode efiPixQrCode) {
+    public PaymentController(DoPaymentEfiImpl doPayment, EfiPixQrCode efiPixQrCode) {
         this.doPayment = doPayment;
         this.efiPixQrCode = efiPixQrCode;
     }
@@ -32,13 +31,13 @@ public class PaymentController {
     @PostMapping("/pix")
     public ResponseEntity<PixTransactionDTO> postMethodName(@RequestBody TransactionDTO transactionDTO) throws IOException {
 
-        var pixTransactionDTO = doPayment.execute(transactionDTO);
+        var pixTransactionDTO = doPayment.pixPayment(transactionDTO);
         return ResponseEntity.ok(TransactionConverter.toDTO(pixTransactionDTO));
     }
 
     @GetMapping("/loc/{id}/qrcode")
-    public String getQrCode(@PathVariable String id){
+    public String getQrCode(@PathVariable String id) {
         return efiPixQrCode.getQrCode(id);
     }
-    
+
 }

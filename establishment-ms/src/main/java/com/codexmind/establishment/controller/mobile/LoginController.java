@@ -30,7 +30,7 @@ public class LoginController {
     }
 
     @PostMapping
-    public ResponseEntity<TokenJWT> login(@RequestBody @Valid LoginDTO loginDTO){
+    public ResponseEntity<TokenJWT> login(@RequestBody @Valid LoginDTO loginDTO) {
         var token = new UsernamePasswordAuthenticationToken(loginDTO.getLogin(), loginDTO.getPass());
         var authentication = manager.authenticate(token);
         var tokenJwt = tokenService.generateWebToken((User) authentication.getPrincipal());

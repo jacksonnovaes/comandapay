@@ -39,43 +39,44 @@ public class EmployeeController {
     }
 
     @PostMapping("/save")
-    public ResponseEntity<EmployeeDTO> save(SaveEmployeeDTO employeeDTO, UriComponentsBuilder uriBuilder){
+    public ResponseEntity<EmployeeDTO> save(SaveEmployeeDTO employeeDTO, UriComponentsBuilder uriBuilder) {
         var employee = saveEmployee.execute(employeeDTO);
         var uri = uriBuilder.path("/save/{id}").buildAndExpand(employee.getId()).toUri();
-        return  ResponseEntity.created(uri).body(EmployeeConverter.toDTO(employee));
+        return ResponseEntity.created(uri).body(EmployeeConverter.toDTO(employee));
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<EmployeeDTO> update  (
+    public ResponseEntity<EmployeeDTO> update(
             @PathVariable Integer id,
-            @RequestBody UpdateEmployeeDTO employeeDTO){
+            @RequestBody UpdateEmployeeDTO employeeDTO) {
 
         var employee = updateEmployee.execute(employeeDTO, id);
-        return  ResponseEntity.ok().body(EmployeeConverter.toDTO(employee));
+        return ResponseEntity.ok().body(EmployeeConverter.toDTO(employee));
     }
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<EmployeeDTO> getEmployee(@PathVariable
-                                                            Integer id){
+                                                   Integer id) {
         var employee = detailEmployee.execute(id);
-        return  ResponseEntity.ok().body(EmployeeConverter.toDTO(employee));
+        return ResponseEntity.ok().body(EmployeeConverter.toDTO(employee));
     }
+
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Void> deleteEstablishment(@PathVariable Integer id){
+    public ResponseEntity<Void> deleteEstablishment(@PathVariable Integer id) {
         deleteEmployee.execute(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PutMapping("/image/{id}")
     public ResponseEntity<Void> updateImage(@RequestParam("file") MultipartFile file,
-                                                   @PathVariable Integer id){
+                                            @PathVariable Integer id) {
         var uri = saveImageEmployee.execute(file, id);
         return ResponseEntity.created(uri).build();
 
     }
 
     @GetMapping("/user/{id}")
-    public ResponseEntity<EmployeeDTO> getUserEmployeeById(@PathVariable Integer id){
+    public ResponseEntity<EmployeeDTO> getUserEmployeeById(@PathVariable Integer id) {
         var employee = getImageEmployee.execute(id).get();
         return ResponseEntity.ok().body(EmployeeConverter.toDTOResponse(employee));
     }

@@ -15,7 +15,7 @@ public class GetImageEmployee {
     private final EmployeeRepository employeeRepository;
 
 
-    public Optional<Employee> execute(Integer id){
+    public Optional<Employee> execute(Integer id) {
 
         return employeeRepository.findImageByID(Status.ACTIVE, id);
     }

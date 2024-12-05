@@ -50,7 +50,7 @@ public class Customer extends Person {
                     List<Address> addressList,
                     List<Order> orderList,
                     Set<Establishment> favorites
-                   ) {
+    ) {
         super(id, name, lastName, cpf, phone, celPhone, status, user, urlImage, profiles);
         this.birthDate = birthDate;
         this.addressList = addressList;

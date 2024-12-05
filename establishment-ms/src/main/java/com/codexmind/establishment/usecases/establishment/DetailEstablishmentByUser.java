@@ -13,11 +13,11 @@ public class DetailEstablishmentByUser {
 
     private final EstablishmentRepository establishmentRepository;
 
-    public Establishment execute(Integer id){
+    public Establishment execute(Integer id) {
 
         var establishment = establishmentRepository.getEstablishmentByEmployee(id);
-                return establishment.orElseThrow(()-> new EntityNotFoundException(
-                "Object Not Found! id:  "+ id + " type: "+ Establishment.class.getName()
+        return establishment.orElseThrow(() -> new EntityNotFoundException(
+                "Object Not Found! id:  " + id + " type: " + Establishment.class.getName()
         ));
     }
 }

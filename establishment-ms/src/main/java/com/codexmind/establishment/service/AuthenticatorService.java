@@ -11,19 +11,20 @@ import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-public class AuthenticatorService  implements UserDetailsService {
+public class AuthenticatorService implements UserDetailsService {
 
     private final UserRepository repository;
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return repository.findByLogin(username);
     }
 
-    public static User authenticated(){
+    public static User authenticated() {
         try {
             return (User) SecurityContextHolder.getContext()
                     .getAuthentication().getPrincipal();
-        }catch (Exception e){
+        } catch (Exception e) {
             return null;
         }
     }

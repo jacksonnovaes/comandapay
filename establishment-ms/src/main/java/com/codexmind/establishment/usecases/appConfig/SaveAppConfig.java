@@ -1,4 +1,4 @@
-    package com.codexmind.establishment.usecases.appConfig;
+package com.codexmind.establishment.usecases.appConfig;
 
 import com.codexmind.establishment.domain.AppConfiguration;
 import com.codexmind.establishment.dto.AppConfigDTO;
@@ -18,7 +18,7 @@ public class SaveAppConfig {
         this.appConfig = appConfig;
     }
 
-    public AppConfiguration execute(AppConfigDTO appConfigDTO, Integer establishimentId){
+    public AppConfiguration execute(AppConfigDTO appConfigDTO, Integer establishimentId) {
         var appConfigFinded = appConfig.execute(establishimentId).orElseThrow(
                 () -> new EntityNotFoundException("configuracao nao encontrada!")
         );

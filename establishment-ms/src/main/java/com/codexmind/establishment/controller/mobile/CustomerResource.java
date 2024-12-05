@@ -41,9 +41,9 @@ public class CustomerResource {
 
     private final DeleteCustomer deleteCustomer;
 
-    private  final GetImageCustomer getImageCustomer;
+    private final GetImageCustomer getImageCustomer;
 
-    private  final  SaveImageCusomer saveImageCusomer;
+    private final SaveImageCusomer saveImageCusomer;
 
     public CustomerResource(SaveCustomer saveCustomer, UpdateCustomer updateCustomer, GetAllCustomers getAllCustomers, DetailCustomer detailCustomer, DeleteCustomer deleteCustomer, GetImageCustomer getImageCustomer, SaveImageCusomer saveImageCusomer) {
         this.saveCustomer = saveCustomer;
@@ -56,7 +56,6 @@ public class CustomerResource {
     }
 
 
-
     @PostMapping(value = "/signup/save")
     public ResponseEntity<PersonDTO> saveCustomer(@RequestBody @Valid SaveCustomerDTO customerDTO,
                                                   UriComponentsBuilder uriBuilder) {
@@ -66,15 +65,14 @@ public class CustomerResource {
     }
 
 
-
     @SecurityRequirement(name = "bearer-key")
     @GetMapping(value = "/customers")
     public ResponseEntity<Page<CustomerDTO>> listCustomer(
-            @RequestParam(value = "page",defaultValue = "0") Integer page,
-            @RequestParam(value = "linesPerPage",defaultValue = "24")Integer linesPerPge,
-            @RequestParam(value = "order",defaultValue = "name")String orderBy,
-            @RequestParam(value = "direction",defaultValue = "ASC")String direction
-            ) {
+            @RequestParam(value = "page", defaultValue = "0") Integer page,
+            @RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPge,
+            @RequestParam(value = "order", defaultValue = "name") String orderBy,
+            @RequestParam(value = "direction", defaultValue = "ASC") String direction
+    ) {
         var list
                 = getAllCustomers.execute(page,
                 linesPerPge,
@@ -107,21 +105,21 @@ public class CustomerResource {
                                                     @RequestBody @Valid UpdateCustomerDTO updateCustomerDTO,
                                                     UriComponentsBuilder uriBuilder) {
         updateCustomerDTO.setId(id);
-        var customer =updateCustomer.execute(updateCustomerDTO);
+        var customer = updateCustomer.execute(updateCustomerDTO);
         var uri = uriBuilder.path("/customer/update/{id}").buildAndExpand(customer.getId()).toUri();
         return ResponseEntity.created(uri).body(CustomerConverter.toUpdateDTO(customer));
     }
 
     @PutMapping("/image/{id}")
     public ResponseEntity<Void> updateImage(@RequestParam("file") MultipartFile file,
-                                            @PathVariable Integer id){
+                                            @PathVariable Integer id) {
         var uri = saveImageCusomer.execute(file, id);
         return ResponseEntity.created(uri).build();
 
     }
 
     @GetMapping("/user/{id}")
-    public ResponseEntity<CustomerDTO> getUserEmployeeById(@PathVariable Integer id){
+    public ResponseEntity<CustomerDTO> getUserEmployeeById(@PathVariable Integer id) {
         var customer = getImageCustomer.execute(id).get();
         return ResponseEntity.ok().body(CustomerConverter.toResponseDTO(customer));
     }

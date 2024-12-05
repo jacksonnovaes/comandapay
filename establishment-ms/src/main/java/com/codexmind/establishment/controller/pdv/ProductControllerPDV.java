@@ -212,7 +212,7 @@ public class ProductControllerPDV {
 
 
     @PutMapping("/edit/{id}")
-    public ResponseEntity<ProductDTO> editProduct(@PathVariable Integer id,@RequestBody ProductDTO productDTO) {
+    public ResponseEntity<ProductDTO> editProduct(@PathVariable Integer id, @RequestBody ProductDTO productDTO) {
         return ResponseEntity.ok(ProductConverter.toDTO(editProduct.execute(productDTO, id)));
     }
 

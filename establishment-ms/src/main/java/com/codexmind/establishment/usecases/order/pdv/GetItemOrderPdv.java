@@ -18,9 +18,10 @@ import static com.codexmind.establishment.domain.enums.StatusComanda.CLOSED;
 public class GetItemOrderPdv {
 
     private final ItemOrderRepository itemOrderRepository;
-    public Set<ItemOrderResponseDTO> execute(Integer idOrder,String status){
 
-       var  statusComanda = StatusComanda.fromValue(status);
+    public Set<ItemOrderResponseDTO> execute(Integer idOrder, String status) {
+
+        var statusComanda = StatusComanda.fromValue(status);
         var statusPayment = statusComanda == CLOSED ? PAID : PENDING;
         var items = itemOrderRepository.getAllItemOrdersByOrderId(idOrder, statusComanda, statusPayment);
 

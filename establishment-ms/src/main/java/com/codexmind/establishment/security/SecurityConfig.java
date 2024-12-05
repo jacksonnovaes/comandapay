@@ -90,9 +90,9 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-       return http
-               .cors(c-> c.configurationSource( apiConfigurationSource()))
-               .csrf(AbstractHttpConfigurer::disable)
+        return http
+                .cors(c -> c.configurationSource(apiConfigurationSource()))
+                .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, PUBLIC_MATCHERS).permitAll()
@@ -103,27 +103,27 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, ADMIN_ESTABLISHMENT_MATCHERS).hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, ADMIN_ESTABLISHMENT_MATCHERS).hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, ADMIN_ESTABLISHMENT_MATCHERS).hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.POST, EMPLOYEE_ESTABLISHMENT_MATCHERS).hasAnyRole("EMPLOYEE","ADMIN")
-                        .requestMatchers(HttpMethod.GET, EMPLOYEE_ESTABLISHMENT_MATCHERS).hasAnyRole("EMPLOYEE","ADMIN")
-                        .requestMatchers(HttpMethod.PUT, EMPLOYEE_ESTABLISHMENT_MATCHERS).hasAnyRole("EMPLOYEE","ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, EMPLOYEE_ESTABLISHMENT_MATCHERS).hasAnyRole("EMPLOYEE","ADMIN")
-                        .requestMatchers(HttpMethod.POST, CLIENT_MATCHERS).hasAnyRole("EMPLOYEE","ADMIN","CLIENT")
-                        .requestMatchers(HttpMethod.GET, CLIENT_MATCHERS).hasAnyRole("EMPLOYEE","ADMIN","CLIENT")
-                        .requestMatchers(HttpMethod.PUT, CLIENT_MATCHERS).hasAnyRole("EMPLOYEE","ADMIN","CLIENT")
-                        .requestMatchers(HttpMethod.DELETE, CLIENT_MATCHERS).hasAnyRole("EMPLOYEE","ADMIN","CLIENT")
+                        .requestMatchers(HttpMethod.POST, EMPLOYEE_ESTABLISHMENT_MATCHERS).hasAnyRole("EMPLOYEE", "ADMIN")
+                        .requestMatchers(HttpMethod.GET, EMPLOYEE_ESTABLISHMENT_MATCHERS).hasAnyRole("EMPLOYEE", "ADMIN")
+                        .requestMatchers(HttpMethod.PUT, EMPLOYEE_ESTABLISHMENT_MATCHERS).hasAnyRole("EMPLOYEE", "ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, EMPLOYEE_ESTABLISHMENT_MATCHERS).hasAnyRole("EMPLOYEE", "ADMIN")
+                        .requestMatchers(HttpMethod.POST, CLIENT_MATCHERS).hasAnyRole("EMPLOYEE", "ADMIN", "CLIENT")
+                        .requestMatchers(HttpMethod.GET, CLIENT_MATCHERS).hasAnyRole("EMPLOYEE", "ADMIN", "CLIENT")
+                        .requestMatchers(HttpMethod.PUT, CLIENT_MATCHERS).hasAnyRole("EMPLOYEE", "ADMIN", "CLIENT")
+                        .requestMatchers(HttpMethod.DELETE, CLIENT_MATCHERS).hasAnyRole("EMPLOYEE", "ADMIN", "CLIENT")
                         .anyRequest().authenticated()
                 ).addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .headers(header -> header.frameOptions(FrameOptionsConfig::sameOrigin))
-                        .build();
+                .build();
     }
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
-         return configuration.getAuthenticationManager();
+        return configuration.getAuthenticationManager();
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 

@@ -9,7 +9,7 @@ public class CargoDtoConverter {
     public static CargoDTO toDTO(Cargo cargo) {
         return new CargoDTO(
                 cargo.getName()
-                );
+        );
     }
 
 }

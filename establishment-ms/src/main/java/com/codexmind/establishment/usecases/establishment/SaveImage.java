@@ -25,14 +25,14 @@ public class SaveImage {
     public URI execute(MultipartFile file, Integer idEstablishment) {
 
         var user = UserService.authenticated();
-        if(user==null){
+        if (user == null) {
             throw new AuthorizationException("Access denied!");
         }
 
         var establishment = establishmentRepository.findById(idEstablishment).orElseThrow(
-                ()-> new EntityNotFoundException("Establecimento nao encontrado!"));
+                () -> new EntityNotFoundException("Establecimento nao encontrado!"));
 
-        var uri =  s3.upload(file,establishment.getName());
+        var uri = s3.upload(file, establishment.getName());
         establishment.setUrlImage(uri.toString());
         establishmentRepository.save(establishment);
         return uri;

@@ -4,11 +4,11 @@ import java.util.UUID;
 
 public record ResponseOpenCommanDTO(
 
-         UUID id,
+        UUID id,
 
-         Long establishmentId,
+        Long establishmentId,
 
-         Long customerId
+        Long customerId
 
 ) {
 }

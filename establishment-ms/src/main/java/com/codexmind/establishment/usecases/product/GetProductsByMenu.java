@@ -14,7 +14,7 @@ public class GetProductsByMenu {
 
     private final ProductRepository productRepository;
 
-    public Set<Product> execute(Integer id){
+    public Set<Product> execute(Integer id) {
 
         return productRepository.getProductdsByMenuandEstablishmente(id);
     }

@@ -16,9 +16,9 @@ public class SaveEstablishment {
 
     private final ServiceClient serviceClient;
 
-    private  final  EstablishmentRepository repository;
+    private final EstablishmentRepository repository;
 
-    public Establishment execute(EstablishmentDTO establishmentDTO){
+    public Establishment execute(EstablishmentDTO establishmentDTO) {
         var addressDTO = serviceClient.buscaEnderecoPorCep(establishmentDTO.postalCode());
 
 

@@ -26,11 +26,11 @@ public class SaveOrder {
     private final OrderRepository orderRepository;
 
 
-    private final  EstablishmentRepository establishmentRepository;
+    private final EstablishmentRepository establishmentRepository;
 
     private final ProductRepository productRepository;
 
-    public Order execute(Integer idEstablishment){
+    public Order execute(Integer idEstablishment) {
         var userSS = UserService.authenticated();
         assert userSS != null;
         Order order = null;
@@ -39,7 +39,7 @@ public class SaveOrder {
                 .orElseThrow(() -> new EntityNotFoundException("usuario nao e do tipo cliente"));
         Establishment establishment = establishmentRepository.findById(idEstablishment)
                 .orElseGet(() -> Establishment.builder().id(idEstablishment).build());
-        if(orderFinded == null){
+        if (orderFinded == null) {
             order = new Order();
 
             order.setCustomer(customer);
@@ -49,8 +49,8 @@ public class SaveOrder {
             order.setPaymentStatus(PaymentStatus.PENDING);
 
             return orderRepository.save(order);
-        }else{
-          return orderFinded;
+        } else {
+            return orderFinded;
         }
     }
 }

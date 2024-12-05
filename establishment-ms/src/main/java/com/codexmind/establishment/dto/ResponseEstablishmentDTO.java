@@ -12,6 +12,5 @@ public record ResponseEstablishmentDTO(
         Boolean isFavorite,
 
         String urlImage
-    )
-{
+) {
 }

@@ -18,7 +18,7 @@ public class SearchProductsPDV {
     public Page<Product> execute(String name, Integer idmenu, Integer page, Integer linesPerPge, String orderBy, String direction) {
         PageRequest pageRequest = PageRequest.of(page, linesPerPge, Sort.Direction.valueOf(direction), orderBy);
 
-            return productRepository.searchProductsEstoque(name, idmenu, pageRequest);
+        return productRepository.searchProductsEstoque(name, idmenu, pageRequest);
 
     }
 }

@@ -18,14 +18,14 @@ public class SaveProductPDV {
 
     public Product execute(ProductDTO productDTO, Integer idMenu) {
 
-            var product = Product.builder()
-                    .name(productDTO.getName())
-                    .price(productDTO.getPrice())
-                    .estoque(productDTO.getEstoque())
-                    .menu(detailMenu.execute(idMenu))
+        var product = Product.builder()
+                .name(productDTO.getName())
+                .price(productDTO.getPrice())
+                .estoque(productDTO.getEstoque())
+                .menu(detailMenu.execute(idMenu))
 
-                    .build();
-             repository.save(product);
+                .build();
+        repository.save(product);
 
         return product;
     }

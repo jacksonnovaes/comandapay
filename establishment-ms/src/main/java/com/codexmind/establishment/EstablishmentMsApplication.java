@@ -12,13 +12,12 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 public class EstablishmentMsApplication implements CommandLineRunner {
 
 
+    public static void main(String[] args) {
+        SpringApplication.run(EstablishmentMsApplication.class, args);
 
-	public static void main(String[] args) {
-		SpringApplication.run(EstablishmentMsApplication.class, args);
+    }
 
-	}
-
-	@Override
-	public void run(String... args) throws Exception {
-	}
+    @Override
+    public void run(String... args) throws Exception {
+    }
 }

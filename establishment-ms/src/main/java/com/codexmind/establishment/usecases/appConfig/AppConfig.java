@@ -20,7 +20,7 @@ public class AppConfig {
         this.establishmentByEmployeLogin = establishmentByEmployeLogin;
     }
 
-    public Optional<AppConfiguration> execute(Integer establishmentId){
+    public Optional<AppConfiguration> execute(Integer establishmentId) {
 
 
         return appConfigurationRepository.findByEstablishmentId(establishmentId);

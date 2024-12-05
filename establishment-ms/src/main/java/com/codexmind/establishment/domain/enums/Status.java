@@ -6,11 +6,12 @@ import java.util.Arrays;
 
 @Getter
 public enum Status {
-    
+
     INACTIVE("INATIVO"),
     ACTIVE("ATIVO");
 
     public final String value;
+
     Status(String value) {
         this.value = value;
     }

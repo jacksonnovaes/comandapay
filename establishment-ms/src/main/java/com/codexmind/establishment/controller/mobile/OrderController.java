@@ -46,13 +46,14 @@ public class OrderController {
     }
 
     @PostMapping("/open/{id}")
-    public ResponseEntity<OrderResponseDTO> insert(@PathVariable Integer id){
+    public ResponseEntity<OrderResponseDTO> insert(@PathVariable Integer id) {
         var obj = saveOrder.execute(id);
 
         return ResponseEntity.ok(OrderResponseConverter.toDTO(obj));
     }
+
     @PostMapping("/admin/open")
-    public ResponseEntity<Integer> openByEstab(@PathVariable Integer idEstablishment){
+    public ResponseEntity<Integer> openByEstab(@PathVariable Integer idEstablishment) {
         var obj = saveOrder.execute(idEstablishment);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("{/id}").buildAndExpand(obj.getId()).toUri();
@@ -71,10 +72,10 @@ public class OrderController {
     @GetMapping(value = "/list")
     public ResponseEntity<Page<OrderResponseDTO>> getAllProducts
             (
-             @RequestParam(value = "page",defaultValue = "0") Integer page,
-             @RequestParam(value = "linesPerPage",defaultValue = "24")Integer linesPerPge,
-             @RequestParam(value = "orderBy",defaultValue = "id")String orderBy,
-             @RequestParam(value = "direction",defaultValue = "ASC")String direction) {
+                    @RequestParam(value = "page", defaultValue = "0") Integer page,
+                    @RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPge,
+                    @RequestParam(value = "orderBy", defaultValue = "id") String orderBy,
+                    @RequestParam(value = "direction", defaultValue = "ASC") String direction) {
         var list = getAllOrdersByUser.execute(
                 page,
                 linesPerPge,
@@ -86,12 +87,12 @@ public class OrderController {
 
 
     @GetMapping("/countOrders/{id}")
-    public int getCountOrders(@PathVariable Integer id){
+    public int getCountOrders(@PathVariable Integer id) {
         return countOrders.execute(id);
     }
 
     @GetMapping("/items/{id}")
-    public ResponseEntity<Set<ItemOrderResponseDTO>> getItens(@PathVariable Integer id){
+    public ResponseEntity<Set<ItemOrderResponseDTO>> getItens(@PathVariable Integer id) {
         var items = getItemOrder.execute(id);
         return ResponseEntity.ok(items);
     }

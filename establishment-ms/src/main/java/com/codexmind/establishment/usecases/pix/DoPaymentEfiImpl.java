@@ -8,19 +8,19 @@ import com.codexmind.establishment.repository.PixTransactionRepository;
 import com.codexmind.establishment.service.EfiPixCob;
 
 @Service
-public class DoPayment {
+public class DoPaymentEfiImpl implements DoPaymentInterface{
 
     private final EfiPixCob efiPixCob;
 
     private final PixTransactionRepository pixTransactionRepository;
 
-    public DoPayment(EfiPixCob efiPixCob, PixTransactionRepository pixTransactionRepository) {
+    public DoPaymentEfiImpl(EfiPixCob efiPixCob, PixTransactionRepository pixTransactionRepository) {
 
         this.efiPixCob = efiPixCob;
         this.pixTransactionRepository = pixTransactionRepository;
     }
-
-    public PixTransaction execute(TransactionDTO transactionDTO) {
+    @Override
+    public PixTransaction pixPayment(TransactionDTO transactionDTO) {
 
         transactionDTO.setChave("9392925e-0257-417a-a180-506379529a2f");
 
@@ -47,7 +47,7 @@ public class DoPayment {
         pixTransaction.setPixCopiaECola(pixTransactionDTO.pixCopiaECola());
         pixTransaction.setOrderId(transactionDTO.getOrderId());
 
-        return  pixTransactionRepository.save(pixTransaction);
+        return pixTransactionRepository.save(pixTransaction);
     }
 
 }

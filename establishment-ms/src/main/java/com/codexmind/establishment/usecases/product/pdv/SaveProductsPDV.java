@@ -34,7 +34,7 @@ public class SaveProductsPDV {
                     .estoque(productDTO.getEstoque())
                     .menu(detailMenu.execute(idMenu))
                     .build();
-             repository.save(product);
+            repository.save(product);
         });
         return "Products saved successfully.";
     }
