@@ -4,6 +4,7 @@ public record AddressDTO(
 
         String cep,
         String logradouro,
+        String number,
         String complemento,
         String bairro,
         String localidade,

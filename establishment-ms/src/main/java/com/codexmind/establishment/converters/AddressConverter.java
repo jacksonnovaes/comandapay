@@ -19,11 +19,12 @@ public class AddressConverter {
 
     public static AddressDTO toDTO(Address address) {
         return new AddressDTO(
-                address.getName(),
-                address.getComplemento(),
                 address.getPostalCode(),
-                address.getBairro(),
                 address.getName(),
+                address.getNumber(),
+                address.getComplemento(),
+                address.getBairro(),
+                address.getCity(),
                 address.getUf()
         );
     }

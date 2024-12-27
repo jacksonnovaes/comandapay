@@ -1,5 +1,6 @@
 package com.codexmind.establishment.usecases.pix;
 
+import com.codexmind.establishment.dto.PayloadPixDTO;
 import org.springframework.stereotype.Service;
 
 import com.codexmind.establishment.domain.PixTransaction;
@@ -8,7 +9,7 @@ import com.codexmind.establishment.repository.PixTransactionRepository;
 import com.codexmind.establishment.service.EfiPixCob;
 
 @Service
-public class DoPaymentEfiImpl implements DoPaymentInterface{
+public class DoPaymentEfiImpl implements DoPaymentInterfaceEfi{
 
     private final EfiPixCob efiPixCob;
 

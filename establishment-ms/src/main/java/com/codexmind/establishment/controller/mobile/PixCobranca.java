@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("/v2/cob")
+@RequestMapping("/efi/v2/cob")
 public class PixCobranca {
 
 

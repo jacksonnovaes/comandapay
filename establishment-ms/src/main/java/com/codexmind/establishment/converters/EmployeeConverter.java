@@ -30,6 +30,7 @@ public class EmployeeConverter {
                         AddressConverter.toEntity(new AddressDTO(
                                 employeeDTO.postalCode(),
                                 employeeDTO.placeName(),
+                                employeeDTO.number(),
                                 employeeDTO.complemento(),
                                 employeeDTO.bairro(),
                                 employeeDTO.city(),

@@ -16,7 +16,7 @@ public class CustomerConverter {
                 .id(null)
                 .name(customerDTO.name())
                 .lastName(customerDTO.lastName())
-                .cpf(customerDTO.cpf())
+                .cpf(customerDTO.cpfCnpj())
                 .phone(customerDTO.phone())
                 .celPhone(customerDTO.celPhone())
                 .birthDate(customerDTO.birthDate())
@@ -26,6 +26,7 @@ public class CustomerConverter {
                                                 AddressDTO(
                                                 customerDTO.postalCode(),
                                                 customerDTO.placeName(),
+                                                customerDTO.number(),
                                                 customerDTO.complemento(),
                                                 customerDTO.bairro(),
                                                 customerDTO.localidade(),
@@ -84,6 +85,7 @@ public class CustomerConverter {
                 .status(Status.ACTIVE)
                 .birthDate(person.getBirthDate())
                 .addressList(AddressConverter.getAddressesToDto(person.getAddressList()))
+                .customerId(person.getCustomerId())
                 .build();
     }
 

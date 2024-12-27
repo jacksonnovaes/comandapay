@@ -1,7 +1,14 @@
 package com.codexmind.establishment.dto;
 
 public class TransactionDTO {
+     /*"customer": "cus_000005219613",
+             "billingType": "PIX",
+             "value": 100.90,
+             "dueDate": "2023-07-21"*;
 
+      */
+    private String customerId;
+    private String billingType;
     private CalendarioDTO calendario;
     private DevedorDTO devedor;
     private ValorDTO valor;
