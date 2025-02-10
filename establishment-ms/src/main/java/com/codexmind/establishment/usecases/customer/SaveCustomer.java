@@ -10,7 +10,7 @@ import com.codexmind.establishment.dto.asaas.RequestSaveCustomerAsaasDTO;
 import com.codexmind.establishment.dto.saveUpdate.SaveCustomerDTO;
 import com.codexmind.establishment.repository.CustomerRepository;
 import com.codexmind.establishment.repository.UserRepository;
-import com.codexmind.establishment.service.SaveCustomerAsaasPay;
+import com.codexmind.establishment.service.asaas.SaveCustomerAsaasPay;
 import com.codexmind.establishment.service.ServiceClient;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -36,7 +36,7 @@ public class SaveCustomer {
     public Customer execute(SaveCustomerDTO customerDTO){
 
         var addressDTO = serviceClient.buscaEnderecoPorCep(customerDTO.postalCode());
-        var asaasCustomer = new RequestSaveCustomerAsaasDTO(customerDTO.name(), customerDTO.cpfCnpj());
+        var asaasCustomer = new RequestSaveCustomerAsaasDTO(customerDTO.name() + " "+customerDTO.lastName(), customerDTO.cpfCnpj());
         var customerId = saveCustomerAsaasPay.createCustomer(asaasCustomer);
 
         var address = Address.builder()

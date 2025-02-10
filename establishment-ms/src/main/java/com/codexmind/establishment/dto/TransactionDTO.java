@@ -1,12 +1,11 @@
 package com.codexmind.establishment.dto;
 
+import lombok.Getter;
+import lombok.Setter;
+@Getter
+@Setter
 public class TransactionDTO {
-     /*"customer": "cus_000005219613",
-             "billingType": "PIX",
-             "value": 100.90,
-             "dueDate": "2023-07-21"*;
 
-      */
     private String customerId;
     private String billingType;
     private CalendarioDTO calendario;
@@ -14,104 +13,30 @@ public class TransactionDTO {
     private ValorDTO valor;
     private String chave;
     private String solicitacaoPagador;
+
     private Integer orderId;
 
-    public Integer getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(Integer orderId) {
-        this.orderId = orderId;
-    }
-
     // Getters e Setters
-    public CalendarioDTO getCalendario() {
-        return calendario;
-    }
 
-    public void setCalendario(CalendarioDTO calendario) {
-        this.calendario = calendario;
-    }
-
-    public DevedorDTO getDevedor() {
-        return devedor;
-    }
-
-    public void setDevedor(DevedorDTO devedor) {
-        this.devedor = devedor;
-    }
-
-    public ValorDTO getValor() {
-        return valor;
-    }
-
-    public void setValor(ValorDTO valor) {
-        this.valor = valor;
-    }
-
-    public String getChave() {
-        return chave;
-    }
-
-    public void setChave(String chave) {
-        this.chave = chave;
-    }
-
-    public String getSolicitacaoPagador() {
-        return solicitacaoPagador;
-    }
-
-    public void setSolicitacaoPagador(String solicitacaoPagador) {
-        this.solicitacaoPagador = solicitacaoPagador;
-    }
-
-    // Classes internas representando a estrutura do JSON
-
+    @Setter
+    @Getter
     public static class CalendarioDTO {
+        // Getters e Setters
         private int expiracao;
 
-        // Getters e Setters
-        public int getExpiracao() {
-            return expiracao;
-        }
-
-        public void setExpiracao(int expiracao) {
-            this.expiracao = expiracao;
-        }
     }
-
+    @Setter
+    @Getter
     public static class DevedorDTO {
         private String cpf;
         private String nome;
 
-        // Getters e Setters
-        public String getCpf() {
-            return cpf;
-        }
-
-        public void setCpf(String cpf) {
-            this.cpf = cpf;
-        }
-
-        public String getNome() {
-            return nome;
-        }
-
-        public void setNome(String nome) {
-            this.nome = nome;
-        }
     }
-
+    @Setter
+    @Getter
     public static class ValorDTO {
         private String original;
 
-        // Getters e Setters
-        public String getOriginal() {
-            return original;
-        }
 
-        public void setOriginal(String original) {
-            this.original = original;
-        }
     }
 }

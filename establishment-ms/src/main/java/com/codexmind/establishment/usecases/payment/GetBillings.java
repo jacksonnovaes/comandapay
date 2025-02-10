@@ -1,7 +1,7 @@
-package com.codexmind.establishment.usecases.pix;
+package com.codexmind.establishment.usecases.payment;
 
 import com.codexmind.establishment.dto.PixTransactionDTO;
-import com.codexmind.establishment.service.EfiPixCob;
+import com.codexmind.establishment.service.EFI.EfiPixCob;
 import org.springframework.stereotype.Service;
 
 @Service

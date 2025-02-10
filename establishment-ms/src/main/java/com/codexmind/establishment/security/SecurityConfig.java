@@ -39,7 +39,9 @@ public class SecurityConfig {
             "api/v1/customer/signup/save",
             "/efi/v2/cob/pix/**",
             "/api/v1/payment/loc/**",
-            "/api/v1/pdv/config/**"
+            "/api/v1/pdv/config/**",
+            "/asaas/v1/payment/pix",
+            "/efi/v1/payment/pix"
 
     };
 

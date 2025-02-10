@@ -1,12 +1,12 @@
 package com.codexmind.establishment.controller.mobile;
 
 import com.codexmind.establishment.converters.TransactionConverter;
-import com.codexmind.establishment.service.EfiPixQrCode;
+import com.codexmind.establishment.service.EFI.EfiPixQrCode;
 import org.springframework.web.bind.annotation.*;
 
 import com.codexmind.establishment.dto.PixTransactionDTO;
 import com.codexmind.establishment.dto.TransactionDTO;
-import com.codexmind.establishment.usecases.pix.DoPaymentEfiImpl;
+import com.codexmind.establishment.usecases.payment.impl.DoPaymentEfiImpl;
 
 import org.springframework.http.ResponseEntity;
 
@@ -14,15 +14,15 @@ import java.io.IOException;
 
 
 @RestController
-@RequestMapping("/api/v1/payment")
-public class PaymentController {
+@RequestMapping("/efi/v1/payment")
+public class EfiPaymentController {
 
 
     private final DoPaymentEfiImpl doPayment;
 
     private final EfiPixQrCode efiPixQrCode;
 
-    public PaymentController(DoPaymentEfiImpl doPayment, EfiPixQrCode efiPixQrCode) {
+    public EfiPaymentController(DoPaymentEfiImpl doPayment, EfiPixQrCode efiPixQrCode) {
         this.doPayment = doPayment;
         this.efiPixQrCode = efiPixQrCode;
     }

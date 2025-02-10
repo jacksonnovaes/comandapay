@@ -4,8 +4,8 @@ package com.codexmind.establishment.controller.mobile;
 import com.codexmind.establishment.converters.TransactionConverter;
 import com.codexmind.establishment.dto.PixTransactionDTO;
 import com.codexmind.establishment.dto.TransactionDTO;
-import com.codexmind.establishment.usecases.pix.DoPaymentEfiImpl;
-import com.codexmind.establishment.usecases.pix.GetBillings;
+import com.codexmind.establishment.usecases.payment.impl.DoPaymentEfiImpl;
+import com.codexmind.establishment.usecases.payment.GetBillings;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

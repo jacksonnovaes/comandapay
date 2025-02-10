@@ -1,4 +1,4 @@
-package com.codexmind.establishment.service;
+package com.codexmind.establishment.service.EFI;
 
 import com.codexmind.establishment.dto.PixTransactionDTO;
 import com.codexmind.establishment.dto.TransactionDTO;

@@ -1,4 +1,4 @@
-package com.codexmind.establishment.service;
+package com.codexmind.establishment.service.EFI;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;

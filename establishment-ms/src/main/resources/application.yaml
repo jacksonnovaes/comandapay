@@ -26,4 +26,12 @@ aws:
     bucket: appcomanda
     region: sa-east-1
 
-
+efi:
+  cob:
+    url: http://172.18.0.1:8082
+asaas:
+  api:
+    url: https://api-sandbox.asaas.com
+    payments: /v3/payments
+    path: /v3/customers
+    token: $aact_MzkwODA2MWY2OGM3MWRlMDU2NWM3MzJlNzZmNGZhZGY6OmNkNDgwNzc2LTM5MjUtNDgyNy1iNjM4LWI4NGZiMWI4MDQyNDo6JGFhY2hfMGIzZjVlNjgtMzAzZS00YjRiLWE0YmQtOWM1YTNjM2ViZjlj

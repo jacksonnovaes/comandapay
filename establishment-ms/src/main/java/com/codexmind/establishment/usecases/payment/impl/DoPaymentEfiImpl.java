@@ -1,15 +1,15 @@
-package com.codexmind.establishment.usecases.pix;
+package com.codexmind.establishment.usecases.payment.impl;
 
-import com.codexmind.establishment.dto.PayloadPixDTO;
+import com.codexmind.establishment.usecases.payment.DoPaymentEfi;
 import org.springframework.stereotype.Service;
 
 import com.codexmind.establishment.domain.PixTransaction;
 import com.codexmind.establishment.dto.TransactionDTO;
 import com.codexmind.establishment.repository.PixTransactionRepository;
-import com.codexmind.establishment.service.EfiPixCob;
+import com.codexmind.establishment.service.EFI.EfiPixCob;
 
 @Service
-public class DoPaymentEfiImpl implements DoPaymentInterfaceEfi{
+public class DoPaymentEfiImpl implements DoPaymentEfi {
 
     private final EfiPixCob efiPixCob;
 
