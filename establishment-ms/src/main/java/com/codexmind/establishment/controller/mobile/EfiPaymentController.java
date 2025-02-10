@@ -5,7 +5,7 @@ import com.codexmind.establishment.service.EFI.EfiPixQrCode;
 import org.springframework.web.bind.annotation.*;
 
 import com.codexmind.establishment.dto.PixTransactionDTO;
-import com.codexmind.establishment.dto.TransactionDTO;
+import com.codexmind.establishment.dto.EfiRequestDTO;
 import com.codexmind.establishment.usecases.payment.impl.DoPaymentEfiImpl;
 
 import org.springframework.http.ResponseEntity;
@@ -29,7 +29,7 @@ public class EfiPaymentController {
 
 
     @PostMapping("/pix")
-    public ResponseEntity<PixTransactionDTO> postMethodName(@RequestBody TransactionDTO transactionDTO) throws IOException {
+    public ResponseEntity<PixTransactionDTO> postMethodName(@RequestBody EfiRequestDTO transactionDTO) throws IOException {
 
         var pixTransactionDTO = doPayment.pixPayment(transactionDTO);
         return ResponseEntity.ok(TransactionConverter.toDTO(pixTransactionDTO));

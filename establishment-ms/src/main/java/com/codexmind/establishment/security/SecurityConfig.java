@@ -40,20 +40,20 @@ public class SecurityConfig {
             "/efi/v2/cob/pix/**",
             "/api/v1/payment/loc/**",
             "/api/v1/pdv/config/**",
-            "/asaas/v1/payment/pix",
             "/efi/v1/payment/pix"
 
     };
 
     private static final String[] ADMIN_ESTABLISHMENT_MATCHERS = {
             "/api/v1/customer/save/**",
+            "/api/v1/customer/customers/**",
             "/api/v1/employee/menu/list/**",
             "/api/v1/employee/user/**",
             "/api/v1/pdv/open/**",
             "/api/v1/pdv/close/**",
             "/api/v1/establishment/admin/**",
             "/api/v1/pdv/order/**",
-            "/api/v1/pdv/order//customer/list/",
+            "/api/v1/pdv/order/customer/list/",
             "/api/v1/product/pdv/menu/**"
 
     };
@@ -61,6 +61,7 @@ public class SecurityConfig {
 
     private static final String[] EMPLOYEE_ESTABLISHMENT_MATCHERS = {
             "/api/v1/customer/save/**",
+            "/api/v1/customer/customers/**",
             "/api/v1/payment/**",
             "/api/v1/employee/user/**",
             "/api/v1/pdv/open/**",
@@ -82,8 +83,9 @@ public class SecurityConfig {
             "/api/v1/establishment/favorites/**",
             "/api/v1/menu/**",
             "/api/v1/order/countOrders/**",
-            "/api/v1/itemOrder/edit/**"
-
+            "/api/v1/itemOrder/edit/**",
+            "/api/v1/payment/pix",
+            "/api/v1/payment/grCode/**"
     };
 
 
@@ -143,7 +145,8 @@ public class SecurityConfig {
                 "http://172.20.10.3:8081",
                 "http://172.20.10.3:8081",
                 "http://172.18.0.1:8080",
-                "http://172.18.0.1:8081"
+                "http://172.18.0.1:8081",
+                "http://192.168.15.10"
 
         ));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));

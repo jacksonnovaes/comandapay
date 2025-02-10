@@ -27,6 +27,7 @@ aws:
     region: sa-east-1
 
 efi:
+  pixKey: 9392925e-0257-417a-a180-506379529a2f
   cob:
     url: http://172.18.0.1:8082
 asaas:
@@ -34,4 +35,5 @@ asaas:
     url: https://api-sandbox.asaas.com
     payments: /v3/payments
     path: /v3/customers
-    token: $aact_MzkwODA2MWY2OGM3MWRlMDU2NWM3MzJlNzZmNGZhZGY6OmNkNDgwNzc2LTM5MjUtNDgyNy1iNjM4LWI4NGZiMWI4MDQyNDo6JGFhY2hfMGIzZjVlNjgtMzAzZS00YjRiLWE0YmQtOWM1YTNjM2ViZjlj
+    qrCode: /{id}/pixQrCode
+    token: $aact_MzkwODA2MWY2OGM3MWRlMDU2NWM3MzJlNzZmNGZhZGY6OjQ3OWE0Y2U4LWFhY2UtNGQxNi1hM2EzLTliMDkyYzIyZDg5MTo6JGFhY2hfZjBjMzk0OTktZDJjMC00ODBhLWE1ZmUtODFiMDY4Yjg4ZGM0
