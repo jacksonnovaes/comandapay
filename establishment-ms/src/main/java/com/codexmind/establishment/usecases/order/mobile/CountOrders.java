@@ -10,7 +10,7 @@ public class CountOrders {
 
     private final OrderRepository orderRepository;
 
-    public int execute(Integer userId){
+    public int execute(Integer userId) {
         return orderRepository.countOrderByUser(userId);
     }
 }

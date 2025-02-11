@@ -16,8 +16,8 @@ public class DetailProduct {
     public Product execute(Integer id) {
 
         var product = repository.findById(id);
-        return product.orElseThrow(()-> new EntityNotFoundException(
-                "Object Not Found! id:  "+ id + " type: "+ Product.class.getName()
+        return product.orElseThrow(() -> new EntityNotFoundException(
+                "Object Not Found! id:  " + id + " type: " + Product.class.getName()
         ));
     }
 }

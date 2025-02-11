@@ -16,14 +16,15 @@ public class EditItemOrder {
     private final ItemOrderRepository itemOrderRepository;
 
     @Transactional
-    public ItemOrder execute(Integer itemOrderId, int intQuantity){
+    public ItemOrder execute(Integer itemOrderId, int intQuantity) {
         var itemOrderFinded = itemOrderRepository.findById(itemOrderId)
-                .orElseThrow(()-> new EntityNotFoundException("Item nao encontrado"));
-        if(intQuantity==0) {
+                .orElseThrow(() -> new EntityNotFoundException("Item nao encontrado"));
+        if (intQuantity == 0) {
             itemOrderFinded.setOrder(null);
             itemOrderRepository.delete(itemOrderFinded);
             return null;
         }
+        itemOrderFinded.getOrder().setTotalOrder(itemOrderFinded.getUnitPrice().multiply(BigDecimal.valueOf(intQuantity)));
         itemOrderFinded.setItemOrderId(itemOrderId);
         itemOrderFinded.setQuantity(intQuantity);
         itemOrderFinded.setTotalAmount(itemOrderFinded.getUnitPrice().multiply(BigDecimal.valueOf(intQuantity)));

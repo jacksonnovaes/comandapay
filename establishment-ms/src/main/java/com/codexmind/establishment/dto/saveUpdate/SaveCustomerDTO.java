@@ -9,7 +9,7 @@ import org.hibernate.validator.constraints.br.CPF;
 
 import java.time.LocalDate;
 
-public record SaveCustomerDTO(
+public record  SaveCustomerDTO(
 
         Long id,
 
@@ -21,7 +21,7 @@ public record SaveCustomerDTO(
 
         @NotBlank
         @CPF
-        String cpf,
+        String cpfCnpj,
 
 
         @NotBlank

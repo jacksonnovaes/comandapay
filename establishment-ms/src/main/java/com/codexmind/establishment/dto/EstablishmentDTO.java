@@ -19,5 +19,5 @@ public record EstablishmentDTO(
         String city,
 
         String uf
-){
+) {
 }

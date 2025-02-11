@@ -1,6 +1,6 @@
 package com.codexmind.establishment.exceptions;
 
-public class FieldNotValidException extends RuntimeException{
+public class FieldNotValidException extends RuntimeException {
 
     public FieldNotValidException(String message) {
         super(message);

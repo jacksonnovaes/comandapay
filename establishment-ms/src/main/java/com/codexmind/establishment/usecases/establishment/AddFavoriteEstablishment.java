@@ -8,10 +8,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.Optional;
-import java.util.Set;
-
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -35,7 +31,7 @@ public class AddFavoriteEstablishment {
             customer.getFavorites().remove(establishment);
             establishment.setIsFavorite(Boolean.FALSE);
             establishment.setCustomer(null);
-        }else{
+        } else {
             customer.getFavorites().add(establishment);
             establishment.setIsFavorite(Boolean.TRUE);
             establishment.setCustomer(customer);

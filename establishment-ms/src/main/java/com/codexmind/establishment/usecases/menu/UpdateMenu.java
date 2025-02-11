@@ -15,10 +15,10 @@ public class UpdateMenu {
 
     private MenuRepository repository;
 
-    public Menu execute(Integer id, MenuDTO menuDTO){
+    public Menu execute(Integer id, MenuDTO menuDTO) {
 
         var menuFound = repository.findById(id);
-        if(menuFound.isPresent()) {
+        if (menuFound.isPresent()) {
             var menu = Menu.builder()
                     .id(id)
                     .name(menuDTO.getName() != null ? menuDTO.getName() : menuFound.get().getName())

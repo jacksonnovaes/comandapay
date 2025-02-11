@@ -20,7 +20,7 @@ public class EmployeeDTO extends PersonDTO {
     private LocalDate admissionDate;
 
     @Builder(builderMethodName = "employeeDTOBuilder")
-    public EmployeeDTO(String name, String lastName, String cpf, String phone, Status status,String urlImage, String celPhone, List<AddressDTO> addressList, CargoDTO cargoDTO, LocalDate admissionDate) {
+    public EmployeeDTO(String name, String lastName, String cpf, String phone, Status status, String urlImage, String celPhone, List<AddressDTO> addressList, CargoDTO cargoDTO, LocalDate admissionDate) {
         super(name, lastName, cpf, phone, celPhone, status, urlImage, addressList);
         this.cargoDTO = cargoDTO;
         this.admissionDate = admissionDate;

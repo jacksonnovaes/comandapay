@@ -2,14 +2,13 @@ package com.codexmind.establishment.repository;
 
 import com.codexmind.establishment.domain.ItemOrder;
 import com.codexmind.establishment.domain.Order;
+import com.codexmind.establishment.domain.enums.PaymentStatus;
 import com.codexmind.establishment.domain.enums.StatusComanda;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 @Repository
@@ -35,12 +34,13 @@ public interface ItemOrderRepository extends JpaRepository<ItemOrder, Integer> {
                    tio.product_id,
                    tio.quantity,
                    tio.total_amount,
-                   tio.discount, tio.unit_price
+                   tio.discount,
+                   tio.unit_price
                    from tb_item_order tio left join tb_orders ord on ord.id = tio.order_id
                    left join tb_product prd on prd.id = tio.product_id
-                   where ord.customer_id = ?1  and ord.status = ?2
+                   where ord.customer_id = ?1  and ord.status = ?2 and tio.payment_status =?3
             """)
-    Set<ItemOrder> getAllItemOrdersByCustomer(Integer id, String status);
+    Set<ItemOrder> getAllItemOrdersByCustomer(Integer id, StatusComanda status, PaymentStatus paymentStatus);
 
     @Query(nativeQuery = true, value = """
              select distinct tio.item_order_id,
@@ -63,9 +63,9 @@ public interface ItemOrderRepository extends JpaRepository<ItemOrder, Integer> {
                    tio.discount, tio.unit_price
                    from tb_item_order tio left join tb_orders ord on ord.id = tio.order_id
                    left join tb_product prd on prd.id = tio.product_id
-                   where ord.id = ?1  and ord.status = ?2
+                   where ord.id = ?1  and ord.status = ?2 and tio.payment_status =?3
             """)
-    Set<ItemOrder> getAllItemOrdersByOrderId(Integer orderId, StatusComanda status);
+    Set<ItemOrder> getAllItemOrdersByOrderId(Integer orderId, StatusComanda status, PaymentStatus paymentStatus);
 
     @Query(nativeQuery = true, value = """
              select distinct tio.item_order_id,

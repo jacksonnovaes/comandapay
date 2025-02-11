@@ -15,7 +15,7 @@ public class GetImageCustomer {
     private final CustomerRepository customerRepository;
 
 
-    public Optional<Customer> execute(Integer id){
+    public Optional<Customer> execute(Integer id) {
 
         return customerRepository.findImageByID(Status.ACTIVE, id);
     }

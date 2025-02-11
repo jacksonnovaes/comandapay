@@ -21,5 +21,7 @@ public class ProductDTO {
 
     private String menuName;
 
-    private int estoque;
+    private Integer estoque;
+
+    private Integer idMenu;
 }

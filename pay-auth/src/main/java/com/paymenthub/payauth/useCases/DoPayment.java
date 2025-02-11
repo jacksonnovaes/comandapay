@@ -24,9 +24,7 @@ public class DoPayment {
        
         var authorizing = authEfiPay.execute();
 
-        var pixTransactionDTO = efiPixCob.duePixCobv(transactionDTO, authorizing.tokeType() + " "+ authorizing.acessToken());
-
-        return pixTransactionDTO;
+        return efiPixCob.duePixCobv(transactionDTO, authorizing.tokeType() + " "+ authorizing.acessToken());
   }
 
 }

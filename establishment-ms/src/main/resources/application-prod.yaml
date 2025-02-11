@@ -28,3 +28,11 @@ springdoc:
 
 server:
   port: 8080
+
+efi:
+  cob:
+    url: http://172.18.0.1:8082
+
+asaas:
+   api:
+     url: https://sandbox.asaas.com

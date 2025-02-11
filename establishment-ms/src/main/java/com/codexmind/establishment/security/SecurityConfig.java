@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -16,15 +15,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.server.header.XFrameOptionsServerHttpHeadersWriter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
-import java.util.List;
-
-import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity
@@ -41,7 +36,12 @@ public class SecurityConfig {
             "/api/v1/product/menu/**",
             "/api/v1/payment/**",
             "/api/v1/signup/**",
-            "api/v1/customer/signup/save"
+            "api/v1/customer/signup/save",
+            "/efi/v2/cob/pix/**",
+            "/api/v1/payment/loc/**",
+            "/api/v1/pdv/config/**",
+            "/asaas/v1/payment/pix",
+            "/efi/v1/payment/pix"
 
     };
 
@@ -53,7 +53,8 @@ public class SecurityConfig {
             "/api/v1/pdv/close/**",
             "/api/v1/establishment/admin/**",
             "/api/v1/pdv/order/**",
-            "/api/v1//estoque/**"
+            "/api/v1/pdv/order//customer/list/",
+            "/api/v1/product/pdv/menu/**"
 
     };
 
@@ -67,7 +68,8 @@ public class SecurityConfig {
             "/api/v1/establishment/admin/**",
             "/api/v1/pdv/savaAll/**",
             "/api/v1/pdv/order/**",
-            "/api/v1//estoque/**"
+            "/api/v1/product/pdv/menu/**",
+            "/api/v1/product/pdv/**"
 
 
     };
@@ -90,9 +92,9 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-       return http
-               .cors(c-> c.configurationSource( apiConfigurationSource()))
-               .csrf(AbstractHttpConfigurer::disable)
+        return http
+                .cors(c -> c.configurationSource(apiConfigurationSource()))
+                .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, PUBLIC_MATCHERS).permitAll()
@@ -103,27 +105,27 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, ADMIN_ESTABLISHMENT_MATCHERS).hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, ADMIN_ESTABLISHMENT_MATCHERS).hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, ADMIN_ESTABLISHMENT_MATCHERS).hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.POST, EMPLOYEE_ESTABLISHMENT_MATCHERS).hasAnyRole("EMPLOYEE","ADMIN")
-                        .requestMatchers(HttpMethod.GET, EMPLOYEE_ESTABLISHMENT_MATCHERS).hasAnyRole("EMPLOYEE","ADMIN")
-                        .requestMatchers(HttpMethod.PUT, EMPLOYEE_ESTABLISHMENT_MATCHERS).hasAnyRole("EMPLOYEE","ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, EMPLOYEE_ESTABLISHMENT_MATCHERS).hasAnyRole("EMPLOYEE","ADMIN")
-                        .requestMatchers(HttpMethod.POST, CLIENT_MATCHERS).hasAnyRole("EMPLOYEE","ADMIN","CLIENT")
-                        .requestMatchers(HttpMethod.GET, CLIENT_MATCHERS).hasAnyRole("EMPLOYEE","ADMIN","CLIENT")
-                        .requestMatchers(HttpMethod.PUT, CLIENT_MATCHERS).hasAnyRole("EMPLOYEE","ADMIN","CLIENT")
-                        .requestMatchers(HttpMethod.DELETE, CLIENT_MATCHERS).hasAnyRole("EMPLOYEE","ADMIN","CLIENT")
+                        .requestMatchers(HttpMethod.POST, EMPLOYEE_ESTABLISHMENT_MATCHERS).hasAnyRole("EMPLOYEE", "ADMIN")
+                        .requestMatchers(HttpMethod.GET, EMPLOYEE_ESTABLISHMENT_MATCHERS).hasAnyRole("EMPLOYEE", "ADMIN")
+                        .requestMatchers(HttpMethod.PUT, EMPLOYEE_ESTABLISHMENT_MATCHERS).hasAnyRole("EMPLOYEE", "ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, EMPLOYEE_ESTABLISHMENT_MATCHERS).hasAnyRole("EMPLOYEE", "ADMIN")
+                        .requestMatchers(HttpMethod.POST, CLIENT_MATCHERS).hasAnyRole("EMPLOYEE", "ADMIN", "CLIENT")
+                        .requestMatchers(HttpMethod.GET, CLIENT_MATCHERS).hasAnyRole("EMPLOYEE", "ADMIN", "CLIENT")
+                        .requestMatchers(HttpMethod.PUT, CLIENT_MATCHERS).hasAnyRole("EMPLOYEE", "ADMIN", "CLIENT")
+                        .requestMatchers(HttpMethod.DELETE, CLIENT_MATCHERS).hasAnyRole("EMPLOYEE", "ADMIN", "CLIENT")
                         .anyRequest().authenticated()
                 ).addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .headers(header -> header.frameOptions(FrameOptionsConfig::sameOrigin))
-                        .build();
+                .build();
     }
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
-         return configuration.getAuthenticationManager();
+        return configuration.getAuthenticationManager();
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
@@ -134,10 +136,14 @@ public class SecurityConfig {
                 "http://192.168.0.129:8080",
                 "http://192.168.0.213:8080",
                 "http://192.168.0.129:8081",
+                "http://192.168.0.129:8082",
                 "http://localhost:8080",
+                "http://localhost:8082",
                 "http://localhost:3000",
-                "http://172.20.10.3:8081",//
-                "http://172.20.10.3:8081"
+                "http://172.20.10.3:8081",
+                "http://172.20.10.3:8081",
+                "http://172.18.0.1:8080",
+                "http://172.18.0.1:8081"
 
         ));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));

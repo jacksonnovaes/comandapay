@@ -41,14 +41,14 @@ public class Person {
 
     private String urlImage;
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name="profiles")
+    @CollectionTable(name = "profiles")
     private Set<Integer> profiles = new HashSet<>();
 
     public Set<Profile> getProfiles() {
         return profiles.stream().map(Profile::toEnum).collect(Collectors.toSet());
     }
 
-    public void addProfile(Profile profile){
+    public void addProfile(Profile profile) {
         profiles.add(profile.getCod());
     }
 

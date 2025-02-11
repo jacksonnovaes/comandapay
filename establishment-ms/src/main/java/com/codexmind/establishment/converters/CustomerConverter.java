@@ -16,20 +16,21 @@ public class CustomerConverter {
                 .id(null)
                 .name(customerDTO.name())
                 .lastName(customerDTO.lastName())
-                .cpf(customerDTO.cpf())
+                .cpf(customerDTO.cpfCnpj())
                 .phone(customerDTO.phone())
                 .celPhone(customerDTO.celPhone())
                 .birthDate(customerDTO.birthDate())
                 .addressList(List.of(
-                        AddressConverter.toEntity(
-                                new
-                                AddressDTO(
-                                        customerDTO.postalCode(),
-                                        customerDTO.placeName(),
-                                        customerDTO.complemento(),
-                                        customerDTO.bairro(),
-                                        customerDTO.localidade(),
-                                        customerDTO.uf()
+                                AddressConverter.toEntity(
+                                        new
+                                                AddressDTO(
+                                                customerDTO.postalCode(),
+                                                customerDTO.placeName(),
+                                                customerDTO.number(),
+                                                customerDTO.complemento(),
+                                                customerDTO.bairro(),
+                                                customerDTO.localidade(),
+                                                customerDTO.uf()
                                         )
                                 )
                         )
@@ -37,7 +38,6 @@ public class CustomerConverter {
                 .build();
 
     }
-
 
 
     public static CustomerDTO toSaveCustomerDTO(Customer customer) {
@@ -48,6 +48,7 @@ public class CustomerConverter {
                 .celPhone(customer.getCelPhone())
                 .build();
     }
+
     public static Customer toEntity(CustomerDTO customerDTO) {
         return Customer.builder()
                 .name(customerDTO.getName())
@@ -84,6 +85,7 @@ public class CustomerConverter {
                 .status(Status.ACTIVE)
                 .birthDate(person.getBirthDate())
                 .addressList(AddressConverter.getAddressesToDto(person.getAddressList()))
+                .customerId(person.getCustomerId())
                 .build();
     }
 

@@ -33,25 +33,25 @@ public class SaleController {
     private final GetOrder getOrder;
 
     @PostMapping("/open/")
-    public OrderResponseDTO openOrderAndAddItem(@RequestBody List<ItemOrderRequestDTO> items){
+    public OrderResponseDTO openOrderAndAddItem(@RequestBody List<ItemOrderRequestDTO> items) {
         return OrderResponseConverter.toDTO(saveOrderPdv.execute(items));
     }
 
     @GetMapping("/open/{orderId}")
-    public OrderResponseDTO getOrder(@PathVariable Integer orderId){
+    public OrderResponseDTO getOrder(@PathVariable Integer orderId) {
         return OrderResponseConverter.toDTO(getOrder.execute(orderId));
     }
 
     @GetMapping("/items/{orderId}/{status}")
     public ResponseEntity<Set<ItemOrderResponseDTO>> getItens(@PathVariable Integer orderId,
-                                                              @PathVariable String status){
+                                                              @PathVariable String status) {
 
         var items = getItemOrder.execute(orderId, status);
         return ResponseEntity.ok(items);
     }
 
     @PutMapping("/close/{orderId}")
-    public OrderResponseDTO closeOrder(@PathVariable Integer orderId, @RequestParam BigDecimal valueReceived,  @RequestBody Map<String, String> paymentInfo){
+    public OrderResponseDTO closeOrder(@PathVariable Integer orderId, @RequestParam BigDecimal valueReceived, @RequestBody Map<String, String> paymentInfo) {
         String paymentType = paymentInfo.get("paymentType");
         return OrderResponseConverter.toDTO(closeOrder.execute(orderId, paymentType, valueReceived));
     }

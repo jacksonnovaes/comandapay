@@ -19,7 +19,7 @@ public class UpdateEstablishment {
 
         var establishmentFind = establishmentRepository.findById(id);
 
-        if(establishmentFind.isPresent()) {
+        if (establishmentFind.isPresent()) {
             var establishment = Establishment.builder()
                     .id(id)
                     .name(establishmentDTO.name() != null ? establishmentDTO.name() : establishmentFind.get().getName())

@@ -11,7 +11,7 @@ public enum PaymentStatus {
 
     private String value;
 
-     PaymentStatus(String value) {
+    PaymentStatus(String value) {
 
         this.value = value;
     }

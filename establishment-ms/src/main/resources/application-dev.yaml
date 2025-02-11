@@ -5,7 +5,8 @@ spring:
 
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://postgresdb:5432/
+    url: jdbc:postgresql://172.18.0.1:5432/
+    username: postgres
     password: root
   jpa:
     show-sql: true
@@ -27,3 +28,4 @@ springdoc:
 
 server:
   port: 8080
+

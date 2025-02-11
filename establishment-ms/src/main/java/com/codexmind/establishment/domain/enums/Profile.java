@@ -5,8 +5,8 @@ import lombok.Getter;
 @Getter
 public enum Profile {
     ADMIN(1, "ROLE_ADMIN"),
-    CLIENT(2,"ROLE_CLIENT"),
-    EMPLOYEE(3,"ROLE_EMPLOYEE");
+    CLIENT(2, "ROLE_CLIENT"),
+    EMPLOYEE(3, "ROLE_EMPLOYEE");
 
     private final int cod;
     private final String description;
@@ -18,11 +18,11 @@ public enum Profile {
 
 
     public static Profile toEnum(Integer cod) {
-        if (cod==null) {
+        if (cod == null) {
             return null;
         }
-        for(Profile x: Profile.values()) {
-            if(cod.equals(x.getCod())) {
+        for (Profile x : Profile.values()) {
+            if (cod.equals(x.getCod())) {
                 return x;
             }
         }

@@ -93,7 +93,9 @@
                                 </requireReleaseDeps>
                                 <requireMavenVersion>
                                     <version>(,2.1.0),(2.1.0,2.2.0),(2.2.0,)</version>
-                                    <message>Maven 2.1.0 and 2.2.0 produce incorrect GPG signatures and checksums respectively.</message>
+                                    <message>Maven 2.1.0 and 2.2.0 produce incorrect GPG signatures and checksums
+                                        respectively.
+                                    </message>
                                 </requireMavenVersion>
                             </rules>
                         </configuration>
@@ -213,9 +215,9 @@
                     <nexusUrl>https://oss.sonatype.org/</nexusUrl>
                     <autoReleaseAfterClose>true</autoReleaseAfterClose>
                     <stagingProgressTimeoutMinutes>30</stagingProgressTimeoutMinutes>
-<!--                    <skipStaging>true</skipStaging>
-                    <skipRemoteStaging>true</skipRemoteStaging>
-                    <skipNexusStagingDeployMojo>true</skipNexusStagingDeployMojo>-->
+                    <!--                    <skipStaging>true</skipStaging>
+                                        <skipRemoteStaging>true</skipRemoteStaging>
+                                        <skipNexusStagingDeployMojo>true</skipNexusStagingDeployMojo>-->
                 </configuration>
             </plugin>
         </plugins>
@@ -600,7 +602,8 @@
         <coverage.missed.classes>0</coverage.missed.classes>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <sonatypeOssDistMgmtSnapshotsUrl>https://oss.sonatype.org/content/repositories/snapshots/</sonatypeOssDistMgmtSnapshotsUrl>
+        <sonatypeOssDistMgmtSnapshotsUrl>https://oss.sonatype.org/content/repositories/snapshots/
+        </sonatypeOssDistMgmtSnapshotsUrl>
 
         <maven.version>3.8.4</maven.version>
         <commons-compress-version>1.21</commons-compress-version>

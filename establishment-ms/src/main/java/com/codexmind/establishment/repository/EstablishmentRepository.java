@@ -77,7 +77,7 @@ public interface EstablishmentRepository extends JpaRepository<Establishment, In
             estab.address_id,
             estab.status,
             estab.customer_id,
-            estab.url_image, 
+            estab.url_image,
             estab.is_favorite
             FROM tb_establishment estab
             INNER JOIN tb_person customer

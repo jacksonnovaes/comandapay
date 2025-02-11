@@ -1,7 +1,6 @@
 package com.codexmind.establishment.converters;
 
 
-
 import com.codexmind.establishment.domain.Cargo;
 import com.codexmind.establishment.domain.Employee;
 import com.codexmind.establishment.dto.AddressDTO;
@@ -31,6 +30,7 @@ public class EmployeeConverter {
                         AddressConverter.toEntity(new AddressDTO(
                                 employeeDTO.postalCode(),
                                 employeeDTO.placeName(),
+                                employeeDTO.number(),
                                 employeeDTO.complemento(),
                                 employeeDTO.bairro(),
                                 employeeDTO.city(),
@@ -52,6 +52,7 @@ public class EmployeeConverter {
                 .cargoDTO(CargoDtoConverter.toDTO(person.getCargo()))
                 .build();
     }
+
     public static EmployeeDTO toDTOResponse(Employee person) {
         return EmployeeDTO.employeeDTOBuilder()
                 .name(person.getName())

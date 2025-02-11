@@ -14,6 +14,7 @@ import java.util.Optional;
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 
     Page<Employee> findByStatus(Pageable pageable, Status status);
+
     Optional<Employee> findByStatusAndId(Status status, Integer id);
 
     @Query(value = """

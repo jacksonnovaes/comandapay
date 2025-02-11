@@ -1,5 +1,6 @@
 package com.codexmind.establishment.domain;
 
+import com.codexmind.establishment.domain.enums.PaymentStatus;
 import com.codexmind.establishment.domain.enums.StatusComanda;
 import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
@@ -7,7 +8,6 @@ import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.*;
 
 @Entity
 @Getter
@@ -39,7 +39,10 @@ public class Order {
     private Customer customer;
 
     @Enumerated(EnumType.ORDINAL)
-    private  StatusComanda status;
+    private StatusComanda status;
+
+    @Enumerated(EnumType.ORDINAL)
+    private PaymentStatus paymentStatus;
 
 
     @ManyToOne(cascade = CascadeType.ALL)

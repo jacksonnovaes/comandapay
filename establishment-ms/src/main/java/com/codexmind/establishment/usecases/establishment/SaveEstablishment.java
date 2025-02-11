@@ -7,7 +7,6 @@ import com.codexmind.establishment.domain.enums.Status;
 import com.codexmind.establishment.dto.EstablishmentDTO;
 import com.codexmind.establishment.repository.EstablishmentRepository;
 import com.codexmind.establishment.service.ServiceClient;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,9 +16,9 @@ public class SaveEstablishment {
 
     private final ServiceClient serviceClient;
 
-    private  final  EstablishmentRepository repository;
+    private final EstablishmentRepository repository;
 
-    public Establishment execute(EstablishmentDTO establishmentDTO){
+    public Establishment execute(EstablishmentDTO establishmentDTO) {
         var addressDTO = serviceClient.buscaEnderecoPorCep(establishmentDTO.postalCode());
 
 

@@ -1,6 +1,6 @@
 package com.codexmind.establishment.exceptions;
 
-public class ValidationUserException    extends RuntimeException {
+public class ValidationUserException extends RuntimeException {
 
     public ValidationUserException(String message) {
         super(message);

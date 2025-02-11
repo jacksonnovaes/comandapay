@@ -7,13 +7,19 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
-@AllArgsConstructor
+
 public class DeleteCustomer {
 
 
     private final CustomerRepository customerRepository;
 
     private final DetailCustomer detailCustomer;
+
+    public DeleteCustomer(CustomerRepository customerRepository, DetailCustomer detailCustomer) {
+        this.customerRepository = customerRepository;
+        this.detailCustomer = detailCustomer;
+    }
+
     public boolean execute(Integer id) {
         var customer = detailCustomer.execute(id);
         if (customer != null && customer.getStatus().equals(Status.ACTIVE)) {

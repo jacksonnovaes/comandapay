@@ -6,7 +6,6 @@ import com.codexmind.establishment.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Set;
 
 @Service
@@ -15,7 +14,7 @@ public class GetProductsByMenu {
 
     private final ProductRepository productRepository;
 
-    public Set<Product> execute(Integer id){
+    public Set<Product> execute(Integer id) {
 
         return productRepository.getProductdsByMenuandEstablishmente(id);
     }

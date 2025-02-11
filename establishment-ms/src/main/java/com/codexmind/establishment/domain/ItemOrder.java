@@ -1,7 +1,6 @@
 package com.codexmind.establishment.domain;
 
 import com.codexmind.establishment.domain.enums.PaymentStatus;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,7 +12,7 @@ import java.util.Objects;
 @Entity
 @Getter
 @Setter
-@Table(name="tb_item_order")
+@Table(name = "tb_item_order")
 public class ItemOrder {
 
     @Id

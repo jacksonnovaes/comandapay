@@ -14,16 +14,16 @@ import java.io.IOException;
 import java.io.InputStream;
 
 @Service
-public class S3ImageService implements  IMageServiceInterface{
+public class S3ImageService implements IMageServiceInterface {
     @Override
-    public BufferedImage getJpgImageFromFile(MultipartFile multipartFile)  {
+    public BufferedImage getJpgImageFromFile(MultipartFile multipartFile) {
         String ext = FilenameUtils.getExtension(multipartFile.getOriginalFilename());
         if (!".png".equals(ext) && !"jpg".equals(ext) && !"jpeg".equals(ext)) {
-            throw  new FileException("Somente imagens PNG e JPG sao permitidas");
+            throw new FileException("Somente imagens PNG e JPG sao permitidas");
         }
         try {
             BufferedImage img = ImageIO.read(multipartFile.getInputStream());
-            if("jpeg".equals(ext)){
+            if ("jpeg".equals(ext)) {
                 img = pngToJpg(img);
             }
             return img;
@@ -31,6 +31,7 @@ public class S3ImageService implements  IMageServiceInterface{
             throw new FileException("ERRO ao ler o arquivo!");
         }
     }
+
     @Override
     public BufferedImage pngToJpg(BufferedImage img) {
 
@@ -40,13 +41,14 @@ public class S3ImageService implements  IMageServiceInterface{
 
         return jpgImage;
     }
+
     @Override
-    public InputStream getInputStream(BufferedImage img, String ext){
+    public InputStream getInputStream(BufferedImage img, String ext) {
         try {
             ByteArrayOutputStream os = new ByteArrayOutputStream();
             ImageIO.write(img, ext, os);
             return new ByteArrayInputStream(os.toByteArray());
-        }catch (IOException e){
+        } catch (IOException e) {
             throw new FileException("ERRO ao ler o arquivo!");
         }
     }

@@ -6,12 +6,10 @@ import com.codexmind.establishment.repository.EstablishmentRepository;
 import com.codexmind.establishment.service.LocalImageService;
 import com.codexmind.establishment.service.UserService;
 import com.codexmind.establishment.usecases.S3Service;
-import com.codexmind.establishment.usecases.imageService.ConvertImageToJpg;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.awt.image.BufferedImage;
 import java.net.URI;
 
 @Service
@@ -27,14 +25,14 @@ public class SaveImage {
     public URI execute(MultipartFile file, Integer idEstablishment) {
 
         var user = UserService.authenticated();
-        if(user==null){
+        if (user == null) {
             throw new AuthorizationException("Access denied!");
         }
 
         var establishment = establishmentRepository.findById(idEstablishment).orElseThrow(
-                ()-> new EntityNotFoundException("Establecimento nao encontrado!"));
+                () -> new EntityNotFoundException("Establecimento nao encontrado!"));
 
-        var uri =  s3.upload(file,establishment.getName());
+        var uri = s3.upload(file, establishment.getName());
         establishment.setUrlImage(uri.toString());
         establishmentRepository.save(establishment);
         return uri;

@@ -6,13 +6,13 @@ spring:
   datasource:
     driver-class-name: org.postgresql.Driver
     username: postgres
-    url: jdbc:postgresql://localhost:5432/
+    url: jdbc:postgresql://172.18.0.1:5432/
     password: root
-    
+
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: create-drop
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
@@ -29,3 +29,11 @@ springdoc:
 
 server:
   port: 8080
+
+efi:
+  cob:
+    url: http://172.18.0.1:8082
+
+asaas:
+  api:
+    url: https://sandbox.asaas.com

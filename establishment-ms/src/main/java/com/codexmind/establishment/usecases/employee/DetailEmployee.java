@@ -18,15 +18,15 @@ public class DetailEmployee {
 
     private final EmployeeRepository employeeRepository;
 
-    public Employee execute(Integer id){
+    public Employee execute(Integer id) {
 
         var userSS = UserService.authenticated();
-        if(userSS != null || userSS.hasRole(Profile.ADMIN)
-                || userSS.hasRole(Profile.EMPLOYEE) && !id.equals(userSS.getId())){
+        if (userSS != null || userSS.hasRole(Profile.ADMIN)
+                || userSS.hasRole(Profile.EMPLOYEE) && !id.equals(userSS.getId())) {
             throw new AuthorizationException("Access Denied!");
         }
         return employeeRepository.findByStatusAndId(Status.ACTIVE, id)
-                .orElseThrow(()-> new EntityNotFoundException("Object Not Found for remove! id:" + id + " type:" + Establishment.class.getName()));
+                .orElseThrow(() -> new EntityNotFoundException("Object Not Found for remove! id:" + id + " type:" + Establishment.class.getName()));
 
     }
 }

@@ -1,7 +1,6 @@
 package com.codexmind.establishment.repository;
 
 import com.codexmind.establishment.domain.Customer;
-import com.codexmind.establishment.domain.Employee;
 import com.codexmind.establishment.domain.enums.Status;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

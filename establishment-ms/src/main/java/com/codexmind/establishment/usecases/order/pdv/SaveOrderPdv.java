@@ -1,11 +1,8 @@
 package com.codexmind.establishment.usecases.order.pdv;
 
-import com.codexmind.establishment.domain.Customer;
 import com.codexmind.establishment.domain.Employee;
-import com.codexmind.establishment.domain.Establishment;
 import com.codexmind.establishment.domain.Order;
 import com.codexmind.establishment.domain.enums.StatusComanda;
-import com.codexmind.establishment.dto.ItemOrderDTO;
 import com.codexmind.establishment.dto.ItemOrderRequestDTO;
 import com.codexmind.establishment.exceptions.EntityNotFoundException;
 import com.codexmind.establishment.repository.*;
@@ -33,11 +30,11 @@ public class SaveOrderPdv {
 
         var user = UserService.authenticated();
 
-        var employee  = employeeRepository.findById(user.getId())
-                .orElseThrow(()->new EntityNotFoundException("Usuario pode nao ser do tipo correto:" + Employee.class.getTypeName()));
+        var employee = employeeRepository.findById(user.getId())
+                .orElseThrow(() -> new EntityNotFoundException("Usuario pode nao ser do tipo correto:" + Employee.class.getTypeName()));
         var statusComanda = StatusComanda.fromValue("OPENED");
         var orderFinded = orderRepository.getOpenedCommandByEmployeeAndStatus(employee.getId(), statusComanda);
-        if(orderFinded.isPresent()){
+        if (orderFinded.isPresent()) {
             return addItemOrder.execute(orderFinded.get().getId(), itemOrderDTOS);
         }
         var order = Order.builder().build();

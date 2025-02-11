@@ -22,7 +22,6 @@ public class Customer extends Person {
 
     public static final String CUSTOMER = "CUSTOMER";
 
-
     @JsonIgnore
     @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
     private List<Address> addressList = new ArrayList<>();
@@ -35,8 +34,9 @@ public class Customer extends Person {
     @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
     private Set<Establishment> favorites = new HashSet<>();
 
-    @Builder
+    private String customerId;
 
+    @Builder
     public Customer(Integer id,
                     String name,
                     String lastName,
@@ -50,12 +50,15 @@ public class Customer extends Person {
                     LocalDate birthDate,
                     List<Address> addressList,
                     List<Order> orderList,
-                    Set<Establishment> favorites) {
+                    Set<Establishment> favorites,
+                    String customerId
+    ) {
         super(id, name, lastName, cpf, phone, celPhone, status, user, urlImage, profiles);
         this.birthDate = birthDate;
         this.addressList = addressList;
         this.orderList = orderList;
         this.favorites = favorites;
+        this.customerId =customerId;
     }
 }
 

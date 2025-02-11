@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -7,7 +8,7 @@
         <artifactId>oss-parent</artifactId>
         <version>9</version>
     </parent>
-    
+
     <packaging>jar</packaging>
     <groupId>org.webjars</groupId>
     <artifactId>swagger-ui</artifactId>
@@ -20,10 +21,11 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.outputTimestamp>1668441250</project.build.outputTimestamp>
         <upstream.url>https://github.com/swagger-api/swagger-ui/archive/v${version.unrevise}.zip</upstream.url>
-        <destDir>${project.build.outputDirectory}/META-INF/resources/webjars/${project.artifactId}/${project.version}</destDir>
+        <destDir>${project.build.outputDirectory}/META-INF/resources/webjars/${project.artifactId}/${project.version}
+        </destDir>
         <requirejs>
             {
-                "paths": { "swagger-ui": "swagger-ui" }
+            "paths": { "swagger-ui": "swagger-ui" }
             }
         </requirejs>
     </properties>
@@ -50,7 +52,7 @@
         <developerConnection>scm:git:https://github.com/webjars/swagger-ui.git</developerConnection>
         <tag>swagger-ui-4.15.5</tag>
     </scm>
-    
+
     <build>
         <plugins>
             <plugin>
@@ -71,11 +73,11 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>3.2.2</version>
                 <configuration>
-                    <archive>  
+                    <archive>
                         <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
-                    </archive> 
+                    </archive>
                 </configuration>
-            </plugin>  
+            </plugin>
 
             <plugin>
                 <groupId>org.apache.felix</groupId>
@@ -86,11 +88,11 @@
                     <execution>
                         <id>bundle-manifest</id>
                         <phase>process-classes</phase>
-                        <goals>    
+                        <goals>
                             <goal>manifest</goal>
-                        </goals>   
+                        </goals>
                     </execution>
-                </executions>                
+                </executions>
             </plugin>
 
             <plugin>
@@ -99,16 +101,19 @@
                 <executions>
                     <execution>
                         <phase>process-resources</phase>
-                        <goals><goal>run</goal></goals>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
                         <configuration>
                             <target>
-                                <echo message="download archive" />
-                                <get src="${upstream.url}" dest="${project.build.directory}/${project.artifactId}.zip" />
-                                <echo message="unzip archive" />
-                                <unzip src="${project.build.directory}/${project.artifactId}.zip" dest="${project.build.directory}" />
-                                <echo message="moving resources" />
+                                <echo message="download archive"/>
+                                <get src="${upstream.url}" dest="${project.build.directory}/${project.artifactId}.zip"/>
+                                <echo message="unzip archive"/>
+                                <unzip src="${project.build.directory}/${project.artifactId}.zip"
+                                       dest="${project.build.directory}"/>
+                                <echo message="moving resources"/>
                                 <move todir="${destDir}">
-                                    <fileset dir="${project.build.directory}/swagger-ui-${version.unrevise}/dist" />
+                                    <fileset dir="${project.build.directory}/swagger-ui-${version.unrevise}/dist"/>
                                 </move>
                             </target>
                         </configuration>

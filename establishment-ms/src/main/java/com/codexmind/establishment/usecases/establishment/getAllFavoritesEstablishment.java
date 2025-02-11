@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -23,7 +22,7 @@ public class getAllFavoritesEstablishment {
         if (favorites.isEmpty()) {
             throw new EntityNotFoundException("Nenhum estabelecimento favorito encontrado para o cliente com ID: " + idCustomer);
         }
-            return favorites;
+        return favorites;
 
     }
 }

@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -17,7 +16,7 @@ public class GetEstblishmentByName {
 
     private final EstablishmentRepository establishmentRepository;
 
-    public List<Establishment> execute(String name){
+    public List<Establishment> execute(String name) {
         List<Establishment> establishments;
         if (name != null && !name.isEmpty()) {
             establishments = establishmentRepository.findEstablishmentByName(name, Status.ACTIVE);

@@ -13,8 +13,8 @@ public class ProductConverter {
                 .name(product.getName())
                 .menuName(product.getMenu().getName())
                 .price(product.getPrice())
-                .menuName(product.getMenu().getName())
-                .estoque(product.getEstoque()!= null ? product.getEstoque() : 0)
+                .idMenu(product.getMenu().getId())
+                .estoque(product.getEstoque())
                 .build();
     }
 

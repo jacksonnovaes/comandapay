@@ -23,7 +23,7 @@ public class Employee extends Person {
     private LocalDate admissionDate;
 
     @OneToMany(mappedBy = "employee")
-    private List<Address> addressList =new ArrayList<>();
+    private List<Address> addressList = new ArrayList<>();
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "cargo_id", referencedColumnName = "id")
@@ -36,25 +36,27 @@ public class Employee extends Person {
     private Establishment establishment;
 
     @Builder
-    public Employee(
-            Integer id,
-            String name,
-            String lastName,
-            String cpf,
-            String phone,
-            String celPhone,
-            Status status,
-            Establishment establishment,
-            User user,
-            String urlImage,
-            Set<Integer> profiles,
-            LocalDate admissionDate,
-            List<Address> addressList,
-            Cargo cargo) {
+    public Employee(Integer id,
+                    String name,
+                    String lastName,
+                    String cpf,
+                    String phone,
+                    String celPhone,
+                    Status status,
+                    User user,
+                    String urlImage,
+                    Set<Integer> profiles,
+                    LocalDate admissionDate,
+                    List<Address> addressList,
+                    Cargo cargo,
+                    Establishment establishment) {
         super(id, name, lastName, cpf, phone, celPhone, status, user, urlImage, profiles);
-        this.addressList = addressList;
-        this.establishment = establishment;
-        this.cargo = cargo;
         this.admissionDate = admissionDate;
+        this.addressList = addressList;
+        this.cargo = cargo;
+        this.establishment = establishment;
+
     }
+
+
 }

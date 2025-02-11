@@ -21,16 +21,17 @@ public class EstablishmentConverter {
                 establishment.getAddress().getUf()
         );
     }
-        public static ResponseEstablishmentDTO toResponseDTO(Establishment establishment) {
-            return new ResponseEstablishmentDTO(
-                    establishment.getId(),
-                    establishment.getName(),
-                    establishment.getCnpj(),
-                    establishment.getRate(),
-                    establishment.getIsFavorite(),
-                    establishment.getUrlImage()
-            );
-        }
+
+    public static ResponseEstablishmentDTO toResponseDTO(Establishment establishment) {
+        return new ResponseEstablishmentDTO(
+                establishment.getId(),
+                establishment.getName(),
+                establishment.getCnpj(),
+                establishment.getRate(),
+                establishment.getIsFavorite(),
+                establishment.getUrlImage()
+        );
+    }
 
     public static List<ResponseEstablishmentDTO> toListResponseDTO(List<Establishment> establishments) {
         List<ResponseEstablishmentDTO> establishmentDTOs = new ArrayList<>();
