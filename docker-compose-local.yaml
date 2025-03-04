@@ -7,7 +7,7 @@ services:
       - TZ=Brazil/East
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=root
-      - POSTGRES_DB=establishment
+      - POSTGRES_DB=establishment-local
     ports:
       - "5432:5432"
     expose:
