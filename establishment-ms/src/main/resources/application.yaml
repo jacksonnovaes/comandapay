@@ -18,7 +18,6 @@ spring-doc:
 server:
   port: 8080
 
-
 aws:
   access_key_id: AKIAT4J25ILD5XNVQJVP
   secret_access_key: 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
