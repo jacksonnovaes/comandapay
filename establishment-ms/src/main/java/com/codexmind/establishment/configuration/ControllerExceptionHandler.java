@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.hibernate.ObjectNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -32,7 +33,7 @@ public class ControllerExceptionHandler {
     @ExceptionHandler(DataIntegrityException.class)
     public ResponseEntity<StandardError> dataIntegrity(DataIntegrityException ex) {
 
-        StandardError err = new StandardError(HttpStatus.BAD_REQUEST.value(), ex.getMessage(), System.currentTimeMillis());
+        StandardError err = new StandardError(HttpStatus.BAD_REQUEST.value(), ex.getMessage(), System.currentTimeMillis(), null);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
     }
 
@@ -45,15 +46,28 @@ public class ControllerExceptionHandler {
 
     @ExceptionHandler(AuthorizationException.class)
     public ResponseEntity<StandardError> authorization(ObjectNotFoundException e, HttpServletRequest req) {
-        StandardError err = new StandardError(HttpStatus.FORBIDDEN.value(), e.getMessage(), System.currentTimeMillis());
+        StandardError err = new StandardError(HttpStatus.FORBIDDEN.value(), e.getMessage(), System.currentTimeMillis(), req.getRequestURI());
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(err);
 
     }
 
     @ExceptionHandler(AmazonS3Exception.class)
     public ResponseEntity<StandardError> authorization(AmazonS3Exception e, HttpServletRequest req) {
-        StandardError err = new StandardError(HttpStatus.BAD_REQUEST.value(), e.getMessage(), System.currentTimeMillis());
+        StandardError err = new StandardError(HttpStatus.BAD_REQUEST.value(), e.getMessage(), System.currentTimeMillis(), req.getRequestURI());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
+    }
 
+    @ExceptionHandler(AuthenticationException.class)
+    public ResponseEntity<StandardError> handleUnauthorized(AuthenticationException ex, HttpServletRequest req) {
+        // Cria um objeto StandardError para retornar ao cliente
+        StandardError err = new StandardError(
+                HttpStatus.UNAUTHORIZED.value(),
+                "Acesso não autorizado. Verifique suas credenciais.",
+                System.currentTimeMillis(),
+                req.getRequestURI()
+        );
+
+        // Retorna a resposta com código HTTP 401 (Unauthorized)
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(err);
     }
 }

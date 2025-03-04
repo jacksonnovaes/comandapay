@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 @Getter
 @Setter
-public class TransactionDTO {
+public class EfiRequestDTO {
 
     private String customerId;
     private String billingType;

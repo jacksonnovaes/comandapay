@@ -27,7 +27,6 @@ public class TokenService {
                     .withIssuer("Api storeFood")
                     .withSubject(user.getLogin())
                     .withJWTId(user.getId().toString())
-                    .withExpiresAt(expirationDate())
                     .sign(algorithm);
         } catch (JWTCreationException exception) {
             throw new RuntimeException("Error generating web token");
@@ -49,7 +48,7 @@ public class TokenService {
     }
 
     private Instant expirationDate() {
-        return LocalDateTime.now().plusSeconds(900).toInstant(ZoneOffset.of("-03:00"));
+        return LocalDateTime.now().plusSeconds(30).toInstant(ZoneOffset.of("-03:00"));
     }
 
 }

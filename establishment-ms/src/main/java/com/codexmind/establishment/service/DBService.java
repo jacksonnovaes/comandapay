@@ -243,6 +243,7 @@ public class DBService {
 
         // Creating customers
         var customer1 = Customer.builder()
+                .customerId("cus_000006500141")
                 .name("Jackson")
                 .lastName("Bispo")
                 .cpf("39219796848")
