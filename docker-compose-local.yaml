@@ -22,12 +22,7 @@ services:
       - "8080:8080"  # Mapeando porta do host para o contêiner
     networks:
       - comandapay-net
-  pay-auth:
-    image: pay-auth
-    ports:
-      - "8082:8082"  # Mapeando porta do host para o contêiner
-    networks:
-      - comandapay-net
+
 volumes:
   postgres_data:
 
