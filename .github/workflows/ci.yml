@@ -54,10 +54,7 @@ jobs:
         envs: prod
         script: |
           cd /comandapay
-          echo "Logging in to Docker Hub"
-          echo "Pulling images"
           docker compose --file docker-compose-dev.yaml pull || exit 1
-          echo "Bringing up services"
           docker compose --file docker-compose-dev.yaml up -d || exit 1
 
 
