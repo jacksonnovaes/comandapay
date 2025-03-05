@@ -54,6 +54,7 @@ jobs:
         envs: prod
         script: |
           cd /comandapay
+          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
           echo "Logging in to Docker Hub"
           echo "Pulling images"
           docker compose --file docker-compose-dev.yaml pull || exit 1
