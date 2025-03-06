@@ -55,6 +55,6 @@ jobs:
         script: |
           cd /comandapay
           echo "Bringing up services"
-          docker compose --file docker-compose-dev.yaml up -d || exit 1
+          docker compose --file docker-compose-local.yaml up -d || exit 1
 
 
