@@ -1,5 +1,4 @@
 # Use root/example as user/password credentials
-
 services:
   postgresdb:
     image: postgres:15-alpine
