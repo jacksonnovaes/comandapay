@@ -13,11 +13,13 @@ jobs:
       # 1. Checkout do código
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          submodules: true  # Check out submodules if they exist
 
       # 2. Build da imagem Docker com o Dockerfile correto
       - name: Build Docker image
         run: |
-          docker build -t establishment-ms:latest -f comandapay/establishment-ms/Dockerfile comandapay/establishment-ms
+          docker build -t establishment-ms:latest -f comandapay/establishment-ms/Dockerfile .
 
       # 3. Enviar a imagem para o servidor Hostinger
       - name: Push Docker image to Hostinger
