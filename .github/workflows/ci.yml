@@ -1,4 +1,4 @@
-name: Build, Publish, and Deploy Docker Images
+name: Deploy to Hostinger
 
 on:
   push:
@@ -6,52 +6,22 @@ on:
       - develop
 
 jobs:
-  build-publish-deploy:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Baixar o repositório
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      # 2. Configurar o Docker Buildx
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      # 3. Fazer login no Docker Hub
-      - name: Login to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-      # 4. Construir e publicar a imagem no Docker Hub
-      - name: Build and push establishment
-        uses: docker/build-push-action@v5
-        with:
-          context: ./establishment-ms
-          file: ./establishment-ms/Dockerfile
-          push: true
-          tags: jacks775/establishment-ms:latest
-
-      # 5. Fazer login no Docker Hub (para o deploy)
-      - name: Login to Docker Hub (Deploy Step)
-        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
-
-      # 6. Testar o pull da imagem para garantir sua publicação correta
-      - name: Test Pull Images
+      - name: Build Docker image
         run: |
-          docker pull jacks775/establishment-ms:latest
+          docker build -t establishment-ms:latest .
 
-      # 7. Fazer deploy no servidor remoto
-      - name: Deploy to server
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SERVER_SSH_KEY }}
-          envs: prod
-          script: |
-            cd /comandapay
-            echo "Bringing up services"
-            docker compose --file docker-compose-dev.yaml up -d || exit 1
+      - name: Push Docker image to Hostinger
+        run: |
+          docker save my-app:latest | bzip2 | ssh -p ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} 'bunzip2 | docker load'
+
+      - name: Deploy Docker container
+        run: |
+          ssh -p ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} \
+          "docker run -d --name establishment-ms -p 80:80 establishment-ms:latest"
