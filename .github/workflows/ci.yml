@@ -10,18 +10,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # 1. Checkout do código
       - name: Checkout code
         uses: actions/checkout@v4
 
+      # 2. Build da imagem Docker com o Dockerfile correto
       - name: Build Docker image
         run: |
-          docker build -t establishment-ms:latest .
+          docker build -t establishment-ms:latest -f comandapay/establishment-ms/Dockerfile comandapay/establishment-ms
 
+      # 3. Enviar a imagem para o servidor Hostinger
       - name: Push Docker image to Hostinger
         run: |
-          docker save my-app:latest | bzip2 | ssh -p ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} 'bunzip2 | docker load'
+          docker save establishment-ms:latest | bzip2 | ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} -p 22 'bunzip2 | docker load'
 
+      # 4. Deploy do container na Hostinger
       - name: Deploy Docker container
         run: |
-          ssh -p ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} \
+          ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} -p 22 \
           "docker run -d --name establishment-ms -p 80:80 establishment-ms:latest"
