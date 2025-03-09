@@ -27,4 +27,4 @@ jobs:
             cd comandapay/  # Navegar até o diretório de deploy
             git pull                 # Atualizar o repositório no servidor
             chmod +x .start-me.sh     # Garantir permissões de execução no script
-            ./start-me.sh             # Executar o script de inicialização
+            ./start-me.sh > deploy.log 2>&1 &            # Executar o script de inicialização
