@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: test
+    active: dev
 api:
   security:
     token:
@@ -17,7 +17,6 @@ spring-doc:
     path: /swagger-ui.html
 server:
   port: 8080
-
 
 aws:
   access_key_id: AKIAT4J25ILD5XNVQJVP
