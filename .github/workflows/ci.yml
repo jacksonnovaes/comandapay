@@ -1,4 +1,4 @@
-name: Deploy to Hostinger
+name: Deploy via SSH and Run Script
 
 on:
   push:
@@ -13,22 +13,18 @@ jobs:
       # 1. Checkout do código
       - name: Checkout code
         uses: actions/checkout@v4
+
+      # 2. Conectar ao servidor via SSH e fazer o deploy
+      - name: Deploy to server and run script
+        uses: appleboy/ssh-action@master
         with:
-          submodules: true  # Check out submodules if they exist
-
-      # 2. Build da imagem Docker com o Dockerfile correto
-      - name: Build Docker image
-        run: |
-          cd comandapay/
-          docker build -t establishment-ms:latest -f establishment-ms/Dockerfile .
-
-      # 3. Enviar a imagem para o servidor Hostinger
-      - name: Push Docker image to Hostinger
-        run: |
-          docker save establishment-ms:latest | bzip2 | ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} -p 22 'bunzip2 | docker load'
-
-      # 4. Deploy do container na Hostinger
-      - name: Deploy Docker container
-        run: |
-          ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} -p 22 \
-          "docker run -d --name establishment-ms -p 80:80 establishment-ms:latest"
+          host: ${{ secrets.SERVER_HOST }}    # Host ou IP do servidor
+          username: ${{ secrets.SERVER_USER }} # Nome de usuário SSH
+          key: ${{ secrets.SERVER_SSH_KEY }}  # Chave privada para autenticação
+          port: 22                            # Porta SSH padrão (altere se necessário)
+          script: |
+            echo "Fazendo o deploy..."
+            cd comandapay/  # Navegar até o diretório de deploy
+            git pull                 # Atualizar o repositório no servidor
+            chmod +x .start-me.sh     # Garantir permissões de execução no script
+            ./start-me.sh             # Executar o script de inicialização
